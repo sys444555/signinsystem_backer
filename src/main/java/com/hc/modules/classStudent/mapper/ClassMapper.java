@@ -2,7 +2,7 @@ package com.hc.modules.classStudent.mapper;
 
 import com.hc.modules.classStudent.entity.ClassEntity;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
-import com.hc.modules.member.entity.MemberEntity;
+import com.hc.modules.classStudent.entity.ClassListVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -16,6 +16,6 @@ import java.util.List;
  */
 public interface ClassMapper extends BaseMapper<ClassEntity> {
 
-    public List<ClassEntity> getClassList(@Param(value = "username") String username);
+    public List<ClassListVO> getClassList(@Param(value = "username") String username);
 
 }

@@ -26,9 +26,8 @@ public class MemberController {
 
 
     @RequestMapping(value = "list",method = RequestMethod.GET)
-    public ResponseUtil getMemberList(Integer pageNo, Integer pageSize, HttpRequest httpRequest){
-        HttpServletRequest request = (HttpServletRequest) httpRequest;
-        String token = request.getHeader("token");
+    public ResponseUtil getMemberList(Integer pageNo, Integer pageSize, HttpServletRequest httpRequest){
+        String token = httpRequest.getHeader("token");
         PageHelper.startPage(pageNo, pageSize);
         List<MemberEntity> memberList = memberService.getMemberList(token);
         PageInfo<MemberEntity> pageInfo = new PageInfo<>(memberList);

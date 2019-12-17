@@ -1,11 +1,9 @@
 package com.hc.modules.classStudent.service.impl;
 
-import com.hc.common.exception.JcException;
 import com.hc.common.utils.JWTUtil;
+import com.hc.modules.classStudent.entity.ClassListVO;
 import com.hc.modules.classStudent.mapper.ClassMapper;
-import com.hc.modules.member.entity.MemberEntity;
 import org.springframework.stereotype.Service;
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 
 import com.hc.modules.classStudent.entity.ClassEntity;
@@ -25,9 +23,9 @@ public class ClassServiceImpl extends ServiceImpl<ClassMapper, ClassEntity> impl
 
 
     @Override
-    public List<ClassEntity> getClassList(String token) {
+    public List<ClassListVO> getClassList(String token) {
         String username = jwtUtil.getUsername(token);
-        List<ClassEntity> classList = classMapper.getClassList(username);
+        List<ClassListVO> classList = classMapper.getClassList(username);
         return classList;
     }
 }

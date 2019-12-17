@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.hc.common.utils.ResponseUtil;
+import com.hc.modules.classStudent.entity.ClassListVO;
 import com.hc.modules.member.entity.MemberEntity;
 import org.apache.http.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,12 +40,11 @@ public class ClassController {
      * 列表
      */
     @RequestMapping(value = "list",method = RequestMethod.GET)
-    public ResponseUtil getMemberList(Integer pageNo, Integer pageSize, HttpRequest httpRequest){
-        HttpServletRequest request = (HttpServletRequest) httpRequest;
-        String token = request.getHeader("token");
+    public ResponseUtil getMemberList(Integer pageNo, Integer pageSize, HttpServletRequest httpRequest){
+        String token = httpRequest.getHeader("token");
         PageHelper.startPage(pageNo, pageSize);
-        List<ClassEntity> classList = classService.getClassList(token);
-        PageInfo<ClassEntity> pageInfo = new PageInfo<>(classList);
+        List<ClassListVO> classList = classService.getClassList(token);
+        PageInfo<ClassListVO> pageInfo = new PageInfo<>(classList);
         return ResponseUtil.success(pageInfo);
     }
 
