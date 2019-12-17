@@ -38,7 +38,7 @@ public class JWTUtil {
             Date date = new Date(System.currentTimeMillis() + EXPIRE_TIME);
             Algorithm algorithm = Algorithm.HMAC256(SECRET);
             // 附带username信息
-            String token=JWT.create()
+            String token = JWT.create()
                     .withClaim("username", username)
                     .withClaim("jwt-id", jwtid)
                     //到期时间
