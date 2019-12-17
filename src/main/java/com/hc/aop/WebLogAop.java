@@ -26,7 +26,7 @@ public class WebLogAop {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     //切点
-    @Pointcut("execution(* com.jckc_backer.modules.*.service..*.*(..))")
+    @Pointcut("execution(* com.hc.modules.*.service..*.*(..))")
 
     public void webLogAop(){}
 

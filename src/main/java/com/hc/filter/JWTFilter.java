@@ -1,6 +1,6 @@
 package com.hc.filter;
 
-import com.jckc_backer.shiro.JWTToken;
+import com.hc.shiro.JWTToken;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;

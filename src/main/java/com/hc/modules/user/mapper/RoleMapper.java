@@ -1,7 +1,7 @@
 package com.hc.modules.user.mapper;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
-import com.jckc_backer.modules.user.entity.RoleEntity;
+import com.hc.modules.user.entity.RoleEntity;
 
 /**
  *

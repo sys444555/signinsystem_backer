@@ -1,8 +1,8 @@
 package com.hc.modules.user.controller;
 
-import com.jckc_backer.common.utils.JWTUtil;
-import com.jckc_backer.model.ResultMap;
-import com.jckc_backer.modules.user.mapper.RoleUserMapper;
+import com.hc.common.utils.JWTUtil;
+import com.hc.model.ResultMap;
+import com.hc.modules.user.mapper.RoleUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
