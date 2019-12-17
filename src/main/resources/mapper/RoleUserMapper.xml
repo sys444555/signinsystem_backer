@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jc.modules.user.mapper.RoleUserMapper">
+    <select id="getPassword" parameterType="String" resultType="String">
+        SELECT password
+        FROM role_user
+        WHERE username = #{username}
+    </select>
+
+    <select id="getRole" parameterType="String" resultType="String">
+        SELECT role
+        FROM role_user
+        WHERE username = #{username}
+    </select>
+
+    <update id="updatePassword" parameterType="String">
+        UPDATE role_user
+        SET password = #{password}
+        WHERE username = #{username}
+    </update>
+
+    <select id="getUser" resultType="String">
+        SELECT username
+        FROM role_user
+    </select>
+
+    <update id="banUser" parameterType="String">
+        UPDATE role_user
+        SET ban = 1
+        WHERE username = #{username}
+    </update>
+
+    <select id="checkUserBanStatus" parameterType="String" resultType="int">
+        SELECT ban
+        FROM role_user
+        WHERE username = #{username}
+    </select>
+
+    <select id="getRolePermission" parameterType="String" resultType="String">
+        SELECT role.permission
+        FROM role_user, role
+        WHERE username = #{username} AND role.role = role_user.role
+    </select>
+
+    <select id="getPermission" parameterType="String" resultType="String">
+        SELECT permission
+        FROM role_user
+        WHERE username = #{username}
+    </select>
+</mapper>
