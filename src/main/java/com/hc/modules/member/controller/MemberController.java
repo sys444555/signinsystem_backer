@@ -6,10 +6,9 @@ import com.github.pagehelper.PageInfo;
 import com.hc.common.utils.ResponseUtil;
 import com.hc.modules.member.entity.MemberEntity;
 import com.hc.modules.member.service.MemberService;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpRequest;
 
-import org.springframework.http.server.ServletServerHttpRequest;
+
+import org.apache.http.HttpRequest;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;

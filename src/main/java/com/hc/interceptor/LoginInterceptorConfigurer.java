@@ -15,6 +15,7 @@ public class LoginInterceptorConfigurer
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+
         // 拦截路径：必须登录才可以访问
         List<String> patterns = new ArrayList<>();
         patterns.add("/**");
@@ -25,6 +26,7 @@ public class LoginInterceptorConfigurer
         excludePatterns.add("/css/**");
         excludePatterns.add("/js/**");
         excludePatterns.add("/fonts/**");
+        excludePatterns.add("js/login/login.js");
         excludePatterns.add("/img/**");
         excludePatterns.add("/login");
         excludePatterns.add("/page/login");

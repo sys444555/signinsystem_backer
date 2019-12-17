@@ -28,16 +28,9 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, MemberEntity> i
     @Override
     public List<MemberEntity> getMemberList(String token) {
         String username = jwtUtil.getUsername(token);
-        List<MemberEntity> list = memberMapper.selectList(new EntityWrapper<MemberEntity>().eq("username", username));
-        List<MemberEntity> memberEntities = null;
-        if(list != null && list.size() == 1){
-            Integer id = list.get(0).getId();
-            memberEntities = memberMapper.selectList(new EntityWrapper<MemberEntity>().eq("user_id", id));
-        }else {
-            throw new JcException("服务器端异常");
-        }
+        List<MemberEntity> memberList = memberMapper.getMemberList(username);
 
-        return memberEntities;
+        return memberList;
     }
 
     @Override
