@@ -1,7 +1,7 @@
 package com.hc.modules.user.controller;
 
-import com.jckc_backer.model.ResultMap;
-import com.jckc_backer.modules.user.mapper.RoleUserMapper;
+import com.hc.model.ResultMap;
+import com.hc.modules.user.mapper.RoleUserMapper;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -1,7 +1,7 @@
 package com.hc.common.exception;
 
 
-import com.jckc_backer.common.utils.ResponseUtil;
+import com.hc.common.utils.ResponseUtil;
 import org.apache.shiro.ShiroException;
 import org.apache.shiro.authc.AuthenticationException;
 import org.slf4j.Logger;

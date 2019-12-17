@@ -29,7 +29,7 @@ public class TransactionAdviceAOP {
     /**
      * 定义切点
      */
-    private static final String AOP_POINT_CUT = "execution(* com.jckc_backer.modules.service..*.*(..))";
+    private static final String AOP_POINT_CUT = "execution(* com.hc.modules.service..*.*(..))";
 
     @Autowired
     private PlatformTransactionManager platformTransactionManager;

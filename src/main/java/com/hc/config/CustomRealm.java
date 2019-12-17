@@ -1,9 +1,9 @@
 package com.hc.config;
 
 
-import com.jckc_backer.common.utils.JWTUtil;
-import com.jckc_backer.modules.user.mapper.RoleUserMapper;
-import com.jckc_backer.shiro.JWTToken;
+import com.hc.common.utils.JWTUtil;
+import com.hc.modules.user.mapper.RoleUserMapper;
+import com.hc.shiro.JWTToken;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
