@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface MemberService {
 
-    public List<MemberEntity> getMemberList();
+    public List<MemberEntity> getMemberList(String token);
 
     public void insertMember(MemberEntity memberEntity);
 

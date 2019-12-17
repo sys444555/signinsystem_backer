@@ -49,9 +49,9 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
         HttpServletRequest req = (HttpServletRequest) request;
         String token = req.getHeader("token");
         System.out.println("token = " + token);
-        if(!req.getMethod().equalsIgnoreCase("Post")){
+        /*if(!req.getMethod().equalsIgnoreCase("Post")){
             return false;
-        }
+        }*/
         if(token == null && req.getRequestURI().equals("/login")){
             return false;
         }
