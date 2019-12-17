@@ -11,7 +11,7 @@ function login() {
             console.log(json);
             if (json.code == 200) {
                 setCookie("token", json.message);
-                localStorage.setItem("username", username);
+                sessionStorage.setItem("username", username);
                 location.href = "index.html";
             } else {
                 alert(json.message);
