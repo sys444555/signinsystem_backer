@@ -61,6 +61,7 @@ $(function () {
                             data: {pageNo: api.getCurrent(), pageSize: 20},
                             dataType: "json",
                             success: function (data) {
+                                $("#class_td").html("")
                                 if(data.code == 0 && data.data.list.length >0) {
                                     var dataList = data.data.list;
 
@@ -74,6 +75,7 @@ $(function () {
                                             + "<td>#{teacherName}</td>"
                                             + "<td>#{createTime}</td>"
                                             + "<td>#{status}</td>"
+                                            + "<td><a href='class_student.html?cid=#{id}' target='_blank'>查看详情</a></td>"
                                             + "</tr>"
 
                                         html = html.replace(/#{id}/g,dataList[i].id)

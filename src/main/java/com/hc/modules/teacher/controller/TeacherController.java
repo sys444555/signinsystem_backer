@@ -74,9 +74,11 @@ public class TeacherController {
      * 查看班级学生详情
      */
     @RequestMapping(value = "/class/getStudent/{cid}", method = RequestMethod.GET)
-    public ResponseUtil getClassStudentById(@PathVariable(value = "cid") Integer cid){
+    public ResponseUtil getClassStudentById(Integer pageNo, Integer pageSize,@PathVariable(value = "cid") Integer cid){
+        PageHelper.startPage(pageNo, pageSize);
         List<StudentEntity> studentList = teacherService.getClassStudentById(cid);
-        return ResponseUtil.success(studentList);
+        PageInfo<StudentEntity> pageInfo = new PageInfo<>(studentList);
+        return ResponseUtil.success(pageInfo);
 
     }
 

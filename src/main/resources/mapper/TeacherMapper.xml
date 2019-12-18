@@ -21,6 +21,24 @@
         <result property="user_id" column="userId"/>
     </resultMap>
 
+    <resultMap id="studentMap" type="com.hc.modules.student.entity.StudentEntity">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="gender" column="gender"/>
+        <result property="birth" column="birth"/>
+        <result property="guarder" column="guarder"/>
+        <result property="guarderPhone" column="guarder_phone"/>
+        <result property="classPackage" column="class_package"/>
+        <result property="chargingStandard" column="charging_standard"/>
+        <result property="buyClassHour" column="buy_class_hour"/>
+        <result property="consumedClassHour" column="consumed_class_hour"/>
+        <result property="isValidity" column="is_validity"/>
+        <result property="periodOfValidity" column="period_of_validity"/>
+        <result property="price" column="price"/>
+        <result property="createTime" column="create_time"/>
+
+    </resultMap>
+
     <select id="getClassList" resultMap="classMap">
           SELECT c.id,c.class_name,c.course_name,c.class_hour,c.t_id,b.name,c.create_time,c.status FROM role_user a
           LEFT JOIN teacher b
@@ -42,9 +60,9 @@
         UPDATE class SET status=#{status} WHERE id=#{id}
     </update>
 
-    <select id="getClassStudentById" parameterType="Integer">
+    <select id="getClassStudentById" parameterType="Integer" resultMap="studentMap">
         SELECT c.*
-        FROM class a LEFT JOIN class_student b a.id = b.c_id
+        FROM class a LEFT JOIN class_student b on a.id = b.c_id
         LEFT JOIN student c ON b.s_id = c.id
         WHERE a.id=#{id}
     </select>

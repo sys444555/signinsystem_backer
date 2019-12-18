@@ -38,7 +38,7 @@
 					<div id="box_top">班级详情</div>
 						<div id="box_bottom">
 							<input type="button" value="新增学员" class="ui_input_btn01" onclick="createStudent();" />
-							<input type="button" value="新增课时" class="ui_input_btn01" onclick="createStudent();" />
+							<input type="button" value="新增课时" class="ui_input_btn01" onclick="createCourse();" />
 							<input style="float: right" type="button"  class="btn-primary" value="切换学员/课时" id="changeShow()"/>
 					</div>
 				</div>
@@ -49,14 +49,19 @@
 						<thead>
 						<tr >
 							<th><input type="checkbox" class="bs-checkbox"  style="width: 36px;"></th>
-							<th>学生编号</th>
 							<th>学生姓名</th>
 							<th>学生性别</th>
 							<th>学生生日</th>
 							<th>监护人</th>
 							<th>联系方式</th>
 							<th>住址</th>
-							<th>操作</th>
+							<th>课包</th>
+							<th>收费标准</th>
+							<th>总课时</th>
+							<th>剩下课时</th>
+							<th>是否有效</th>
+							<th>有效期</th>
+							<th>价格</th>
 						</tr>
 						</thead>
 						<tbody style="text-align: center;" id="class_td"></tbody>
@@ -71,50 +76,26 @@
 	</form>
 
 
-	<div class="modal" id="class_create_alter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width: auto;">
-		<div class="modal-dialog" id="class_create_dialog">
+	<div class="modal" id="student_create_alter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width: auto;">
+		<div class="modal-dialog" id="student_create_dialog">
 			<div class="modal-content" align="center" style="overflow: scroll; height: 500px; width: 800px">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="cancelClassModal()">
 						×
 					</button>
 					<h4 class="modal-title" id="myModalLabel2">
-						新增班级页面
+						新增学员页面
 					</h4>
 				</div>
 				<div class="modal-body">
-					<table width="100%" align="absbottom" class="table">
+					<table width="100%" align="absbottom" class="table" style="overflow: auto">
 						<form id="createClassForm" method="post">
-							<div style="margin-bottom: 20px">班级名字 : <input name="className" required="required"/><span style="color: red">*</span></div>
-							<div style="margin-bottom: 20px">课程名字 : <input name="courseName" required="required"/><span style="color: red">*</span></div>
-							<div style="margin-bottom: 20px">课程课时 :
-								<select name="classHour" style="width: 174px" required="required">
-									<option value="-1">请选择</option>
-									<option value="0" >0</option>
-									<option value="0.5" >0.5</option>
-									<option value="1.0" >1.0</option>
-									<option value="1.5" >1.5</option>
-									<option value="2.0" >2.0</option>
-									<option value="2.5" >2.5</option>
-									<option value="3.0" >3.0</option>
-									<option value="3.5" >3.5</option>
-									<option value="4.0" >4.0</option>
-									<option value="4.5" >4.5</option>
-									<option value="5.0" >5.0</option>
-									<option value="5.5" >5.5</option>
-									<option value="6.0" >6.0</option>
-									<option value="6.5" >6.5</option>
-									<option value="7.0" >7.0</option>
-									<option value="7.5" >7.5</option>
-									<option value="8.0" >8.0</option>
-								</select><span style="color: red">*</span>
-							</div>
-							<div style="margin-bottom: 20px">任课老师 :
-								<select name="tId" id="tt" style="width: 174px" required="required">
-									<option value="-1">请选择</option>
-								</select><span style="color: red">*</span>
-							</div>
-
+							<div style="margin-bottom: 10px">学生名字 : <input name="className" required="required"/><span style="color: red">*</span></div>
+							<div style="margin-bottom: 10px">学生性别 : <select name="gender" style="width: 174px"><option value="0">男</option><option value="1">女</option> </select><span style="color: red">*</span></div>
+							<div style="margin-bottom: 10px">学生生日 : <input name="birth" style="width: 174px" type="date" required="required"><span style="color: red">*</span></div>
+							<div style="margin-bottom: 10px">监护人员 : <input name="guarder"  required="required"><span style="color: red">*</span></div>
+							<div style="margin-bottom: 10px">监护手机 : <input name="guarderPhone" type="tel" required="required"><span style="color: red">*</span></div>
+							<div style="margin-bottom: 10px">居住地址 : <input name="address" required="required"><span style="color: red">*</span></div>
 						</form>
 					</table>
 

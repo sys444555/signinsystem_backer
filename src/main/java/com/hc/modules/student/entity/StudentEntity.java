@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
@@ -26,8 +27,19 @@ public class StudentEntity {
 
     private String address;
 
+    private String classPackage;
+
+    private String chargingStandard;
+
+    private BigDecimal buyClassHour;
+
+    private BigDecimal consumedClassHour;
+
+    private Integer isValidity;
+
+    private String periodOfValidity;
+
+    private BigDecimal price;
+
     private Date createTime;
-
-    private Integer status;
-
 }

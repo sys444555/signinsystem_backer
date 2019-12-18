@@ -1,7 +1,6 @@
 package com.hc.modules.member.mapper;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
-import com.hc.modules.member.entity.MemberEntity;
 import com.hc.modules.member.entity.StudentEntity;
 import org.apache.ibatis.annotations.Param;
 
