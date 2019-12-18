@@ -1,8 +1,10 @@
 package com.hc.modules.teacher.service;
 
 import com.baomidou.mybatisplus.service.IService;
+import com.hc.modules.student.entity.StudentEntity;
 import com.hc.modules.teacher.entity.ClassEntity;
 import com.hc.modules.teacher.entity.TeacherEntity;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -22,5 +24,7 @@ public interface TeacherService extends IService<TeacherEntity> {
     public void insertClass(ClassEntity classEntity);
 
     public void updateClassStatus(Integer status, Integer id);
+
+    public List<StudentEntity> getClassStudentById(Integer id);
 }
 

@@ -3,6 +3,7 @@ package com.hc.modules.teacher.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.hc.common.utils.ResponseUtil;
+import com.hc.modules.student.entity.StudentEntity;
 import com.hc.modules.teacher.entity.ClassEntity;
 import com.hc.modules.teacher.entity.TeacherEntity;
 import com.hc.modules.teacher.service.TeacherService;
@@ -24,7 +25,6 @@ import java.util.List;
  * @date 2019-12-17 20:56:21
  */
 @RestController
-
 public class TeacherController {
 
     @Autowired
@@ -69,5 +69,18 @@ public class TeacherController {
         teacherService.updateClassStatus(status, id);
         return ResponseUtil.success();
     }
+
+    /**
+     * 查看班级学生详情
+     */
+    @RequestMapping(value = "/class/getStudent/{cid}", method = RequestMethod.GET)
+    public ResponseUtil getClassStudentById(@PathVariable(value = "cid") Integer cid){
+        List<StudentEntity> studentList = teacherService.getClassStudentById(cid);
+        return ResponseUtil.success(studentList);
+
+    }
+
+    
+
 
 }

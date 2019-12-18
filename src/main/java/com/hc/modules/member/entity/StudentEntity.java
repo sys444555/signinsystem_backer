@@ -9,7 +9,7 @@ import java.util.Date;
 
 @Data
 @TableName("student")
-public class MemberEntity {
+public class StudentEntity {
 
     @TableId(type = IdType.AUTO)
     private Integer id;

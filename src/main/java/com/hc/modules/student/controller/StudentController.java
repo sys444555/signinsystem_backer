@@ -1,11 +1,11 @@
-package com.hc.modules.member.controller;
+package com.hc.modules.student.controller;
 
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.hc.common.utils.ResponseUtil;
-import com.hc.modules.member.entity.MemberEntity;
-import com.hc.modules.member.service.MemberService;
+import com.hc.modules.student.entity.StudentEntity;
+import com.hc.modules.student.service.StudentService;
 
 
 import org.apache.http.HttpRequest;
@@ -18,19 +18,20 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
-@RequestMapping("member")
-public class MemberController {
+@RequestMapping("student")
+public class StudentController {
 
     @Resource
-    private MemberService memberService;
+    private StudentService studentService;
+
 
 
     @RequestMapping(value = "list",method = RequestMethod.GET)
-    public ResponseUtil getMemberList(Integer pageNo, Integer pageSize, HttpServletRequest httpRequest){
+    public ResponseUtil getStudentList(Integer pageNo, Integer pageSize, HttpServletRequest httpRequest){
         String token = httpRequest.getHeader("token");
         PageHelper.startPage(pageNo, pageSize);
-        List<MemberEntity> memberList = memberService.getMemberList(token);
-        PageInfo<MemberEntity> pageInfo = new PageInfo<>(memberList);
+        List<StudentEntity> studentList = studentService.getStudentList(token);
+        PageInfo<StudentEntity> pageInfo = new PageInfo<>(studentList);
         return ResponseUtil.success(pageInfo);
     }
 }
