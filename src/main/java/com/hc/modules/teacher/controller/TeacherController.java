@@ -51,11 +51,6 @@ public class TeacherController {
         return ResponseUtil.success(pageInfo);
     }
 
-    /**
-     * 新增
-     */
-    @RequestMapping(value = "create", method = RequestMethod.POST)
-    public ResponseUtil createClass(ClassEntity)*/
 
 
 }

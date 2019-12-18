@@ -109,8 +109,13 @@ $(function () {
         timeout:5000,    //超时时间
         dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
         success:function(data){
-            if(data.code == 0){
 
+            if(data.code == 0){
+                var dataList = data.data
+                for (var i = 0; i < dataList.length; i++) {
+                    var html = "<option value='"+dataList[i].id+"'>"+dataList[i].name+"</option>"
+                    $("#tt").append(html)
+                }
             }
         },
         error:function () {
@@ -132,6 +137,40 @@ function cancelClassModal() {
     $("#createClassForm")[0].reset()
 }
 
+function saveClass() {
+
+    var form = $("#createClassForm").serialize();
+
+    if(form.indexOf("classHour=-1")>0){
+        alert("课时未选择！")
+        return;
+    }else if(form.indexOf("tId=-1")){
+        alert("任课教师未选择！")
+        return;
+    }else if(!(isEmpty($("input[name='className']").val()) && isEmpty($("input[name='courseName']").val())) ){
+        alert("存在信息未填写，请确认")
+        return;
+    }else{
+        $.ajax({
+            url:'',
+            type:'POST', //GET
+            async:true,    //或false,是否异步
+            headers:{
+
+            },
+            data:{
+
+            },
+            timeout:5000,    //超时时间
+            dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+            success:function(data){
+                //console.log(data)；
+            }
+        })
+    }
+}
+
+
 function updateStatus() {
     $(":checked").length
 }
@@ -145,5 +184,14 @@ function getCookie(name)
     }
     else{
         return null;
+    }
+}
+
+//如果为空 则返回true  不为空则返回false
+function isEmpty(obj){
+    if(typeof obj == "undefined" || obj == null || obj == ""){
+        return true;
+    }else{
+        return false;
     }
 }
