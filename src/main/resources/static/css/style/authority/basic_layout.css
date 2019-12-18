@@ -37,7 +37,7 @@
 
 .ui_content {
 	margin-top: 5px;
-	overflow: auto;
+	overflow: hidden;
 	clear: both;
 }
 
