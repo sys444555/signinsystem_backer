@@ -1,78 +1,293 @@
+
+
 @charset "UTF-8";
-.demo-image{
-    width: 100%;
+
+/*ccs-1*/
+.whj_jqueryPaginationCss-1{
+    display: inline-block;
+    padding: 5px;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
-.M-box,.M-box1,.M-box2,.M-box3,.M-box4{
-	position: relative;
-    text-align: center;
-  	zoom: 1;
+.whj_jqueryPaginationCss-1 div{
+    display: inline-block;
+    vertical-align: bottom;
+    height: 24px;
+    line-height: 24px;
 }
-.M-box:before,.M-box:after,.M-box1:before,.M-box1:after ,.M-box2:before,.M-box2:after ,.M-box3:before,.M-box3:after,.M-box4:before,.M-box4:after{
-    content:"";
-    display:table;
+.whj_jqueryPaginationCss-1 .whj_padding{
+    padding: 1px 9px;
 }
-.M-box:after,.M-box1:after,.M-box2:after,.M-box3:after,.M-box4:after{
-	clear:both;
-	overflow:hidden;
+.whj_jqueryPaginationCss-1 .whj_bgc{
+    background-color: #fff;
+    color: #698ca9;
 }
-.M-box span,.M-box1 span,.M-box2 span,.M-box3 span,.M-box4 span{
-	float: left;
-	margin:0 5px;
-	width: 38px;
-    height: 38px;
-    line-height: 38px;
-    color: #bdbdbd;
-    font-size: 14px;
+.whj_jqueryPaginationCss-1 .whj_border{
+    border: 1px solid #5b9fd6;
 }
-.M-box .active,.M-box1 .active,.M-box2 .active,.M-box3 .active,.M-box4 .active{
-	float: left;
-	margin:0 5px;
-	width: 38px;
-    height: 38px;
-    line-height: 38px;
-    background: #e91e63;
-    color: #fff;
-    font-size: 14px;
-    border: 1px solid #e91e63;
+.whj_jqueryPaginationCss-1 .whj_color{
+    color: #698ca9;
 }
-.M-box a,.M-box1 a,.M-box2 a,.M-box3 a,.M-box4 a{
-	float: left;
-	margin:0 5px;
-	width: 38px;
-    height: 38px;
-    line-height: 38px;
-    background: #fff;
-    border: 1px solid #ebebeb;
-    color: #bdbdbd;
-    font-size: 14px;
+.whj_jqueryPaginationCss-1 .whj_hover:hover{
+    background-color: #d4f1ff;
+    color: #698ca9;
+    cursor: pointer;
 }
-.M-box a:hover,.M-box1 a:hover,.M-box2 a:hover,.M-box3 a:hover,.M-box4 a:hover{
-	color:#fff;
-    background: #e91e63;
+.whj_jqueryPaginationCss-1 .whj_checked{
+    background-color: #d4f1ff;
+    color: #698ca9;
 }
-.M-box .next,.M-box .prev,.M-box1 .next,.M-box1 .prev{
-	font-family: "Simsun";
-    font-size: 16px;
-    font-weight: bold;
+.whj_jqueryPaginationCss-1 .whj_hoverDisable{
+    opacity: 0.5;
 }
-.now,.count{
-	padding:0 5px;
-	color:#f00;
-}
-.eg img{
-	max-width: 800px;
-	min-height: 500px;
-}
-input{
-    float: left;
-    margin:0 5px;
-    width: 38px;
-    height: 38px;
-    line-height: 38px;
-    text-align: center;
-    background: #fff;
-    border: 1px solid #ebebeb;
+.whj_jqueryPaginationCss-1 select{
+    height: 28px;
+    vertical-align: bottom;
+    padding: 0px;
     outline: none;
-    color: #bdbdbd;
-    font-size: 14px;
+}
+.whj_jqueryPaginationCss-1 input{
+    padding: 0px;
+    height: 26px;
+    outline: none;
+    text-align: center;
+    width: 60px;
+    vertical-align: bottom;
+}
+.whj_jqueryPaginationCss-1 div,.whj_jqueryPaginationCss-1 input,.whj_jqueryPaginationCss-1 select{
+    margin: 2px;
+}
+
+/*ccs-2*/
+.whj_jqueryPaginationCss-2{
+    display: inline-block;
+    padding: 5px;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+.whj_jqueryPaginationCss-2 div{
+    display: inline-block;
+    vertical-align: bottom;
+    height: 24px;
+    line-height: 24px;
+}
+.whj_jqueryPaginationCss-2 .whj_padding{
+    padding: 1px 9px;
+}
+.whj_jqueryPaginationCss-2 .whj_bgc{
+    background-color: #5194ca;
+    color: #fff;
+}
+.whj_jqueryPaginationCss-2 .whj_border{
+    border: 1px solid #5194ca;
+}
+.whj_jqueryPaginationCss-2 .whj_color{
+    color: #5194ca;
+}
+.whj_jqueryPaginationCss-2 .whj_hover:hover{
+    background-color: #d4f1ff;
+    color: #5194ca;
+    cursor: pointer;
+}
+.whj_jqueryPaginationCss-2 .whj_checked{
+    background-color: #d4f1ff;
+    color: #5194ca;
+}
+.whj_jqueryPaginationCss-2 .whj_hoverDisable{
+    opacity: 0.7;
+}
+.whj_jqueryPaginationCss-2 select{
+    height: 28px;
+    vertical-align: bottom;
+    padding: 0px;
+    outline: none;
+}
+.whj_jqueryPaginationCss-2 input{
+    padding: 0px;
+    height: 26px;
+    outline: none;
+    text-align: center;
+    width: 60px;
+    vertical-align: bottom;
+}
+.whj_jqueryPaginationCss-2 div,.whj_jqueryPaginationCss-2 input,.whj_jqueryPaginationCss-2 select{
+    margin: 2px;
+}
+
+/*ccs-3*/
+.whj_jqueryPaginationCss-3{
+    display: inline-block;
+    padding: 5px;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+.whj_jqueryPaginationCss-3 div{
+    display: inline-block;
+    vertical-align: bottom;
+    height: 24px;
+    line-height: 24px;
+}
+.whj_jqueryPaginationCss-3 .whj_padding{
+    padding: 1px 9px;
+}
+.whj_jqueryPaginationCss-3 .whj_bgc{
+    background-color: #7a7b7b;
+    color: #fff;
+}
+.whj_jqueryPaginationCss-3 .whj_border{
+    border: 1px solid #929292;
+}
+.whj_jqueryPaginationCss-3 .whj_color{
+    color: #929292;
+}
+.whj_jqueryPaginationCss-3 .whj_hover:hover{
+    background-color: #e0dddd;
+    color: #7a7b7b;
+    cursor: pointer;
+}
+.whj_jqueryPaginationCss-3 .whj_checked{
+    background-color: #e0dddd;
+    color: #7a7b7b;
+}
+.whj_jqueryPaginationCss-3 .whj_hoverDisable{
+    opacity: 0.5;
+}
+.whj_jqueryPaginationCss-3 select{
+    height: 28px;
+    vertical-align: bottom;
+    padding: 0px;
+    outline: none;
+}
+.whj_jqueryPaginationCss-3 input{
+    padding: 0px;
+    height: 26px;
+    outline: none;
+    text-align: center;
+    width: 60px;
+    vertical-align: bottom;
+}
+.whj_jqueryPaginationCss-3 div,.whj_jqueryPaginationCss-3 input,.whj_jqueryPaginationCss-3 select{
+    margin: 2px;
+}
+
+/*ccs-4*/
+.whj_jqueryPaginationCss-4{
+    display: inline-block;
+    padding: 5px;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+.whj_jqueryPaginationCss-4 div{
+    display: inline-block;
+    vertical-align: bottom;
+    height: 24px;
+    line-height: 24px;
+}
+.whj_jqueryPaginationCss-4 .whj_padding{
+    padding: 1px 9px;
+}
+.whj_jqueryPaginationCss-4 .whj_bgc{
+    background-color: #f5f5f5;
+    color: #907272;
+}
+.whj_jqueryPaginationCss-4 .whj_border{
+    border: 1px solid #907272;
+}
+.whj_jqueryPaginationCss-4 .whj_color{
+    color: #907272;
+}
+.whj_jqueryPaginationCss-4 .whj_hover:hover{
+    background-color: #afacac;
+    color: #fff;
+    cursor: pointer;
+}
+.whj_jqueryPaginationCss-4 .whj_checked{
+    background-color: #afacac;
+    color: #fff;
+}
+.whj_jqueryPaginationCss-4 .whj_hoverDisable{
+    opacity: 0.5;
+}
+.whj_jqueryPaginationCss-4 select{
+    height: 28px;
+    vertical-align: bottom;
+    padding: 0px;
+    outline: none;
+}
+.whj_jqueryPaginationCss-4 input{
+    padding: 0px;
+    height: 26px;
+    outline: none;
+    text-align: center;
+    width: 60px;
+    vertical-align: bottom;
+}
+.whj_jqueryPaginationCss-4 div,.whj_jqueryPaginationCss-4 input,.whj_jqueryPaginationCss-4 select{
+    margin: 2px;
+}
+
+/*ccs-5*/
+.whj_jqueryPaginationCss-5{
+    display: inline-block;
+    padding: 5px;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+.whj_jqueryPaginationCss-5 div{
+    display: inline-block;
+    vertical-align: bottom;
+    height: 24px;
+    line-height: 24px;
+}
+.whj_jqueryPaginationCss-5 .whj_padding{
+    padding: 1px 9px;
+}
+.whj_jqueryPaginationCss-5 .whj_bgc{
+    background-color: #199eaf;
+    color: #fff;
+}
+.whj_jqueryPaginationCss-5 .whj_border{
+    border: 1px solid #199eaf;
+}
+.whj_jqueryPaginationCss-5 .whj_color{
+    color: #199eaf;
+}
+.whj_jqueryPaginationCss-5 .whj_hover:hover{
+    background-color: #d4f1ff;
+    color: #199eaf;
+    cursor: pointer;
+}
+.whj_jqueryPaginationCss-5 .whj_checked{
+    background-color: #d4f1ff;
+    color: #199eaf;
+}
+.whj_jqueryPaginationCss-5 .whj_hoverDisable{
+    opacity: 0.5;
+}
+.whj_jqueryPaginationCss-5 select{
+    height: 28px;
+    vertical-align: bottom;
+    padding: 0px;
+    outline: none;
+}
+.whj_jqueryPaginationCss-5 input{
+    padding: 0px;
+    height: 26px;
+    outline: none;
+    text-align: center;
+    width: 60px;
+    vertical-align: bottom;
+}
+.whj_jqueryPaginationCss-5 div,.whj_jqueryPaginationCss-5 input,.whj_jqueryPaginationCss-5 select{
+    margin: 2px;
 }

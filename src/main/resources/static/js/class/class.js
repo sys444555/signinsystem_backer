@@ -97,7 +97,7 @@ $(function () {
 
     //加载老师数据到选项框
     $.ajax({
-        url:'http://localhost:8080/',
+        url:'http://localhost:8080/teacher/list',
         type:'GET', //GET
         async:true,    //或false,是否异步
         headers:{
@@ -110,7 +110,7 @@ $(function () {
         dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
         success:function(data){
             if(data.code == 0){
-                
+
             }
         },
         error:function () {
@@ -127,6 +127,14 @@ function createClass() {
     $("#class_create_alter").show()
 }
 
+function cancelClassModal() {
+    $("#class_create_alter").hide()
+    $("#createClassForm")[0].reset()
+}
+
+function updateStatus() {
+    $(":checked").length
+}
 
 function getCookie(name)
 {
