@@ -41,4 +41,11 @@
     <update id="updateClassStatus">
         UPDATE class SET status=#{status} WHERE id=#{id}
     </update>
+
+    <select id="getClassStudentById" parameterType="Integer">
+        SELECT c.*
+        FROM class a LEFT JOIN class_student b a.id = b.c_id
+        LEFT JOIN student c ON b.s_id = c.id
+        WHERE a.id=#{id}
+    </select>
 </mapper>

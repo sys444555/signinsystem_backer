@@ -5,9 +5,9 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.hc.common.exception.JcException;
 import com.hc.common.utils.JWTUtil;
-import com.hc.modules.member.entity.MemberEntity;
-import com.hc.modules.member.mapper.MemberMapper;
-import com.hc.modules.member.service.MemberService;
+import com.hc.modules.member.entity.StudentEntity;
+import com.hc.modules.member.mapper.StudentMapper;
+import com.hc.modules.member.service.StudentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -16,25 +16,25 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class MemberServiceImpl extends ServiceImpl<MemberMapper, MemberEntity> implements MemberService {
+public class StudentServiceImpl extends ServiceImpl<StudentMapper, StudentEntity> implements StudentService {
 
     @Resource
-    private MemberMapper memberMapper;
+    private StudentMapper memberMapper;
 
     @Resource
     private JWTUtil jwtUtil;
 
 
     @Override
-    public List<MemberEntity> getMemberList(String token) {
+    public List<StudentEntity> getStudentList(String token) {
         String username = jwtUtil.getUsername(token);
-        List<MemberEntity> memberList = memberMapper.getMemberList(username);
+        List<StudentEntity> memberList = memberMapper.getStudentList(username);
 
         return memberList;
     }
 
     @Override
-    public void insertMember(MemberEntity memberEntity) {
+    public void insertStudent(StudentEntity memberEntity) {
         Integer result = memberMapper.insert(memberEntity);
         if(result == null || result ==0){
             throw new JcException("新增学员失败");
