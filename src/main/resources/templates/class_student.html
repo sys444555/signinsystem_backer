@@ -90,18 +90,25 @@
 				<div class="modal-body">
 					<table width="100%" align="absbottom" class="table" style="overflow: auto">
 						<form id="createClassForm" method="post">
-							<div style="margin-bottom: 10px">学生名字 : <input name="className" required="required"/><span style="color: red">*</span></div>
+							<div style="margin-bottom: 10px">学生名字 : <input name="name" required="required"/><span style="color: red">*</span></div>
 							<div style="margin-bottom: 10px">学生性别 : <select name="gender" style="width: 174px"><option value="0">男</option><option value="1">女</option> </select><span style="color: red">*</span></div>
 							<div style="margin-bottom: 10px">学生生日 : <input name="birth" style="width: 174px" type="date" required="required"><span style="color: red">*</span></div>
 							<div style="margin-bottom: 10px">监护人员 : <input name="guarder"  required="required"><span style="color: red">*</span></div>
 							<div style="margin-bottom: 10px">监护手机 : <input name="guarderPhone" type="tel" required="required"><span style="color: red">*</span></div>
 							<div style="margin-bottom: 10px">居住地址 : <input name="address" required="required"><span style="color: red">*</span></div>
+							<div style="margin-bottom: 10px">授课课包 : <input name="classPackage" required="required"><span style="color: red">*</span></div>
+							<div style="margin-bottom: 10px">收费标准 : <input name="chargingStandard" required="required"><span style="color: red">*</span></div>
+							<div style="margin-bottom: 10px">购买课时 : <input name="buyClassHour" required="required"><span style="color: red">*</span></div>
+							<div style="margin-bottom: 10px">曾用课时 : <input name="consumedClassHour" required="required"><span style="color: red">*</span></div>
+							<div style="margin-bottom: 10px">是否有效 : <select name="isValidity" style="width: 174px"><option value="0">无效</option><option value="1">有效</option> </select><span style="color: red">*</span></div>
+							<div style="margin-bottom: 10px">有效期限 : <input name="periodOfValidity" style="width: 174px" type="date" required="required"><span style="color: red">*</span></div>
+							<div style="margin-bottom: 10px">课程价格 : <input name="price" style="width: 160px" required="required">元<span style="color: red">*</span></div>
 						</form>
 					</table>
 
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" id="saveClass" onclick="saveClass()">
+					<button type="button" class="btn btn-primary" id="saveClass" onclick="saveStudent()">
 						提交保存
 					</button>
 					<button type="button" onclick="cancelClassModal()" class="btn btn-default" data-dismiss="modal">关闭
