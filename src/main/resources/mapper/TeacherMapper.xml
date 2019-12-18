@@ -36,7 +36,6 @@
         <result property="periodOfValidity" column="period_of_validity"/>
         <result property="price" column="price"/>
         <result property="createTime" column="create_time"/>
-
     </resultMap>
 
     <select id="getClassList" resultMap="classMap">
@@ -66,4 +65,6 @@
         LEFT JOIN student c ON b.s_id = c.id
         WHERE a.id=#{id}
     </select>
+
+
 </mapper>
