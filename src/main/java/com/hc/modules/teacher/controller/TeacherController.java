@@ -53,7 +53,7 @@ public class TeacherController {
 
     /**
      * 新增
-     *//*
+     */
     @RequestMapping(value = "create", method = RequestMethod.POST)
     public ResponseUtil createClass(ClassEntity)*/
 
