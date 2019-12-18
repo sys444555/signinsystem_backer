@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hc.modules.teacher.mapper.TeacherMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.hc.modules.teacher.entity.ClassEntity" id="classMap" extends="teacherMap">
+        <result property="id" column="id"/>
+        <result property="className" column="class_name"/>
+        <result property="courseName" column="course_name"/>
+        <result property="classHour" column="class_hour"/>
+        <result property="tId" column="t_id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+    <resultMap id="teacherMap" type="com.hc.modules.teacher.entity.TeacherEntity">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="gender" column="gender"/>
+        <result property="user_id" column="userId"/>
+    </resultMap>
+
+    <select id="getClassList" resultMap="classMap">
+          SELECT c.id,c.class_name,c.course_name,c.class_hour,c.t_id,b.name,c.create_time,c.status FROM role_user a
+          LEFT JOIN teacher b
+          ON a.id = b.user_id
+          LEFT JOIN class c ON b.id = c.t_id
+          WHERE a.username=#{username}
+    </select>
+
+    <select id="getTeacherList" resultMap="teacherMap">
+        SELECT id,name,gender,user_id FROM teacher
+    </select>
+</mapper>
