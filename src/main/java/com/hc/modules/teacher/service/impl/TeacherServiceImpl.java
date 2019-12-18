@@ -1,6 +1,7 @@
 package com.hc.modules.teacher.service.impl;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.hc.common.exception.JcException;
 import com.hc.common.utils.JWTUtil;
 import com.hc.modules.teacher.entity.ClassEntity;
 import com.hc.modules.teacher.entity.TeacherEntity;
@@ -33,5 +34,22 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, TeacherEntity
     public List<TeacherEntity> getTeacherList() {
         List<TeacherEntity> teacherList = teacherMapper.getTeacherList();
         return teacherList;
+    }
+
+    @Override
+    public void insertClass(ClassEntity classEntity) {
+        Integer integer = teacherMapper.insertClass(classEntity);
+        if(integer == null || integer == 0){
+            throw new JcException("新增班级失败");
+        }
+
+    }
+
+    @Override
+    public void updateClassStatus(Integer status, Integer id) {
+        Integer integer = teacherMapper.updateClassStatus(status, id);
+        if(integer == null || integer == 0){
+            throw new JcException("修改班级状态失败");
+        }
     }
 }
