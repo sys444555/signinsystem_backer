@@ -18,5 +18,9 @@ public interface TeacherService extends IService<TeacherEntity> {
     public List<ClassEntity> getClassList(String token);
 
     public List<TeacherEntity> getTeacherList();
+
+    public void insertClass(ClassEntity classEntity);
+
+    public void updateClassStatus(Integer status, Integer id);
 }
 

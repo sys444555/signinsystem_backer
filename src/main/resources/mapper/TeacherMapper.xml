@@ -32,4 +32,13 @@
     <select id="getTeacherList" resultMap="teacherMap">
         SELECT id,name,gender,user_id FROM teacher
     </select>
+
+    <insert id="insertClass" parameterType="com.hc.modules.teacher.entity.ClassEntity">
+        INSERT INTO class(class_name,course_name,class_hour,t_id)
+        VALUES(#{className},#{courseName},#{classHour},#{tId})
+    </insert>
+
+    <update id="updateClassStatus">
+        UPDATE class SET status=#{status} WHERE id=#{id}
+    </update>
 </mapper>

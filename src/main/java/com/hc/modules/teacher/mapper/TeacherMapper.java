@@ -20,4 +20,9 @@ public interface TeacherMapper extends BaseMapper<TeacherEntity> {
 
     public List<TeacherEntity> getTeacherList();
 
+    public Integer insertClass(ClassEntity classEntity);
+
+    public Integer updateClassStatus(@Param(value = "id") Integer id,
+                                     @Param(value = "status") Integer status);
+
 }
