@@ -3,6 +3,7 @@ package com.hc.modules.teacher.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.hc.common.utils.ResponseUtil;
+import com.hc.modules.course.entity.CourseEntity;
 import com.hc.modules.student.entity.StudentEntity;
 import com.hc.modules.teacher.entity.ClassEntity;
 import com.hc.modules.teacher.entity.TeacherEntity;
@@ -77,10 +78,18 @@ public class TeacherController {
     public ResponseUtil getClassStudentById(@PathVariable(value = "cid") Integer cid){
         List<StudentEntity> studentList = teacherService.getClassStudentById(cid);
         return ResponseUtil.success(studentList);
+    }
+
+    /**
+     * 查看班级课时详情
+     */
+    @RequestMapping(value = "/class/getCourse/{cid}", method = RequestMethod.GET)
+    public ResponseUtil getClassCourseById(@PathVariable(value = "cid") Integer cid){
+        List<CourseEntity> courseList = teacherService.getClassCourseById(cid);
+        return ResponseUtil.success(courseList);
 
     }
 
-    
 
 
 }

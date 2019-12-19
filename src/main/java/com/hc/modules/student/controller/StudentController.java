@@ -8,7 +8,6 @@ import com.hc.modules.student.entity.StudentEntity;
 import com.hc.modules.student.service.StudentService;
 
 
-import org.apache.http.HttpRequest;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,8 +22,6 @@ public class StudentController {
 
     @Resource
     private StudentService studentService;
-
-
 
     @RequestMapping(value = "list",method = RequestMethod.GET)
     public ResponseUtil getStudentList(Integer pageNo, Integer pageSize, HttpServletRequest httpRequest){

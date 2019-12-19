@@ -1,6 +1,7 @@
 package com.hc.modules.teacher.mapper;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.hc.modules.course.entity.CourseEntity;
 import com.hc.modules.student.entity.StudentEntity;
 import com.hc.modules.teacher.entity.ClassEntity;
 import com.hc.modules.teacher.entity.TeacherEntity;
@@ -27,5 +28,7 @@ public interface TeacherMapper extends BaseMapper<TeacherEntity> {
                                      @Param(value = "status") Integer status);
 
     public List<StudentEntity> getClassStudentById(@Param(value = "id") Integer id);
+
+    public List<CourseEntity> getCourseById(@Param(value = "id") Integer id);
 
 }
