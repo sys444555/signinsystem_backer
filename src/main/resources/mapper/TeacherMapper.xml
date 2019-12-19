@@ -28,9 +28,14 @@
         <result property="birth" column="birth"/>
         <result property="guarder" column="guarder"/>
         <result property="guarderPhone" column="guarder_phone"/>
-        <result property="address" column="address"/>
+        <result property="classPackage" column="class_package"/>
+        <result property="chargingStandard" column="charging_standard"/>
+        <result property="buyClassHour" column="buy_class_hour"/>
+        <result property="consumedClassHour" column="consumed_class_hour"/>
+        <result property="isValidity" column="is_validity"/>
+        <result property="periodOfValidity" column="period_of_validity"/>
+        <result property="price" column="price"/>
         <result property="createTime" column="create_time"/>
-
     </resultMap>
 
     <select id="getClassList" resultMap="classMap">
@@ -56,7 +61,7 @@
 
     <select id="getClassStudentById" parameterType="Integer" resultMap="studentMap">
         SELECT c.*
-        FROM class a LEFT JOIN class_student  b ON a.id = b.c_id
+        FROM class a LEFT JOIN class_student b on a.id = b.c_id
         LEFT JOIN student c ON b.s_id = c.id
         WHERE a.id=#{id}
     </select>

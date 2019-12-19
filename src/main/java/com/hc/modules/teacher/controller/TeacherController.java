@@ -65,8 +65,8 @@ public class TeacherController {
     /**
      * 修改班状态
      */
-    @RequestMapping(value = "/class/update/status/{id}", method = RequestMethod.POST)
-    public ResponseUtil updateClassStatus(@PathVariable(value = "id") Integer id, Integer status){
+    @RequestMapping(value = "/class/update/{status}/{id}", method = RequestMethod.POST)
+    public ResponseUtil updateClassStatus(@PathVariable(value = "id") Integer id, @PathVariable(value = "status") Integer status){
         teacherService.updateClassStatus(status, id);
         return ResponseUtil.success();
     }
@@ -75,18 +75,23 @@ public class TeacherController {
      * 查看班级学生详情
      */
     @RequestMapping(value = "/class/getStudent/{cid}", method = RequestMethod.GET)
-    public ResponseUtil getClassStudentById(@PathVariable(value = "cid") Integer cid){
+    public ResponseUtil getClassStudentById(Integer pageNo, Integer pageSize,@PathVariable(value = "cid") Integer cid){
+        PageHelper.startPage(pageNo, pageSize);
         List<StudentEntity> studentList = teacherService.getClassStudentById(cid);
-        return ResponseUtil.success(studentList);
+        PageInfo<StudentEntity> pageInfo = new PageInfo<>(studentList);
+        return ResponseUtil.success(pageInfo);
     }
 
     /**
      * 查看班级课时详情
      */
     @RequestMapping(value = "/class/getCourse/{cid}", method = RequestMethod.GET)
-    public ResponseUtil getClassCourseById(@PathVariable(value = "cid") Integer cid){
+    public ResponseUtil getClassCourseById(Integer pageNo, Integer pageSize, @PathVariable(value = "cid") Integer cid){
+        PageHelper.startPage(pageNo, pageSize);
         List<CourseEntity> courseList = teacherService.getClassCourseById(cid);
-        return ResponseUtil.success(courseList);
+        PageInfo<CourseEntity> pageInfo = new PageInfo<>(courseList);
+
+        return ResponseUtil.success(pageInfo);
 
     }
 
