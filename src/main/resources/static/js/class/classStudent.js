@@ -2,6 +2,8 @@ $(function () {
 
     var cid = getUrlParam("cid")
 
+    sessionStorage.setItem("cid",cid)
+
     if($("#submitForm").is(":visible") == true){
         $("input[value='新增学员']").show();
         $("input[value='新增课时']").hide();
@@ -9,6 +11,8 @@ $(function () {
         $("input[value='新增学员']").hide();
         $("input[value='新增课时']").show();
     }
+
+    $("#courseBtn").attr("onclick","openCourse("+cid+")")
 
 
     if(cid == null || cid == undefined || cid == ""){ alert("拉取数据失败")}else {
@@ -151,8 +155,69 @@ function createStudent() {
     $("#student_create_alter").show()
 }
 function cancelClassModal() {
-    $("#student_create_alter")[0].reset()
+    $("#student_create_alter")[0].reset
     $("#student_create_alter").hide()
+}
+
+function saveStudent() {
+    //为真则不为空
+    if(isEmptyForm()){
+        $.ajax({
+            url:'http://localhost:8080/student/create',
+            type:'POST', //GET
+            async:true,    //或false,是否异步
+            headers:{
+                "token":getCookie("token")
+            },
+            data:{
+                "name":$("input[name=name]").val(),
+                "gender":$("select[name=gender]").val(),
+                "birth":changeDate($("input[name=birth]").val()),
+                "guarder":$("input[name=guarder]").val(),
+                "guarderPhone":$("input[name=guarderPhone]").val(),
+                "address":$("input[name=address]").val(),
+                "classPackage":$("input[name=classPackage]").val(),
+                "chargingStandard":$("input[name=chargingStandard]").val(),
+                "buyClassHour":$("input[name=buyClassHour]").val(),
+                "consumedClassHour":$("input[name=consumedClassHour]").val(),
+                "isValidity":$("select[name=isValidity]").val(),
+                "periodOfValidity":changeDate($("input[name=periodOfValidity]").val()),
+                "price":$("input[name=price]").val(),
+                "cid" : sessionStorage.getItem("cid")
+            },
+            timeout:5000,    //超时时间
+            dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+            success:function(data){
+                if(data.code == 0){
+                    alert("新增学员成功！")
+                    window.location.reload();
+                }else{
+                    alert("新增学员失败！")
+                }
+            },
+            error:function () {
+                alert("服务器存在异常，请稍后再试！")
+            }
+        })
+    }else{
+        alert("信息有为空，请确认！")
+        return
+    }
+}
+
+function isEmptyForm(){
+    var flag=true;
+    $(".modal-body").find("input").each(function(i,item){
+        if(item.value=="" || item.value == undefined || item.value == null){
+            flag=false;
+            return false;
+        }
+    });
+    return flag;
+}
+
+function openCourse(cid) {
+    window.open("class_course.html?cid="+cid)
 }
 
 
@@ -176,4 +241,9 @@ function getCookie(name)
     else{
         return null;
     }
+}
+
+//修改日期格式
+function changeDate(str) {
+    return str.replace(/-/g,"/");
 }
