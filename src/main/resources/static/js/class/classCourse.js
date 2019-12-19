@@ -9,7 +9,7 @@ $(function () {
 
     if(cid == null || cid == undefined || cid == ""){ alert("拉取数据失败")}else {
         $.ajax({
-            url:'',
+            url:'http://localhost:8080/class/course/list',
             type:'get', //GET
             async:true,    //或false,是否异步
             headers:{
@@ -17,7 +17,8 @@ $(function () {
             },
             data:{
                 pageNo : 1,
-                pageSize : 20
+                pageSize : 20,
+                cid:cid
             },
             timeout:5000,    //超时时间
             dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
@@ -34,15 +35,15 @@ $(function () {
                             + "<td>#{startDate}</td>"
                             + "<td>#{endData}</td>"
                             + "<td>#{status}</td>"
-                            + "<td><span onclick='addStudentToCourse(#{id})'>添加学员</span></td>"
-                            + "<td><span onclick='showCourse(#{id}})'></span></td>"
+                            + "<td><span onclick='addStudentToCourse(#{id})' style='cursor: pointer'>添加学员</span></td>"
+                            + "<td><span onclick='showCourse(#{id}})' style='cursor: pointer'>查看详情</span></td>"
                             + "</tr>"
 
                         html = html.replace(/#{id}/g, dataList[i].id)
                         html = html.replace("#{name}", dataList[i].name)
                         html = html.replace("#{classHour}", dataList[i].classHour)
                         html = html.replace("#{startDate}", dataList[i].startDate)
-                        html = html.replace("#{endData}", dataList[i].endData)
+                        html = html.replace("#{endData}", dataList[i].endDate)
                         html = html.replace("#{status}", dataList[i].status == 0 ? '未进行' : dataList[i].status == 1? '进行中' : '已结束')
 
                         $("tbody").append(html);
@@ -115,9 +116,65 @@ $(function () {
     }
 })
 
+function createCourse() {
+    $("#course_create_alter").show()
+
+    laydate.render({
+        elem : '#dataRange',
+        type: 'datetime',
+        range: true
+    })
+
+}
+
+function saveCourse() {
+
+    var name = $("input[name=name]").val()
+
+    var classHour = $("select[name=classHour]").val()
+
+    //"2019-12-13 01:01:01 - 2019-12-13 02:02:06"
+    var dataRange = $("#dataRange").val();
+
+    if(isEmpty(name) && isEmpty(classHour) && isEmpty(dataRange)){
+        alert("存在信息未填写，请确认！")
+        return
+    }
+
+    $.ajax({
+        url:'',
+        type:'POST', //GET
+        async:true,    //或false,是否异步
+        headers:{
+            "token" : getCookie("token")
+        },
+        data:{
+            "name" : name,
+            "classHour" : classHour,
+            "dataRange" : dataRange,
+            "cid": sessionStorage.getItem("cid")
+        },
+        timeout:5000,    //超时时间
+        dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+        success:function(data){
+            if(data.code == 0){
+                alert("添加课时成功！")
+                window.location.reload()
+            }else{
+                alert("添加课时失败！")
+            }
+        },
+        error:function () {
+            alert("服务器存在异常，请稍后再试！")
+        }
+    })
+
+}
+
+
 function cancelClassModal() {
-    $("#student_create_alter")[0].reset
-    $("#student_create_alter").hide()
+    $("#course_create_alter")[0].reset
+    $("#course_create_alter").hide()
 }
 
 
@@ -158,4 +215,13 @@ function getCookie(name)
 //修改日期格式
 function changeDate(str) {
     return str.replace(/-/g,"/");
+}
+
+//如果为空 则返回true  不为空则返回false
+function isEmpty(obj){
+    if(typeof obj == "undefined" || obj == null || obj == ""){
+        return false;
+    }else{
+        return true;
+    }
 }

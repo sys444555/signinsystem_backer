@@ -20,6 +20,8 @@
 	<script src="../js/scripts/bootstrap/bootstrap.min.js?v=3.3.6"></script>
 	<script type="text/javascript" src="../js/scripts/jquery/jquery-confirm.js"></script>
 	<script src="../js/class/classCourse.js"></script>
+	<script src="../js/scripts/layDate/layDate.js"></script>
+	<link rel="stylesheet" type="text/css" href="../css/theme/default/laydate.css">
 <title>班级管理系统</title>
 <style>
 	.alt td{ background:black !important;}
@@ -48,7 +50,7 @@
 							<th><input type="checkbox" class="bs-checkbox"  style="width: 36px;"></th>
 							<th>课时编号</th>
 							<th>课时名字</th>
-							<th>需消耗课时</th>
+							<th>消耗课时</th>
 							<th>课时开始时间</th>
 							<th>课时结束时间</th>
 							<th>状态</th>
@@ -82,25 +84,36 @@
 				<div class="modal-body">
 					<table width="100%" align="absbottom" class="table" style="overflow: auto">
 						<form id="createClassForm" method="post">
-							<div style="margin-bottom: 10px">学生名字 : <input name="name" required="required"/><span style="color: red">*</span></div>
-							<div style="margin-bottom: 10px">学生性别 : <select name="gender" style="width: 174px"><option value="0">男</option><option value="1">女</option> </select><span style="color: red">*</span></div>
-							<div style="margin-bottom: 10px">学生生日 : <input name="birth" style="width: 174px" type="date" required="required"><span style="color: red">*</span></div>
-							<div style="margin-bottom: 10px">监护人员 : <input name="guarder"  required="required"><span style="color: red">*</span></div>
-							<div style="margin-bottom: 10px">监护手机 : <input name="guarderPhone" type="tel" required="required"><span style="color: red">*</span></div>
-							<div style="margin-bottom: 10px">居住地址 : <input name="address" required="required"><span style="color: red">*</span></div>
-							<div style="margin-bottom: 10px">授课课包 : <input name="classPackage" required="required"><span style="color: red">*</span></div>
-							<div style="margin-bottom: 10px">收费标准 : <input name="chargingStandard" required="required"><span style="color: red">*</span></div>
-							<div style="margin-bottom: 10px">购买课时 : <input name="buyClassHour" required="required"><span style="color: red">*</span></div>
-							<div style="margin-bottom: 10px">曾用课时 : <input name="consumedClassHour" required="required"><span style="color: red">*</span></div>
-							<div style="margin-bottom: 10px">是否有效 : <select name="isValidity" style="width: 174px"><option value="0">无效</option><option value="1">有效</option> </select><span style="color: red">*</span></div>
-							<div style="margin-bottom: 10px">有效期限 : <input name="periodOfValidity" style="width: 174px" type="date" required="required"><span style="color: red">*</span></div>
-							<div style="margin-bottom: 10px">课程价格 : <input name="price" style="width: 160px" required="required">元<span style="color: red">*</span></div>
+							<div style="margin-bottom: 10px">课时名字 : <input name="name" required="required"/><span style="color: red">*</span></div>
+							<div style="margin-bottom: 10px">需消耗课时 :
+								<select name="classHour" style="width: 174px">
+									<option value="-1">---请选择---</option>
+									<option value="0" >0</option>
+									<option value="0.5" >0.5</option>
+									<option value="1.0" >1.0</option>
+									<option value="1.5" >1.5</option>
+									<option value="2.0" >2.0</option>
+									<option value="2.5" >2.5</option>
+									<option value="3.0" >3.0</option>
+									<option value="3.5" >3.5</option>
+									<option value="4.0" >4.0</option>
+									<option value="4.5" >4.5</option>
+									<option value="5.0" >5.0</option>
+									<option value="5.5" >5.5</option>
+									<option value="6.0" >6.0</option>
+									<option value="6.5" >6.5</option>
+									<option value="7.0" >7.0</option>
+									<option value="7.5" >7.5</option>
+									<option value="8.0" >8.0</option>
+								</select><span style="color: red">*</span>
+							</div>
+							<div style="margin-bottom: 10px">开设课程时间段 : <input name="dataRange" id="dataRange" style="width: 300px" type="text" required="required"><span style="color: red">*</span></div>
 						</form>
 					</table>
 
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" id="saveClass" onclick="saveStudent()">
+					<button type="button" class="btn btn-primary" id="save" onclick="saveCourse()">
 						提交保存
 					</button>
 					<button type="button" onclick="cancelClassModal()" class="btn btn-default" data-dismiss="modal">关闭
