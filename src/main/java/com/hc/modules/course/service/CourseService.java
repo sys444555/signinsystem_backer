@@ -20,5 +20,7 @@ public interface CourseService extends IService<CourseEntity> {
 
     public void insertCourse(CourseEntity courseEntity, String dataRange);
 
+    public void insertCourseStudents(Integer coid, String[] studentList);
+
 }
 

@@ -43,9 +43,9 @@ class SigninsystemApplicationTests {
         courseEntity.setClassId(1);
         String s = "2019-12-13 01:01:01 - 2019-12-13 02:02:06";
         String[] split = s.split(" - ");
+        String[] str = {"1","12"};
 
-
-        courseService.insertCourse(courseEntity, s);
+        courseService.insertCourseStudents(3,str);
 
 
     }

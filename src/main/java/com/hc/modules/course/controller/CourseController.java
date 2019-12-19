@@ -31,6 +31,15 @@ public class CourseController {
     }
 
     /**
+     * 新增
+     */
+    @RequestMapping(value = "/class/course/students/create", method = RequestMethod.POST)
+    public ResponseUtil createCourseStudents(Integer coid, String[] studentList){
+        courseService.insertCourseStudents(coid, studentList);
+        return ResponseUtil.success();
+    }
+
+    /**
      * 查询班级课节列表
      */
     @RequestMapping(value = "/class/course/list",method = RequestMethod.GET)
