@@ -19,7 +19,7 @@
 	<script src="../js/pagination/jquery.pagination.js"></script>
 	<script src="../js/scripts/bootstrap/bootstrap.min.js?v=3.3.6"></script>
 	<script type="text/javascript" src="../js/scripts/jquery/jquery-confirm.js"></script>
-	<script src="../js/class/classStudent.js"></script>
+	<script src="../js/class/classCourse.js"></script>
 <title>班级管理系统</title>
 <style>
 	.alt td{ background:black !important;}
@@ -34,11 +34,9 @@
 			<div class="ui_content">
 				<div class="ui_text_indent">
 					<div id="box_border">
-					<div id="box_top">班级详情</div>
+					<div id="box_top">课时详情</div>
 						<div id="box_bottom">
-							<input type="button" value="新增学员" class="ui_input_btn01" onclick="createStudent();" />
 							<input type="button" value="新增课时" class="ui_input_btn01" onclick="createCourse();" />
-							<input style="float: right" type="button"  class="btn-primary" value="课时按钮" id="courseBtn"/>
 					</div>
 				</div>
 			</div>
@@ -48,19 +46,14 @@
 						<thead>
 						<tr >
 							<th><input type="checkbox" class="bs-checkbox"  style="width: 36px;"></th>
-							<th>学生姓名</th>
-							<th>学生性别</th>
-							<th>学生生日</th>
-							<th>监护人</th>
-							<th>联系方式</th>
-							<th>住址</th>
-							<th>课包</th>
-							<th>收费标准</th>
-							<th>总课时</th>
-							<th>剩下课时</th>
-							<th>是否有效</th>
-							<th>有效期</th>
-							<th>价格</th>
+							<th>课时编号</th>
+							<th>课时名字</th>
+							<th>需消耗课时</th>
+							<th>课时开始时间</th>
+							<th>课时结束时间</th>
+							<th>状态</th>
+							<th>添加学员</th>
+							<th>查看详情</th>
 						</tr>
 						</thead>
 						<tbody style="text-align: center;" id="class_td"></tbody>
@@ -75,15 +68,15 @@
 	</form>
 
 
-	<div class="modal" id="student_create_alter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width: auto;">
-		<div class="modal-dialog" id="student_create_dialog">
-			<div class="modal-content" align="center" style="overflow: hidden; height: 700px; width: 800px">
+	<div class="modal" id="course_create_alter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width: auto;">
+		<div class="modal-dialog" id="course_create_dialog">
+			<div class="modal-content" align="center" style="overflow: scroll; height: 500px; width: 800px">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="cancelClassModal()">
 						×
 					</button>
 					<h4 class="modal-title" id="myModalLabel2">
-						新增学员页面
+						新增课时页面
 					</h4>
 				</div>
 				<div class="modal-body">

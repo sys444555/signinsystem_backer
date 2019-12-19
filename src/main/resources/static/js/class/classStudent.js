@@ -12,6 +12,8 @@ $(function () {
         $("input[value='新增课时']").show();
     }
 
+    $("#courseBtn").attr("onclick","openCourse("+cid+")")
+
 
     if(cid == null || cid == undefined || cid == ""){ alert("拉取数据失败")}else {
         $.ajax({
@@ -161,7 +163,7 @@ function saveStudent() {
     //为真则不为空
     if(isEmptyForm()){
         $.ajax({
-            url:'http://localhost:8080/student/insertStudent',
+            url:'http://localhost:8080/student/create',
             type:'POST', //GET
             async:true,    //或false,是否异步
             headers:{
@@ -180,7 +182,7 @@ function saveStudent() {
                 "consumedClassHour":$("input[name=consumedClassHour]").val(),
                 "isValidity":$("select[name=isValidity]").val(),
                 "periodOfValidity":changeDate($("input[name=periodOfValidity]").val()),
-                "price":$("select[name=price]").val(),
+                "price":$("input[name=price]").val(),
                 "cid" : sessionStorage.getItem("cid")
             },
             timeout:5000,    //超时时间
@@ -212,6 +214,10 @@ function isEmptyForm(){
         }
     });
     return flag;
+}
+
+function openCourse(cid) {
+    window.open("class_course.html?cid="+cid)
 }
 
 

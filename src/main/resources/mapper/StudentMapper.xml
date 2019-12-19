@@ -9,12 +9,12 @@
        is_validity,period_of_validity,price)
        VALUES(#{name},#{gender},#{birth},#{guarder},#{guarderPhone},#{address},#{classPackage},
        #{chargingStandard},#{buyClassHour},#{consumedClassHour},
-       #{isValidity},#{periodOfValidity},#{price},)
+       #{isValidity},#{periodOfValidity},#{price})
    </insert>
 
     <insert id="linkClassStudent">
         INSERT INTO class_student(s_id,c_id)
-        VALUES(#{cid},#{sid})
+        VALUES(#{sid},#{cid})
     </insert>
 
 </mapper>
