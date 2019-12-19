@@ -40,5 +40,9 @@
         WHERE class_id=#{cid}
     </select>
 
+    <insert id="insertCourse">
+        INSERT INTO course(name,class_id,class_hour,start_date,end_date)
+        VALUES (#{name},#{classId},#{classHour},#{startDate},#{endDate})
+    </insert>
 
 </mapper>

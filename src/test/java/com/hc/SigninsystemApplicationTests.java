@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.util.List;
 
 @SpringBootTest
@@ -31,6 +32,21 @@ class SigninsystemApplicationTests {
     void t1() {
         List<CourseEntity> classCourseList = courseService.getClassCourseList(1);
         System.out.println("classCourseList = " + classCourseList);
+
+    }
+
+    @Test
+    void te(){
+        CourseEntity courseEntity = new CourseEntity();
+        courseEntity.setName("dfs");
+        courseEntity.setClassHour(new BigDecimal(1.00));
+        courseEntity.setClassId(1);
+        String s = "2019-12-13 01:01:01 - 2019-12-13 02:02:06";
+        String[] split = s.split(" - ");
+
+
+        courseService.insertCourse(courseEntity, s);
+
 
     }
 

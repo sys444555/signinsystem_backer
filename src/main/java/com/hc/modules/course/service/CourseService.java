@@ -18,5 +18,7 @@ public interface CourseService extends IService<CourseEntity> {
 
     public List<CourseEntity> getClassCourseList(Integer cid);
 
+    public void insertCourse(CourseEntity courseEntity, String dataRange);
+
 }
 

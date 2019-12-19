@@ -21,14 +21,14 @@ public class CourseController {
     @Resource
     private CourseService courseService;
 
-   /* *//**
+    /**
      * 新增
-     *//*
-    @RequestMapping(value = "/course/create", method = RequestMethod.POST)
-    public ResponseUtil createCourse(CourseEntity courseEntity, Integer cid){
-        courseService.insertCourse(courseEntity, cid);
+     */
+    @RequestMapping(value = "/class/course/create", method = RequestMethod.POST)
+    public ResponseUtil createCourse(CourseEntity courseEntity, String dataRange){
+        courseService.insertCourse(courseEntity, dataRange);
         return ResponseUtil.success();
-    }*/
+    }
 
     /**
      * 查询班级课节列表
