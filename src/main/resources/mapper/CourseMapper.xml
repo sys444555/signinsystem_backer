@@ -45,4 +45,12 @@
         VALUES (#{name},#{classId},#{classHour},#{startDate},#{endDate})
     </insert>
 
+    <insert id="insertCourseStudents">
+        INSERT INTO course_student(course_id, student_id)
+        VALUES
+        <foreach collection ="list" item="item" separator ="," index="index">
+            (#{coid}, #{item})
+        </foreach >
+    </insert>
+
 </mapper>

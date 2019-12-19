@@ -18,7 +18,11 @@ public interface CourseMapper extends BaseMapper<CourseEntity> {
 
     public List<CourseEntity> getClassCourseList(@Param(value = "cid") Integer cid);
 
+
     public Integer insertCourse(CourseEntity courseEntity);
+
+    public Integer insertCourseStudents(@Param(value = "coid")Integer coid,
+                                        @Param(value = "list") List<Integer> list);
 
 
 

@@ -9,6 +9,7 @@ import com.hc.modules.course.service.CourseService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -33,5 +34,24 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, CourseEntity> i
         if(result == null || result == 0){
             throw new JcException("新增课时失败");
         }
+    }
+
+    @Override
+    public void insertCourseStudents(Integer coid, String[] studentList) {
+
+        if(studentList != null){
+
+            List<Integer> list = new ArrayList<>();
+            for(int i=0;i<studentList.length;i++){
+                Integer integer = Integer.valueOf(studentList[i]);
+                list.add(integer);
+            }
+            courseMapper.insertCourseStudents(coid, list);
+
+        }else {
+            throw new JcException("新增学员失败");
+        }
+
+
     }
 }
