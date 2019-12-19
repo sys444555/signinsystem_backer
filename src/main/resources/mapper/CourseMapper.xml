@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hc.modules.course.mapper.CourseMapper">
+
+   <resultMap id="courseResultMap" type="com.hc.modules.course.entity.CourseEntity">
+       <id property="id" column="id"/>
+       <result property="name" column="name"/>
+       <result property="classId" column="class_id"/>
+       <result property="classHour" column="class_hour"/>
+       <result property="status" column="status"/>
+       <result property="startDate" column="start_date"/>
+       <result property="endDate" column="end_date"/>
+       <result property="createTime" column="create_time"/>
+       <collection property="studentEntityList" ofType="com.hc.modules.student.entity.StudentEntity" javaType="ArrayList">
+           <id property="id" column="id"/>
+           <result property="name" column="name"/>
+           <result property="gender" column="gender"/>
+           <result property="birth" column="birth"/>
+           <result property="guarder" column="guarder"/>
+           <result property="guarderPhone" column="guarder_phone"/>
+           <result property="classPackage" column="class_package"/>
+           <result property="chargingStandard" column="charging_standard"/>
+           <result property="buyClassHour" column="buy_class_hour"/>
+           <result property="consumedClassHour" column="consumed_class_hour"/>
+           <result property="isValidity" column="is_validity"/>
+           <result property="periodOfValidity" column="period_of_validity"/>
+           <result property="price" column="price"/>
+           <result property="createTime" column="create_time"/>
+       </collection>
+   </resultMap>
+
+    <select id="getClassCourseList" resultMap="courseResultMap">
+        SELECT a.id,a.name,a.class_id,a.class_hour,a.status,a.start_date,a.end_date,a.create_time,
+        c.id, c.name,c.gender,c.birth,c.guarder,c.guarder_phone,c.class_package,c.charging_standard,
+        c.buy_class_hour,c.consumed_class_hour,c.is_validity,c.period_of_validity,c.price
+        FROM course a
+        LEFT JOIN course_student b ON a.id = b.course_id
+        LEFT JOIN student c ON b.student_id = c.id
+        WHERE class_id=#{cid}
+    </select>
+
+
+</mapper>
