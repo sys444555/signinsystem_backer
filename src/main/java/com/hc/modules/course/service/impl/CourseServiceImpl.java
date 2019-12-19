@@ -23,4 +23,15 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, CourseEntity> i
         List<CourseEntity> classCourseList = courseMapper.getClassCourseList(cid);
         return classCourseList;
     }
+
+    @Override
+    public void insertCourse(CourseEntity courseEntity, String dataRange) {
+        String[] split = dataRange.split(" - ");
+        courseEntity.setStartDate(split[0]);
+        courseEntity.setEndDate(split[1]);
+        Integer result = courseMapper.insertCourse(courseEntity);
+        if(result == null || result == 0){
+            throw new JcException("新增课时失败");
+        }
+    }
 }

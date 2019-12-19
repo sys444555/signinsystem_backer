@@ -13,8 +13,8 @@
        <result property="endDate" column="end_date"/>
        <result property="createTime" column="create_time"/>
        <collection property="studentEntityList" ofType="com.hc.modules.student.entity.StudentEntity" javaType="ArrayList">
-           <id property="id" column="id"/>
-           <result property="name" column="name"/>
+           <id property="id" column="s_id"/>
+           <result property="name" column="s_name"/>
            <result property="gender" column="gender"/>
            <result property="birth" column="birth"/>
            <result property="guarder" column="guarder"/>
@@ -32,7 +32,7 @@
 
     <select id="getClassCourseList" resultMap="courseResultMap">
         SELECT a.id,a.name,a.class_id,a.class_hour,a.status,a.start_date,a.end_date,a.create_time,
-        c.id, c.name,c.gender,c.birth,c.guarder,c.guarder_phone,c.class_package,c.charging_standard,
+        c.id AS s_id, c.name AS s_name,c.gender,c.birth,c.guarder,c.guarder_phone,c.class_package,c.charging_standard,
         c.buy_class_hour,c.consumed_class_hour,c.is_validity,c.period_of_validity,c.price
         FROM course a
         LEFT JOIN course_student b ON a.id = b.course_id
@@ -40,5 +40,9 @@
         WHERE class_id=#{cid}
     </select>
 
+    <insert id="insertCourse">
+        INSERT INTO course(name,class_id,class_hour,start_date,end_date)
+        VALUES (#{name},#{classId},#{classHour},#{startDate},#{endDate})
+    </insert>
 
 </mapper>
