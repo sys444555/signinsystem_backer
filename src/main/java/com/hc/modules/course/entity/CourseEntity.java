@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
 import com.hc.modules.student.entity.StudentEntity;
+import com.hc.modules.teacher.entity.TeacherEntity;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -12,7 +13,7 @@ import java.util.List;
 
 @Data
 @TableName("course")
-public class CourseEntity {
+public class CourseEntity extends TeacherEntity {
 
     @TableId(type = IdType.AUTO)
     private Integer id;

@@ -13,7 +13,7 @@
         <result property="status" column="status"/>
     </resultMap>
 
-    <resultMap id="courseMap" type="com.hc.modules.course.entity.CourseEntity">
+    <resultMap id="courseMap" type="com.hc.modules.course.entity.CourseEntity" extends="teacherMap">
         <result property="id" column="id"/>
         <result property="name" column="name"/>
         <result property="tId" column="t_id"/>
@@ -22,7 +22,7 @@
 
     <resultMap id="teacherMap" type="com.hc.modules.teacher.entity.TeacherEntity">
         <result property="id" column="id"/>
-        <result property="name" column="name"/>
+        <result property="name" column="t_name"/>
         <result property="gender" column="gender"/>
         <result property="user_id" column="userId"/>
     </resultMap>
@@ -45,7 +45,7 @@
     </resultMap>
 
     <select id="getClassList" resultMap="classMap">
-        SELECT a.id,a.class_name,c.name,a.class_hour,a.t_id,b.name,a.create_time,a.status
+        SELECT a.id,a.class_name,c.name,a.class_hour,a.t_id,b.name AS t_name,a.create_time,a.status
         FROM class a
          LEFT JOIN  teacher b
          on a.t_id = b.id

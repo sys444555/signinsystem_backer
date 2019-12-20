@@ -22,5 +22,7 @@ public interface LessonService extends IService<LessonEntity> {
 
     public void insertLessonStudents(Integer coid, String[] studentList);
 
+    public void lessonSign(LessonEntity lessonEntity, Integer studentId);
+
 }
 

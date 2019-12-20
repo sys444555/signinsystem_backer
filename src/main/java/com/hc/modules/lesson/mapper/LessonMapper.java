@@ -2,9 +2,11 @@ package com.hc.modules.lesson.mapper;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.hc.modules.lesson.entity.LessonEntity;
+import com.hc.modules.student.entity.CoursePackageEntity;
 import com.hc.modules.student.entity.StudentEntity;
 import org.apache.ibatis.annotations.Param;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -25,5 +27,8 @@ public interface LessonMapper extends BaseMapper<LessonEntity> {
                                         @Param(value = "list") List<Integer> list);
 
 
+    public CoursePackageEntity lessonSign(@Param(value = "id") Integer id,
+                                          @Param(value = "studentId")Integer studentId);
 
+    public Integer updateCoursePackage(CoursePackageEntity coursePackageEntity);
 }

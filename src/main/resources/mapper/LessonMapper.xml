@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.hc.modules.course.mapper.CourseMapper">
+<mapper namespace="com.hc.modules.lesson.mapper.LessonMapper">
 
    <resultMap id="courseResultMap" type="com.hc.modules.course.entity.CourseEntity">
        <id property="id" column="id"/>
@@ -30,7 +30,7 @@
        </collection>
    </resultMap>
 
-    <select id="getClassCourseList" resultMap="courseResultMap">
+    <select id="getClassLessonList" resultMap="courseResultMap">
         SELECT a.id,a.name,a.class_id,a.class_hour,a.status,a.start_date,a.end_date,a.create_time,
         c.id AS s_id, c.name AS s_name,c.gender,c.birth,c.guarder,c.guarder_phone,c.class_package,c.charging_standard,
         c.buy_class_hour,c.consumed_class_hour,c.is_validity,c.period_of_validity,c.price
@@ -40,17 +40,27 @@
         WHERE class_id=#{cid}
     </select>
 
-    <insert id="insertCourse">
-        INSERT INTO course(name,class_id,class_hour,start_date,end_date)
+    <insert id="insertLesson">
+        INSERT INTO lesson(name,class_id,class_hour,start_date,end_date)
         VALUES (#{name},#{classId},#{classHour},#{startDate},#{endDate})
     </insert>
 
-    <insert id="insertCourseStudents">
-        INSERT INTO course_student(course_id, student_id)
+    <insert id="insertLessonStudents">
+        INSERT INTO lesson_student(lesson_id, student_id)
         VALUES
         <foreach collection ="list" item="item" separator ="," index="index">
             (#{coid}, #{item})
         </foreach >
     </insert>
+
+    <select id="lessonSign" resultType="com.hc.modules.student.entity.CoursePackageEntity">
+        SELECT * FROM course_package WHERE id =
+        (SELECT c_p_id FROM class_student WHERE s_id=#{studentId} AND c_id =
+        (SELECT class_id FROM lesson WHERE id = #{id}))
+    </select>
+
+    <update id="updateCoursePackage">
+        UPDATE course_package SET consumed_class_hour=#{subtract} WHERE id=#{id}
+    </update>
 
 </mapper>

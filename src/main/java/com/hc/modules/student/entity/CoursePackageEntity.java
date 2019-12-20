@@ -7,6 +7,8 @@ import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
 import java.io.Serializable;
 import lombok.Data;
+
+import java.math.BigDecimal;
 import java.util.Date;
 /**
  * 课时包表
@@ -36,11 +38,11 @@ private String chargingStandard;
 		/**
 	 * 购买总课时
 	 */
-private Double buyClassHour;
+private BigDecimal buyClassHour;
 		/**
 	 * 已耗课时
 	 */
-private Double consumedClassHour;
+private BigDecimal consumedClassHour;
 		/**
 	 * 是否在有效期  0不在  1在
 	 */
@@ -52,7 +54,7 @@ private String periodOfValidity;
 		/**
 	 * 价格
 	 */
-private Double price;
+private BigDecimal price;
 		/**
 	 *
 	 */
