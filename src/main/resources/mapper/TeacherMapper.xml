@@ -39,7 +39,7 @@
     </resultMap>
 
     <select id="getClassList" resultMap="classMap">
-          SELECT a.id,a.class_name,a.course_name,a.class_hour,a.t_id,b.name,c.create_time,c.status
+          SELECT a.id,a.class_name,a.course_name,a.class_hour,a.t_id,b.name,a.create_time,a.status
           FROM class a, teacher b WHERE a.teacher_id = b.id
     </select>
 
