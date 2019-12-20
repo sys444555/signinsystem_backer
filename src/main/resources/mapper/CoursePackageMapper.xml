@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hc.modules.student.mapper.CoursePackageMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.hc.modules.student.entity.CoursePackageEntity" id="coursePackageMap">
+        <result property="id" column="id"/>
+        <result property="classPackage" column="class_package"/>
+        <result property="chargingStandard" column="charging_standard"/>
+        <result property="buyClassHour" column="buy_class_hour"/>
+        <result property="consumedClassHour" column="consumed_class_hour"/>
+        <result property="isValidity" column="is_validity"/>
+        <result property="periodOfValidity" column="period_of_validity"/>
+        <result property="price" column="price"/>
+        <result property="createTime" column="create_time"/>
+        <result property="studentId" column="student_id"/>
+    </resultMap>
+
+    <insert id="createCoursePackage">
+        INSERT INTO(class_package,charging_standard,buy_class_hour,consumed_class_hour,is_validity,period_of_validity,price,student_id)
+        VALUES (#{classPackage},#{chargingStandard},#{buyClassHour},#{consumedClassHour},#{isValidity},#{periodOfValidity},#{price},#{studentId})
+    </insert>
+
+    <select id="coursePackageList" resultMap="coursePackageMap">
+        SELECT id,class_package,charging_standard,buy_class_hour,consumed_class_hour,is_validity,period_of_validity,price,create_time,student_id
+        FROM course_package
+        WHERE student_id = #{studentId}
+
+    </select>
+
+</mapper>

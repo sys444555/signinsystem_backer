@@ -39,11 +39,8 @@
     </resultMap>
 
     <select id="getClassList" resultMap="classMap">
-          SELECT c.id,c.class_name,c.course_name,c.class_hour,c.t_id,b.name,c.create_time,c.status
-          FROM class a
-          LEFT JOIN teacher b
-          ON a.t_id = b.id
-          WHERE a.c_id=#{cId}
+          SELECT a.id,a.class_name,a.course_name,a.class_hour,a.t_id,b.name,a.create_time,a.status
+          FROM class a, teacher b WHERE a.teacher_id = b.id
     </select>
 
     <select id="getTeacherList" resultMap="teacherMap">
