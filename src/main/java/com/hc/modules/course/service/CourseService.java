@@ -2,7 +2,9 @@ package com.hc.modules.course.service;
 
 import com.baomidou.mybatisplus.service.IService;
 import com.hc.modules.course.entity.CourseEntity;
-import com.hc.modules.student.entity.StudentEntity;
+import com.hc.modules.course.entity.CourseEntity;
+import com.hc.modules.teacher.entity.ClassEntity;
+import com.hc.modules.teacher.entity.TeacherEntity;
 
 import java.util.List;
 
@@ -16,11 +18,9 @@ import java.util.List;
 public interface CourseService extends IService<CourseEntity> {
 
 
-    public List<CourseEntity> getClassCourseList(Integer cid);
+    public List<CourseEntity> getCourseList(String token);
 
-    public void insertCourse(CourseEntity courseEntity, String dataRange);
-
-    public void insertCourseStudents(Integer coid, String[] studentList);
+    public void insertCourse(CourseEntity courseEntity);
 
 }
 

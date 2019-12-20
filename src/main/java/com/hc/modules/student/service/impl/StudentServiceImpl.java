@@ -24,6 +24,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, StudentEntity
         }
         Integer id = studentEntity.getId();
         studentMapper.linkClassStudent(id, cid);
-
     }
+
+
 }

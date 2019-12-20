@@ -19,19 +19,9 @@ public class CourseEntity {
 
     private String name;
 
-    private Integer classId;
-
-    private BigDecimal classHour;
-
-    private Integer status;
-
-    private String startDate;
-
-    private String endDate;
+    private Integer tId;
 
     private Date createTime;
-
-    private List<StudentEntity> studentEntityList;
 
 
 }
