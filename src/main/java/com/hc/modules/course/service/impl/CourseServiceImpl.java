@@ -10,6 +10,7 @@ import com.hc.modules.student.entity.StudentEntity;
 import com.hc.modules.student.mapper.StudentMapper;
 import com.hc.modules.student.service.StudentService;
 import com.hc.modules.teacher.entity.ClassEntity;
+import com.hc.modules.teacher.entity.TeacherEntity;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -33,7 +34,10 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, CourseEntity> i
 
 
     @Override
-    public void insertCourse(CourseEntity courseEntity) {
+    public void insertCourse(CourseEntity courseEntity, String token) {
+        String username = jwtUtil.getUsername(token);
+        TeacherEntity t = courseMapper.getT(username);
+        courseEntity.setTId(t.getId());
         Integer integer = courseMapper.insertCourse(courseEntity);
         if(integer == null || integer == 0){
             throw new JcException("新增课程失败");

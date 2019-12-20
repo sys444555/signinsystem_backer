@@ -39,11 +39,11 @@
     </resultMap>
 
     <select id="getClassList" resultMap="classMap">
-          SELECT c.id,c.class_name,c.course_name,c.class_hour,c.t_id,b.name,c.create_time,c.status FROM role_user a
+          SELECT c.id,c.class_name,c.course_name,c.class_hour,c.t_id,b.name,c.create_time,c.status
+          FROM class a
           LEFT JOIN teacher b
-          ON a.id = b.user_id
-          LEFT JOIN class c ON b.id = c.t_id
-          WHERE a.username=#{username}
+          ON a.t_id = b.id
+          WHERE a.c_id=#{cId}
     </select>
 
     <select id="getTeacherList" resultMap="teacherMap">
@@ -51,8 +51,8 @@
     </select>
 
     <insert id="insertClass" parameterType="com.hc.modules.teacher.entity.ClassEntity">
-        INSERT INTO class(class_name,course_name,class_hour,t_id)
-        VALUES(#{className},#{courseName},#{classHour},#{tId})
+        INSERT INTO class(class_name,course_name,class_hour,t_id,c_id)
+        VALUES(#{className},#{courseName},#{classHour},#{tId},#{cId})
     </insert>
 
     <update id="updateClassStatus">
