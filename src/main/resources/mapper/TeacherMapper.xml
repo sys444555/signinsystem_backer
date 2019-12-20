@@ -4,14 +4,20 @@
 <mapper namespace="com.hc.modules.teacher.mapper.TeacherMapper">
 
     <!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="com.hc.modules.teacher.entity.ClassEntity" id="classMap" extends="teacherMap">
+    <resultMap type="com.hc.modules.teacher.entity.ClassEntity" id="classMap" extends="courseMap">
         <result property="id" column="id"/>
         <result property="className" column="class_name"/>
-        <result property="courseName" column="course_name"/>
         <result property="classHour" column="class_hour"/>
         <result property="tId" column="t_id"/>
         <result property="createTime" column="create_time"/>
         <result property="status" column="status"/>
+    </resultMap>
+
+    <resultMap id="courseMap" type="com.hc.modules.course.entity.CourseEntity">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="tId" column="t_id"/>
+        <result property="createTime" column="create_time"/>
     </resultMap>
 
     <resultMap id="teacherMap" type="com.hc.modules.teacher.entity.TeacherEntity">
@@ -39,8 +45,12 @@
     </resultMap>
 
     <select id="getClassList" resultMap="classMap">
-          SELECT a.id,a.class_name,a.course_name,a.class_hour,a.t_id,b.name,a.create_time,a.status
-          FROM class a, teacher b WHERE a.teacher_id = b.id
+        SELECT a.id,a.class_name,c.name,a.class_hour,a.t_id,b.name,a.create_time,a.status
+        FROM class a
+         LEFT JOIN  teacher b
+         on a.t_id = b.id
+         LEFT JOIN course c
+         ON a.c_id = c.id
     </select>
 
     <select id="getTeacherList" resultMap="teacherMap">
