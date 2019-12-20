@@ -34,42 +34,11 @@
 				<div class="ui_text_indent">
 					<div id="box_border">
 					<div id="box_top">班级信息表单</div>
-						<div id="box_bottom">
-					<!--		<input id="c_name" type="text" placeholder="请输入经纪人的姓名 …"
-								   style="text-align:center;height:20px; line-height:20px;">-->
-							<!--<input type="button" value="查询" class="ui_input_btn01" onclick="search();" />-->
-							<!--<input id="c_name" type="text" placeholder="请输入您需要查找的内容 …"
-								   style="text-align:center;height:30px; line-height:30px;margin:10px 0px 10px 50px;">
-							<input type="button" value="查询" class="ui_input_btn01" onclick="findApplicant();" />-->
-							<!--<div>-->
-								<!--<span>学历:</span>-->
-								<!--<select class="grade_selector" style="width: 100px;">-->
-									<!-- <option value="">&#45;&#45;请选择&#45;&#45;</option>-->
-									<!-- <option value="">中专</option>-->
-									<!-- <option value="">大专</option>-->
-									<!-- <option value="">本科</option>-->
-									<!-- <option value="">硕士</option>-->
-									<!-- <option value="">博士</option>-->
-								<!--</select>-->
-							<!--</div>-->
-							<!--<div>-->
-								<!--<span>全日制:</span>-->
-								<!--<select class="full_time_seletor" style="width: 100px;">-->
-									<!-- <option value="">&#45;&#45;请选择&#45;&#45;</option>-->
-									<!-- <option value="">是</option>-->
-									  <!--<option value="">否</option>-->
-								<!--</select>-->
-							<!--</div>-->
-							<input type="button" value="新增班级" class="ui_input_btn01" onclick="createClass();" />
-							<input type="button" value="修改状态" class="ui_input_btn01" onclick="updateStatus();" />
-
-							<!--<input type="button" value="筛选" class="ui_input_btn01" onclick="search();" />-->
-					</div>
 				</div>
 			</div>
 			<div class="ui_content">
 				<div class="ui_tb">
-					<table id="t_table" class="table" cellspacing="0" cellpadding="0" width="100%" align="center" border="0" style="text-align: center">
+					<table id="t_table1" class="table" cellspacing="0" cellpadding="0" width="100%" align="center" border="0" style="text-align: center">
 						<thead>
 						<tr >
 							<th><input type="checkbox" class="bs-checkbox"  style="width: 36px;"></th>
@@ -86,7 +55,7 @@
 						<tbody style="text-align: center;" id="class_td"></tbody>
 					</table>
 				</div>
-				<div class="M-box">-->
+				<div class="M-box">
 					<div class="Pagination" id="pagination"></div>
 				</div>
 			</div>
@@ -95,7 +64,7 @@
 	</form>
 
 
-	<div class="modal" id="class_create_alter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width: auto;">
+	<div class="modal" id="class_student_alter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width: auto;">
 		<div class="modal-dialog" id="class_create_dialog">
 			<div class="modal-content" align="center" style="overflow: hidden; height: 500px; width: 800px">
 				<div class="modal-header">
@@ -103,48 +72,25 @@
 						×
 					</button>
 					<h4 class="modal-title" id="myModalLabel2">
-						新增班级页面
+						新增学员至班级页面
 					</h4>
 				</div>
 				<div class="modal-body">
-					<table width="100%" align="absbottom" class="table">
+					<table width="100%" align="absbottom" class="table" style="overflow: auto">
 						<form id="createClassForm" method="post">
-							<div style="margin-bottom: 20px">班级名字 : <input name="className" required="required"/><span style="color: red">*</span></div>
-							<div style="margin-bottom: 20px">课程名字 : <input name="courseName" required="required"/><span style="color: red">*</span></div>
-							<div style="margin-bottom: 20px">课程课时 :
-								<select name="classHour" style="width: 174px" required="required">
-									<option value="-1">请选择</option>
-                                    <option value="0" >0</option>
-                                    <option value="0.5" >0.5</option>
-                                    <option value="1.0" >1.0</option>
-                                    <option value="1.5" >1.5</option>
-                                    <option value="2.0" >2.0</option>
-                                    <option value="2.5" >2.5</option>
-                                    <option value="3.0" >3.0</option>
-                                    <option value="3.5" >3.5</option>
-                                    <option value="4.0" >4.0</option>
-                                    <option value="4.5" >4.5</option>
-                                    <option value="5.0" >5.0</option>
-                                    <option value="5.5" >5.5</option>
-                                    <option value="6.0" >6.0</option>
-                                    <option value="6.5" >6.5</option>
-                                    <option value="7.0" >7.0</option>
-                                    <option value="7.5" >7.5</option>
-									<option value="8.0" >8.0</option>
-								</select><span style="color: red">*</span>
-							</div>
-							<div style="margin-bottom: 20px">任课老师 :
-								<select name="tId" id="tt" style="width: 174px" required="required">
-									<option value="-1">请选择</option>
-								</select><span style="color: red">*</span>
-							</div>
-
+							<div style="margin-bottom: 10px">学生名字 : <input name="name" required="required"/><span style="color: red">*</span></div>
+							<div style="margin-bottom: 10px">学生性别 : <select name="gender" style="width: 174px"><option value="0">男</option><option value="1">女</option> </select><span style="color: red">*</span></div>
+							<div style="margin-bottom: 10px">学生生日 : <input name="birth" style="width: 174px" type="date" required="required"><span style="color: red">*</span></div>
+							<div style="margin-bottom: 10px">监护人员 : <input name="guarder"  required="required"><span style="color: red">*</span></div>
+							<div style="margin-bottom: 10px">监护手机 : <input name="guarderPhone" type="tel" required="required"><span style="color: red">*</span></div>
+							<div style="margin-bottom: 10px">居住地址 : <input name="address" required="required"><span style="color: red">*</span></div>
 						</form>
 					</table>
 
+
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" id="saveClass" onclick="saveClass()">
+					<button type="button" class="btn btn-primary" id="saveStudent" onclick="saveStudent()">
 						提交保存
 					</button>
 					<button type="button" onclick="cancelClassModal()" class="btn btn-default" data-dismiss="modal">关闭
@@ -156,5 +102,58 @@
 		</div>
 		<!-- /.modal -->
 	</div>
+
+
+	<div class="modal" id="class_info_alter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width: auto;">
+		<div class="modal-dialog" id="class_info_dialog">
+			<div class="modal-content" align="center" style="overflow: auto; height: 500px; width: 800px">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="cancelClassModal1()">
+						×
+					</button>
+					<h4 class="modal-title" id="myModalLabel3">
+						班级详情页面
+					</h4>
+				</div>
+				<div class="modal-body" id="modalBodyId">
+
+					<div class="classInfoHead">
+						<table>
+						</table>
+					</div>
+
+					<div style=" padding: 0 20px 0;margin: 20px 0;line-height: 1px; border-left: 200px solid #ddd; border-right: 200px solid #ddd;" >---------------------------------------</div>
+
+					<div class="studentInfo">
+						<div><a href="javascript:void(0)" onclick="showStudentInfo(1)"><span>张三</span></a></div>
+						<div><a href="javascript:void(0)" onclick="showStudentInfo(2)"><span>李四</span></a></div>
+						<button class="btn" onclick="addStudent()" value="添加学员进班">添加学员进班</button>
+					</div>
+
+					<div style=" padding: 0 20px 0;margin: 20px 0;line-height: 1px; border-left: 200px solid #ddd; border-right: 200px solid #ddd;" >---------------------------------------</div>
+
+					<div class="lessonInfo">
+						<div><a href="javascript:void(0)" onclick="showLessonInfo(1)"><span>跆拳道1课时</span></a></div>
+						<div><a href="javascript:void(0)" onclick="showLessonInfo(2)"><span>跆拳道2课时</span></a></div>
+						<button class="btn" onclick="addLession()" value="添加课时">添加课时</button>
+					</div>
+
+
+				</div>
+				<div class="modal-footer">
+					<!--<button type="button" class="btn btn-primary" onclick="()">-->
+						<!--提交保存-->
+					<!--</button>-->
+					<button type="button" onclick="cancelClassModal1()" class="btn btn-default" data-dismiss="modal">关闭
+					</button>
+
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal -->
+	</div>
+
+
 </body>
 </html>
