@@ -127,6 +127,105 @@ function createCourse() {
 
 }
 
+function saveStudentToCourse(coid) {
+
+    var cl = $("#studentList").find("div[data-status=1]");
+
+    var studentList = [];
+
+    for(var i=0 ;i<cl.length;i++){
+        studentList.push(cl[i].dataset.sid)
+    }
+
+    $.ajax({
+        url:'http://localhost:8080/class/course/students/create',
+        type:'POST', //GET
+        async:true,    //或false,是否异步
+        headers:{
+            "token" : getCookie("token")
+        },
+        traditional: true,//这里设置为true
+        data:{
+
+            "coid" : coid,
+            "studentList" : studentList
+        },
+        timeout:5000,    //超时时间
+        dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+        success:function(data){
+            //console.log(data)；
+            if(data.code == 0){
+                alert("学生已经添加到课程")
+                window.location.reload()
+            }else{
+                alert("学生添加课程失败！")
+            }
+        },
+        error:function () {
+            alert("服务器存在异常，请稍后再试！")
+        }
+    })
+
+
+}
+
+function addStudentToCourse(coid) {
+    $("#insert_student_alter").show();
+
+    $("#studentList").empty()
+
+    $.ajax({
+        url:'http://localhost:8080/class/getStudent/'+sessionStorage.getItem("cid"),
+        type:'GET', //GET
+        async:true,    //或false,是否异步
+        headers:{
+            "token" : getCookie("token")
+        },
+        data:{
+            pageNo : 1,
+            pageSize : 20
+        },
+        timeout:5000,    //超时时间
+        dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+        success:function(data){
+            //console.log(data)；
+
+            if (data.code == 0 && data.data.list.length > 0) {
+
+                $("#saveStudent").attr("onclick","saveStudentToCourse("+coid+")")
+
+                var dataList = data.data.list;
+
+                for (var i = 0; i < dataList.length; i++) {
+                    var html = '<div style="width: 200px;margin-bottom: 10px" id="studentDiv" data-sid="#{id}">'
+                    + '<span>#{name}</span>'
+                    + '<input  class="btn-add" style="margin-left: 50px" type="button" value="加入课时" onclick="changeTextAndStatus(this)"/>'
+
+                    html = html.replace("#{id}",dataList[i].id)
+                    html = html.replace("#{name}",dataList[i].name)
+
+                    $("#studentList").append(html)
+
+                }
+            }
+        }
+    })
+
+
+}
+
+function changeTextAndStatus(obj) {
+    if($(obj).parent().attr("data-status") == undefined){
+        $(obj).val("移出课时")
+        $(obj).parent().attr("data-status",1)
+    }else {
+        $(obj).val("加入课时")
+        $(obj).parent().removeAttr("data-status")
+    }
+}
+
+
+
 function saveCourse() {
 
     var name = $("input[name=name]").val()
@@ -136,13 +235,13 @@ function saveCourse() {
     //"2019-12-13 01:01:01 - 2019-12-13 02:02:06"
     var dataRange = $("#dataRange").val();
 
-    if(isEmpty(name) && isEmpty(classHour) && isEmpty(dataRange)){
+    if((!isEmpty(name) && isEmpty(classHour) && isEmpty(dataRange))){
         alert("存在信息未填写，请确认！")
         return
     }
 
     $.ajax({
-        url:'',
+        url:'http://localhost:8080/class/course/create',
         type:'POST', //GET
         async:true,    //或false,是否异步
         headers:{
@@ -152,7 +251,7 @@ function saveCourse() {
             "name" : name,
             "classHour" : classHour,
             "dataRange" : dataRange,
-            "cid": sessionStorage.getItem("cid")
+            "classId": sessionStorage.getItem("cid")
         },
         timeout:5000,    //超时时间
         dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
@@ -175,6 +274,11 @@ function saveCourse() {
 function cancelClassModal() {
     $("#course_create_alter")[0].reset
     $("#course_create_alter").hide()
+}
+
+function cancelClassModal1() {
+    $("#insert_student_alter")[0].reset
+    $("#insert_student_alter").hide()
 }
 
 
@@ -225,3 +329,4 @@ function isEmpty(obj){
         return true;
     }
 }
+
