@@ -6,6 +6,8 @@ import com.github.pagehelper.PageInfo;
 import com.hc.common.utils.ResponseUtil;
 import com.hc.modules.course.entity.CourseEntity;
 import com.hc.modules.course.service.CourseService;
+
+
 import com.hc.modules.teacher.entity.ClassEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,31 +24,23 @@ public class CourseController {
     private CourseService courseService;
 
     /**
-     * 新增
+     * 查询课程列表
      */
-    @RequestMapping(value = "/class/course/create", method = RequestMethod.POST)
-    public ResponseUtil createCourse(CourseEntity courseEntity, String dataRange){
-        courseService.insertCourse(courseEntity, dataRange);
-        return ResponseUtil.success();
-    }
-
-    /**
-     * 新增
-     */
-    @RequestMapping(value = "/class/course/students/create", method = RequestMethod.POST)
-    public ResponseUtil createCourseStudents(Integer coid, String[] studentList){
-        courseService.insertCourseStudents(coid, studentList);
-        return ResponseUtil.success();
-    }
-
-    /**
-     * 查询班级课节列表
-     */
-    @RequestMapping(value = "/class/course/list",method = RequestMethod.GET)
-    public ResponseUtil getClassList(Integer pageNo, Integer pageSize, Integer cid){
+    @RequestMapping(value = "/course/list",method = RequestMethod.GET)
+    public ResponseUtil getCourseList(Integer pageNo, Integer pageSize, HttpServletRequest httpRequest){
+        String token = httpRequest.getHeader("token");
         PageHelper.startPage(pageNo, pageSize);
-        List<CourseEntity> classList = courseService.getClassCourseList(cid);
-        PageInfo<CourseEntity> pageInfo = new PageInfo<>(classList);
+        List<CourseEntity> courseList = courseService.getCourseList(token);
+        PageInfo<CourseEntity> pageInfo = new PageInfo<>(courseList);
         return ResponseUtil.success(pageInfo);
+    }
+
+    /**
+     * 新增课程
+     */
+    @RequestMapping(value = "/course/create", method = RequestMethod.POST)
+    public ResponseUtil createCourse(CourseEntity courseEntity){
+        courseService.insertCourse(courseEntity);
+        return ResponseUtil.success();
     }
 }

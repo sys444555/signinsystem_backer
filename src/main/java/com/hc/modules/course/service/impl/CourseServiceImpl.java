@@ -2,14 +2,17 @@ package com.hc.modules.course.service.impl;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.hc.common.exception.JcException;
-import com.hc.modules.course.mapper.CourseMapper;
+import com.hc.common.utils.JWTUtil;
 import com.hc.modules.course.entity.CourseEntity;
-
+import com.hc.modules.course.mapper.CourseMapper;
 import com.hc.modules.course.service.CourseService;
+import com.hc.modules.student.entity.StudentEntity;
+import com.hc.modules.student.mapper.StudentMapper;
+import com.hc.modules.student.service.StudentService;
+import com.hc.modules.teacher.entity.ClassEntity;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,40 +21,22 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, CourseEntity> i
     @Resource
     private CourseMapper courseMapper;
 
+    @Resource
+    private JWTUtil jwtUtil;
 
     @Override
-    public List<CourseEntity> getClassCourseList(Integer cid) {
-        List<CourseEntity> classCourseList = courseMapper.getClassCourseList(cid);
-        return classCourseList;
+    public List<CourseEntity> getCourseList(String token) {
+        String username = jwtUtil.getUsername(token);
+        List<CourseEntity> courseList = courseMapper.getCourseList(username);
+        return courseList;
     }
 
-    @Override
-    public void insertCourse(CourseEntity courseEntity, String dataRange) {
-        String[] split = dataRange.split(" - ");
-        courseEntity.setStartDate(split[0]);
-        courseEntity.setEndDate(split[1]);
-        Integer result = courseMapper.insertCourse(courseEntity);
-        if(result == null || result == 0){
-            throw new JcException("新增课时失败");
-        }
-    }
 
     @Override
-    public void insertCourseStudents(Integer coid, String[] studentList) {
-
-        if(studentList != null){
-
-            List<Integer> list = new ArrayList<>();
-            for(int i=0;i<studentList.length;i++){
-                Integer integer = Integer.valueOf(studentList[i]);
-                list.add(integer);
-            }
-            courseMapper.insertCourseStudents(coid, list);
-
-        }else {
-            throw new JcException("新增学员失败");
+    public void insertCourse(CourseEntity courseEntity) {
+        Integer integer = courseMapper.insertCourse(courseEntity);
+        if(integer == null || integer == 0){
+            throw new JcException("新增课程失败");
         }
-
-
     }
 }

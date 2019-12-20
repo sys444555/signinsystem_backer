@@ -3,6 +3,8 @@ package com.hc.modules.course.mapper;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.hc.modules.course.entity.CourseEntity;
 import com.hc.modules.student.entity.StudentEntity;
+import com.hc.modules.teacher.entity.ClassEntity;
+import com.hc.modules.teacher.entity.TeacherEntity;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -16,14 +18,8 @@ import java.util.List;
  */
 public interface CourseMapper extends BaseMapper<CourseEntity> {
 
-    public List<CourseEntity> getClassCourseList(@Param(value = "cid") Integer cid);
-
+    public List<CourseEntity> getCourseList(@Param("username") String username);
 
     public Integer insertCourse(CourseEntity courseEntity);
-
-    public Integer insertCourseStudents(@Param(value = "coid")Integer coid,
-                                        @Param(value = "list") List<Integer> list);
-
-
 
 }
