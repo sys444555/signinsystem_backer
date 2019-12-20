@@ -30,22 +30,17 @@ class SigninsystemApplicationTests {
     }
     @Test
     void t1() {
-        List<CourseEntity> classCourseList = courseService.getClassCourseList(1);
-        System.out.println("classCourseList = " + classCourseList);
+
 
     }
 
     @Test
     void te(){
-        CourseEntity courseEntity = new CourseEntity();
-        courseEntity.setName("dfs");
-        courseEntity.setClassHour(new BigDecimal(1.00));
-        courseEntity.setClassId(1);
-        String s = "2019-12-13 01:01:01 - 2019-12-13 02:02:06";
-        String[] split = s.split(" - ");
-        String[] str = {"1","12"};
 
-        courseService.insertCourseStudents(3,str);
+        CourseEntity courseEntity = new CourseEntity();
+        courseEntity.setName("hello");
+
+        courseService.insertCourse(courseEntity, "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqd3QtaWQiOiIwN2M5NGYwYi04OWQxLTQ1NjEtODM1Yy0xYWE1ZDMyNzgwMWUiLCJleHAiOjE1NzY4MzY0NTEsInVzZXJuYW1lIjoidXNlciJ9.cHEi3LgEfRltkHof5JzxDTClytv6PR62O16c1P6dIM0");
 
 
     }

@@ -27,19 +27,5 @@ public class StudentEntity {
 
     private String address;
 
-    private String classPackage;
-
-    private String chargingStandard;
-
-    private BigDecimal buyClassHour;
-
-    private BigDecimal consumedClassHour;
-
-    private Integer isValidity;
-
-    private String periodOfValidity;
-
-    private BigDecimal price;
-
     private Date createTime;
 }
