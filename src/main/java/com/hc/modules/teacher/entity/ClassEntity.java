@@ -48,5 +48,7 @@ public class ClassEntity  extends TeacherEntity{
 	 */
 	private Integer status;
 
+	private Integer cId;
+
 
 }

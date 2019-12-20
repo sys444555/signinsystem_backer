@@ -20,7 +20,7 @@ public interface CourseService extends IService<CourseEntity> {
 
     public List<CourseEntity> getCourseList(String token);
 
-    public void insertCourse(CourseEntity courseEntity);
+    public void insertCourse(CourseEntity courseEntity, String token);
 
 }
 

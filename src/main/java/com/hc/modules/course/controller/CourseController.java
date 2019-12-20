@@ -39,8 +39,9 @@ public class CourseController {
      * 新增课程
      */
     @RequestMapping(value = "/course/create", method = RequestMethod.POST)
-    public ResponseUtil createCourse(CourseEntity courseEntity){
-        courseService.insertCourse(courseEntity);
+    public ResponseUtil createCourse(CourseEntity courseEntity,HttpServletRequest httpRequest){
+        String token = httpRequest.getHeader("token");
+        courseService.insertCourse(courseEntity, token);
         return ResponseUtil.success();
     }
 }

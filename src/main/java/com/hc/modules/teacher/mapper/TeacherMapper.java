@@ -18,7 +18,7 @@ import java.util.List;
  */
 public interface TeacherMapper extends BaseMapper<TeacherEntity> {
 
-    public List<ClassEntity> getClassList(@Param(value = "username") String username);
+    public List<ClassEntity> getClassList(@Param(value = "cId") Integer cId);
 
     public List<TeacherEntity> getTeacherList();
 

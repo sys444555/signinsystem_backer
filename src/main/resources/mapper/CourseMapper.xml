@@ -19,6 +19,13 @@
           WHERE a.username=#{username}
     </select>
 
+    <select id="getT">
+         SELECT b.id FROM role_user a
+          LEFT JOIN teacher b
+          ON a.id = b.user_id
+          WHERE a.username=#{username}
+    </select>
+
     <insert id="insertCourse">
         INSERT INTO course(name,t_id)
         VALUES(#{name},#{tId})
