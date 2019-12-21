@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.util.List;
 
 @SpringBootTest
@@ -44,11 +45,13 @@ class SigninsystemApplicationTests {
     }
 
     @Test
-    void te(){
+    void te() throws ParseException {
 
+        LessonEntity lessonEntity = new LessonEntity();
+        lessonEntity.setId(1);
+        lessonEntity.setClassHour(new BigDecimal(1.0));
 
-        lessonService.getClassLessonList(1);
-
+        lessonService.lessonSign(lessonEntity,1);
 
     }
 

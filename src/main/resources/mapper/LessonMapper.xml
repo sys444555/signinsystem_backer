@@ -11,6 +11,7 @@
        <result property="status" column="status"/>
        <result property="startDate" column="start_date"/>
        <result property="endDate" column="end_date"/>
+       <result property="lessonNow" column="lesson_now"/>
        <result property="createTime" column="create_time"/>
        <collection property="studentEntityList" ofType="com.hc.modules.student.entity.StudentEntity" javaType="ArrayList">
            <id property="id" column="s_id"/>
@@ -24,7 +25,7 @@
    </resultMap>
 
     <select id="getClassLessonList" resultMap="lessonResultMap">
-        SELECT a.id,a.name,a.class_id,a.class_hour,a.status,a.start_date,a.end_date,a.create_time,
+        SELECT a.id,a.name,a.class_id,a.class_hour,a.status,a.start_date,a.end_date,a.lesson_now,a.create_time,
         c.id AS s_id, c.name AS s_name,c.gender,c.birth,c.guarder,c.guarder_phone
         FROM lesson a
         LEFT JOIN lesson_student b ON a.id = b.lesson_id
@@ -33,8 +34,8 @@
     </select>
 
     <insert id="insertLesson">
-        INSERT INTO lesson(name,class_id,class_hour,start_date,end_date)
-        VALUES (#{name},#{classId},#{classHour},#{startDate},#{endDate})
+        INSERT INTO lesson(name,class_id,class_hour,start_date,end_date,lesson_now)
+        VALUES (#{name},#{classId},#{classHour},#{startDate},#{endDate},lesson_now++)
     </insert>
 
     <insert id="insertLessonStudents">

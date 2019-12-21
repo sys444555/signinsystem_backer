@@ -1,6 +1,7 @@
 package com.hc.modules.student.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.hc.common.utils.ResponseUtil;
@@ -34,9 +35,9 @@ public class CoursePackageController {
      * 列表
      */
     @RequestMapping(value = "/student/coursePackage/list/{studentId}", method = RequestMethod.GET)
-    public ResponseUtil list(@PathVariable(value = "studentId") Integer studentId){
+    public ResponseUtil list(@PathVariable(value = "studentId") Integer studentId, Integer classId){
 
-        List<CoursePackageEntity> coursePackageEntities = coursePackageService.coursePackageList(studentId);
+        Map<String, Object> coursePackageEntities = coursePackageService.coursePackageList(studentId, classId);
         return ResponseUtil.success(coursePackageEntities);
     }
 
