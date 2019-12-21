@@ -145,11 +145,11 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
     @Override
     public void insertLessonStudents(Integer coid, String[] studentList) {
 
-        
+
             //清空课节学员
         Integer result = lessonMapper.deleteLessonStudent(coid);
         System.out.println("result = " + result);
-        
+
         if(studentList != null){
             List<Integer> list = new ArrayList<>();
             for(int i=0;i<studentList.length;i++){
@@ -158,8 +158,8 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
             }
             lessonMapper.insertLessonStudents(coid, list);
         }
-        
-        
+
+
 
 
     }

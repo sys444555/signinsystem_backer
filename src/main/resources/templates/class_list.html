@@ -20,6 +20,8 @@
 	<script src="../js/scripts/bootstrap/bootstrap.min.js?v=3.3.6"></script>
 	<script type="text/javascript" src="../js/scripts/jquery/jquery-confirm.js"></script>
 	<script src="../js/class/class.js"></script>
+	<script src="../js/scripts/layDate/laydate.js"></script>
+	<link rel="stylesheet" type="text/css" href="../css/theme/default/laydate.css">
 <title>信息管理系统</title>
 <style>
 	.alt td{ background:black !important;}
@@ -77,7 +79,7 @@
 				</div>
 				<div class="modal-body">
 					<table width="100%" align="absbottom" class="table" style="overflow: auto">
-						<form id="createClassForm" method="post">
+						<form id="createStudentForm" method="post">
 							<div style="margin-bottom: 10px">学生名字 : <input name="name" required="required"/><span style="color: red">*</span></div>
 							<div style="margin-bottom: 10px">学生性别 : <select name="gender" style="width: 174px"><option value="0">男</option><option value="1">女</option> </select><span style="color: red">*</span></div>
 							<div style="margin-bottom: 10px">学生生日 : <input name="birth" style="width: 174px" type="date" required="required"><span style="color: red">*</span></div>
@@ -118,24 +120,29 @@
 				<div class="modal-body" id="modalBodyId">
 
 					<div class="classInfoHead">
-						<table>
+						<table style="width:750px" class="table">
 						</table>
 					</div>
 
-					<div style=" padding: 0 20px 0;margin: 20px 0;line-height: 1px; border-left: 200px solid #ddd; border-right: 200px solid #ddd;" >---------------------------------------</div>
+					<div style=" padding: 0 20px 0;margin: 20px 0;line-height: 1px; border-left: 200px solid #ddd; border-right: 200px solid #ddd;letter-spacing: 3px" >--------------班级学员区-------------</div>
 
 					<div class="studentInfo">
-						<div><a href="javascript:void(0)" onclick="showStudentInfo(1)"><span>张三</span></a></div>
-						<div><a href="javascript:void(0)" onclick="showStudentInfo(2)"><span>李四</span></a></div>
-						<button class="btn" onclick="addStudent()" value="添加学员进班">添加学员进班</button>
+						<table id="studentTable" style="width: 750px" class="table">
+							<tbody>
+
+							</tbody>
+						</table>
+						<button class="btn-green" onclick="addStudent()" value="添加学员进班">添加学员进班</button>
 					</div>
 
-					<div style=" padding: 0 20px 0;margin: 20px 0;line-height: 1px; border-left: 200px solid #ddd; border-right: 200px solid #ddd;" >---------------------------------------</div>
+					<div style=" padding: 0 20px 0;margin: 20px 0;line-height: 1px; border-left: 200px solid #ddd; border-right: 200px solid #ddd;letter-spacing: 3px" >----------------课时区---------------</div>
 
 					<div class="lessonInfo">
-						<div><a href="javascript:void(0)" onclick="showLessonInfo(1)"><span>跆拳道1课时</span></a></div>
-						<div><a href="javascript:void(0)" onclick="showLessonInfo(2)"><span>跆拳道2课时</span></a></div>
-						<button class="btn" onclick="addLession()" value="添加课时">添加课时</button>
+						<table id="lessonTable" style="width: 750px" class="table">
+							<tbody>
+							</tbody>
+						</table>
+						<button class="btn-green" onclick="addLesson()" value="添加课时">添加课时进班</button>
 					</div>
 
 
@@ -154,6 +161,228 @@
 		<!-- /.modal -->
 	</div>
 
+
+	<div class="modal" id="student_info_alter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width: auto;">
+		<div class="modal-dialog" id="student_info_dialog">
+			<div class="modal-content" align="center" style="overflow: auto; height: 500px; width: 800px">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="cancelClassModal2()">
+						×
+					</button>
+					<h4 class="modal-title" id="myModalLabel4">
+						学生详情页面
+					</h4>
+				</div>
+				<div class="modal-body">
+					<div>
+						<table class="table" id="studentTable1">
+						</table>
+					</div>
+					<div style=" padding: 0 20px 0;margin: 20px 0;line-height: 1px; border-left: 200px solid #ddd; border-right: 200px solid #ddd;letter-spacing: 3px" >--------------课包区-------------</div>
+					<div id="studentCourseArea">
+						<table class="table">
+							<thead >
+								<tr>
+									<td>课包名字</td>
+									<td>收费标准</td>
+									<td>总课时</td>
+									<td>是否有效</td>
+									<td>课包截止时间</td>
+									<td>操作</td>
+								</tr>
+							</thead>
+							<tbody style="text-align: center;">
+							</tbody>
+						</table>
+						<button type="button" class="btn btn-primary" data-status="0" onclick="addPackageToStuden()">
+							为学员添加新课包
+						</button>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<!--<button type="button" class="btn btn-primary">-->
+					<!--提交保存-->
+					<!--</button>-->
+					<button type="button" onclick="cancelClassModal2()" class="btn btn-default" data-dismiss="modal">关闭
+					</button>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+	<div class="modal" id="add_package_alter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width: auto;">
+		<div class="modal-dialog" id="add_package_dialog">
+			<div class="modal-content" align="center" style="overflow: auto; height: 500px; width: 800px">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="cancelClassModal3()">
+						×
+					</button>
+					<h4 class="modal-title" id="myModalLabel5">
+						新增课包
+					</h4>
+				</div>
+				<div class="modal-body">
+					<table width="100%" align="absbottom" class="table" style="overflow: auto">
+						<form id="addPackage" method="post">
+							<div style="margin-bottom: 10px">课包名字 : <input name="classPackage" id="classPackage" required="required"><span style="color: red">*</span></div>
+							<div style="margin-bottom: 10px">收费标准 : <input name="chargingStandard" id="chargingStandard" required="required"><span style="color: red">*</span></div>
+							<div style="margin-bottom: 10px">购买课时 : <input name="bugClassHour" id="bugClassHour" required="required"><span style="color: red">*</span></div>
+							<div style="margin-bottom: 10px">未加入已耗课时 : <input style="width: 132px" name="consumedClassHour" id="consumedClassHour" required="required"><span style="color: red">*</span></div>
+							<div style="margin-bottom: 10px">是否生效 : <select name="isValidity" style="width: 174px"><option value="1">生效</option><option value="0">不生效</select></div>
+							<div style="margin-bottom: 10px">有效期限 : <input name="periodOfValidity" style="width: 174px" type="date" id="periodOfValidity" required="required"><span style="color: red">*</span></div>
+							<div style="margin-bottom: 10px">课包价格 : <input name="price" id="price" required="required"><span style="color: red">*</span></div>
+						</form>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" onclick="savePackageToStudent()">
+						提交保存
+					</button>
+					<button type="button" onclick="cancelClassModal3()" class="btn btn-default" data-dismiss="modal">关闭
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="modal" id="add_lesson_alter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width: auto;">
+		<div class="modal-dialog" id="add_lesson_dialog">
+			<div class="modal-content" align="center" style="overflow: auto; height: 500px; width: 800px">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="cancelClassModal4()">
+						×
+					</button>
+					<h4 class="modal-title" id="myModalLabel6">
+						新增课时
+					</h4>
+				</div>
+				<div class="modal-body">
+					<table width="100%" align="absbottom" class="table" style="overflow: auto">
+						<form id="createClassForm" method="post">
+							<div style="margin-bottom: 10px">课时名字 : <input name="name" required="required"/><span style="color: red">*</span></div>
+							<div style="margin-bottom: 10px">需消耗课时 :
+								<select name="classHour" style="width: 174px">
+									<option value="-1">---请选择---</option>
+									<option value="0" >0</option>
+									<option value="0.5" >0.5</option>
+									<option value="1.0" >1.0</option>
+									<option value="1.5" >1.5</option>
+									<option value="2.0" >2.0</option>
+									<option value="2.5" >2.5</option>
+									<option value="3.0" >3.0</option>
+									<option value="3.5" >3.5</option>
+									<option value="4.0" >4.0</option>
+									<option value="4.5" >4.5</option>
+									<option value="5.0" >5.0</option>
+									<option value="5.5" >5.5</option>
+									<option value="6.0" >6.0</option>
+									<option value="6.5" >6.5</option>
+									<option value="7.0" >7.0</option>
+									<option value="7.5" >7.5</option>
+									<option value="8.0" >8.0</option>
+								</select><span style="color: red">*</span>
+							</div>
+							<div style="margin-bottom: 10px">开设课程时间段 : <input name="dataRange" id="dataRange" style="width: 300px" type="text" required="required"><span style="color: red">*</span></div>
+							<div style="margin-bottom: 10px">上课周期 :
+								<select name="period" style="width: 174px" onchange="showTimes(this)">
+									<option value="0" >本节课</option>
+									<option value="1" >每天</option>
+									<option value="2" >隔天</option>
+									<option value="3" >每周</option>
+									<option value="4" >隔周</option>
+								</select><span style="color: red">*</span>
+							</div>
+							<div style="margin-bottom: 10px ; display: none">上课节数 : <input name="times" id="times" required="required"/><span style="color: red">*</span></div>
+						</form>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" onclick="saveLesson()">
+						提交保存
+					</button>
+					<button type="button" onclick="cancelClassModal4()" class="btn btn-default" data-dismiss="modal">关闭
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal" id="show_lesson_alter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width: auto;">
+		<div class="modal-dialog" id="show_lesson_dialog">
+			<div class="modal-content" align="center" style="overflow: auto; height: 500px; width: 800px">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="cancelClassModal5()">
+						×
+					</button>
+					<h4 class="modal-title" id="myModalLabel7">
+						新增课时
+					</h4>
+				</div>
+				<div class="modal-body">
+
+					<div class="studentInfo">
+						<table id="lesson_info" style="width: 750px" class="table">
+							<tbody>
+
+							</tbody>
+						</table>
+					</div>
+
+					<div style=" padding: 0 20px 0;margin: 20px 0;line-height: 1px; border-left: 200px solid #ddd; border-right: 200px solid #ddd;letter-spacing: 3px" >--------------课时学员区-------------</div>
+
+					<div class="studentInfo">
+						<table id="lesson_studentInfo" style="width: 750px" class="table">
+							<thead>
+								<tr><td>学员名字</td><td>操作</td></tr>
+
+							</thead>
+							<tbody>
+
+							</tbody>
+						</table>
+						<button class="btn-green" onclick="addStudentToLesson()" value="添加学员进课程">添加学员进课程</button>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal" id="show_studenList_alter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width: auto;">
+		<div class="modal-dialog" id="show_studentList_dialog">
+			<div class="modal-content" align="center" style="overflow: auto; height: 500px; width: 800px">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="cancelClassModal6()">
+						×
+					</button>
+					<h4 class="modal-title" id="myModalLabel8">
+						添加学员
+					</h4>
+				</div>
+				<div class="modal-body">
+					<table class="table" id="studentLesson">
+						<thead>
+							<tr><td>学员名</td><td>状态</td></tr>
+						</thead>
+						<tbody>
+
+						</tbody>
+					</table>
+
+
+				</div>
+				<button type="button" class="btn btn-primary" onclick="saveStudenToLesson()">
+					提交保存
+				</button>
+				<button type="button" onclick="cancelClassModal6()" class="btn btn-default" data-dismiss="modal">关闭
+				</button>
+			</div>
+		</div>
+	</div>
 
 </body>
 </html>
