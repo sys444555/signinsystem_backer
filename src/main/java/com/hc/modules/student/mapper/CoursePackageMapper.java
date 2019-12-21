@@ -22,4 +22,12 @@ public interface CoursePackageMapper extends BaseMapper<CoursePackageEntity> {
 
     public Integer getCpid(@Param(value = "studentId") Integer studentId,
                            @Param(value = "classId") Integer classId);
+
+    public Integer setCoursePackage(@Param(value = "studentId") Integer studentId,
+                     @Param(value = "classId") Integer classId,
+                     @Param(value = "cpid") Integer cpid);
+
+    public Integer updateCoursePackage(@Param(value = "studentId") Integer studentId,
+                                       @Param(value = "classId") Integer classId,
+                                       @Param(value = "cpid") Integer cpid);
 }

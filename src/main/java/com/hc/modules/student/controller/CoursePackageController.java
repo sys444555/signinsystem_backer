@@ -50,6 +50,14 @@ public class CoursePackageController {
         return ResponseUtil.success();
     }
 
+    /**
+     * 设置课时包
+     */
+    @RequestMapping(value = "student/coursePackage/set", method = RequestMethod.POST)
+    public ResponseUtil setCoursePackage(Integer studentId, Integer classId, Integer cpid){
 
+        coursePackageService.setCoursePackage(studentId, classId, cpid);
+        return ResponseUtil.success();
+    }
 
 }

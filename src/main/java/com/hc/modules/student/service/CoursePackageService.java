@@ -24,5 +24,7 @@ public interface CoursePackageService extends IService<CoursePackageEntity> {
 
     public void createCoursePackage(CoursePackageEntity coursePackageEntity);
 
+    public void setCoursePackage(Integer studentId, Integer classId, Integer cpid);
+
 }
 
