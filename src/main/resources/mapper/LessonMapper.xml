@@ -3,7 +3,7 @@
 
 <mapper namespace="com.hc.modules.lesson.mapper.LessonMapper">
 
-   <resultMap id="courseResultMap" type="com.hc.modules.course.entity.CourseEntity">
+   <resultMap id="lessonResultMap" type="com.hc.modules.lesson.entity.LessonEntity">
        <id property="id" column="id"/>
        <result property="name" column="name"/>
        <result property="classId" column="class_id"/>
@@ -30,12 +30,12 @@
        </collection>
    </resultMap>
 
-    <select id="getClassLessonList" resultMap="courseResultMap">
+    <select id="getClassLessonList" resultMap="lessonResultMap">
         SELECT a.id,a.name,a.class_id,a.class_hour,a.status,a.start_date,a.end_date,a.create_time,
         c.id AS s_id, c.name AS s_name,c.gender,c.birth,c.guarder,c.guarder_phone,c.class_package,c.charging_standard,
         c.buy_class_hour,c.consumed_class_hour,c.is_validity,c.period_of_validity,c.price
-        FROM course a
-        LEFT JOIN course_student b ON a.id = b.course_id
+        FROM lesson a
+        LEFT JOIN lesson_student b ON a.id = b.lesson_id
         LEFT JOIN student c ON b.student_id = c.id
         WHERE class_id=#{cid}
     </select>

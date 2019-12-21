@@ -18,7 +18,7 @@ import java.util.List;
  */
 public interface TeacherMapper extends BaseMapper<TeacherEntity> {
 
-    public List<ClassEntity> getClassList();
+    public List<ClassEntity> getClassList(@Param(value = "cId") Integer cId);
 
     public List<TeacherEntity> getTeacherList();
 
@@ -30,5 +30,7 @@ public interface TeacherMapper extends BaseMapper<TeacherEntity> {
     public List<StudentEntity> getClassStudentById(@Param(value = "id") Integer id);
 
     public List<CourseEntity> getCourseById(@Param(value = "id") Integer id);
+
+
 
 }
