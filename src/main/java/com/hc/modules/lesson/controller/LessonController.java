@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -66,7 +67,7 @@ public class LessonController {
      * 单个学员签到
      */
     @RequestMapping(value = "/class/lesson/student/sign", method = RequestMethod.POST)
-    public ResponseUtil lessonSign(LessonEntity lessonEntity, Integer studentId){
+    public ResponseUtil lessonSign(LessonEntity lessonEntity, Integer studentId) throws ParseException {
         lessonService.lessonSign(lessonEntity, studentId);
         return ResponseUtil.success();
     }

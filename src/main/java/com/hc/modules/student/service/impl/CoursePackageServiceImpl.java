@@ -10,7 +10,9 @@ import com.hc.modules.student.entity.CoursePackageEntity;
 import com.hc.modules.student.service.CoursePackageService;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class CoursePackageServiceImpl extends ServiceImpl<CoursePackageMapper, CoursePackageEntity> implements CoursePackageService {
@@ -22,9 +24,12 @@ public class CoursePackageServiceImpl extends ServiceImpl<CoursePackageMapper, C
 
 
 
-    public List<CoursePackageEntity> coursePackageList(Integer studentId){
-
-           return  coursePackageMapper.coursePackageList(studentId);
+    public Map<String, Object> coursePackageList(Integer studentId, Integer classId){
+        Map<String, Object> map = new HashMap<>();
+        map.put("coursePackageList", coursePackageMapper.coursePackageList(studentId));
+        Integer cpid = coursePackageMapper.getCpid(studentId, classId);
+        map.put("defaultUse", cpid);
+        return  map;
 
 
     }

@@ -63,5 +63,9 @@ private Date createTime;
 	 * 学生id
 	 */
 private Integer studentId;
+	/**
+	 * 已耗课时
+	 */
+	private BigDecimal leftClassHour;
 
 }

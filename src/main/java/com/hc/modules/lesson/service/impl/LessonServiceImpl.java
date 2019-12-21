@@ -11,8 +11,11 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 
 @Service
 public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> implements LessonService {
@@ -58,22 +61,32 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
     }
 
     @Override
-    public void lessonSign(LessonEntity lessonEntity, Integer studentId) {
+    public void lessonSign(LessonEntity lessonEntity, Integer studentId) throws ParseException {
 
         CoursePackageEntity coursePackageEntity = lessonMapper.lessonSign(lessonEntity.getId(), studentId);
         if(coursePackageEntity == null){
             throw new JcException("该学员课时包为空或未设置");
         }
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
+        Date date = simpleDateFormat.parse(coursePackageEntity.getPeriodOfValidity());
+        System.out.println("date = " + date);
+        System.out.println("new Date() = " + new Date());
+        if(date.compareTo(new Date()) < 0){
+            throw new JcException("该学员课时包已过期");
+        }
         BigDecimal classHour = lessonEntity.getClassHour();
+        BigDecimal leftClassHour = coursePackageEntity.getLeftClassHour();
         BigDecimal consumedClassHour = coursePackageEntity.getConsumedClassHour();
         if(coursePackageEntity.getIsValidity() == null || coursePackageEntity.getIsValidity() == 0){
             throw new JcException("该学员课时包不在有效期");
         }
-        BigDecimal subtract = consumedClassHour.subtract(classHour);
+        BigDecimal add = consumedClassHour.add(classHour);
+        BigDecimal subtract = leftClassHour.subtract(classHour);
         if(subtract.compareTo(BigDecimal.ZERO) < 0){
             throw new JcException("该学员课时包课时不足");
         }
-        coursePackageEntity.setConsumedClassHour(subtract);
+        coursePackageEntity.setLeftClassHour(subtract);
+        coursePackageEntity.setConsumedClassHour(add);
         lessonMapper.updateCoursePackage(coursePackageEntity);
 
     }

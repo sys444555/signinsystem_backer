@@ -8,6 +8,7 @@ import com.hc.modules.student.entity.CoursePackageEntity;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -19,7 +20,7 @@ import java.util.List;
  */
 public interface CoursePackageService extends IService<CoursePackageEntity> {
 
-    public List<CoursePackageEntity> coursePackageList(Integer studentId);
+    public Map<String, Object> coursePackageList(Integer studentId, Integer classId);
 
     public void createCoursePackage(CoursePackageEntity coursePackageEntity);
 

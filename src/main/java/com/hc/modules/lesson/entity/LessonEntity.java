@@ -31,6 +31,8 @@ public class LessonEntity {
 
     private Date createTime;
 
+    private Integer lessonNow;
+
     private List<StudentEntity> studentEntityList;
 
 

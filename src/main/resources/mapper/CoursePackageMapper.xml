@@ -15,18 +15,22 @@
         <result property="price" column="price"/>
         <result property="createTime" column="create_time"/>
         <result property="studentId" column="student_id"/>
+        <result property="leftClassHour" column="left_class_hour"/>
     </resultMap>
 
     <insert id="createCoursePackage">
-        INSERT INTO(class_package,charging_standard,buy_class_hour,consumed_class_hour,is_validity,period_of_validity,price,student_id)
-        VALUES (#{classPackage},#{chargingStandard},#{buyClassHour},#{consumedClassHour},#{isValidity},#{periodOfValidity},#{price},#{studentId})
+        INSERT INTO(class_package,charging_standard,buy_class_hour,left_class_hour,is_validity,period_of_validity,price,student_id)
+        VALUES (#{classPackage},#{chargingStandard},#{buyClassHour},#{leftClassHour},#{isValidity},#{periodOfValidity},#{price},#{studentId})
     </insert>
 
     <select id="coursePackageList" resultMap="coursePackageMap">
-        SELECT id,class_package,charging_standard,buy_class_hour,consumed_class_hour,is_validity,period_of_validity,price,create_time,student_id
+        SELECT id,class_package,charging_standard,buy_class_hour,consumed_class_hour,left_class_hour,is_validity,period_of_validity,price,create_time,student_id
         FROM course_package
         WHERE student_id = #{studentId}
+    </select>
 
+    <select id="getCpid">
+        SELECT c_p_id from class_student WHERE c_id=#{classId} AND s_id=#{studentId}
     </select>
 
 </mapper>
