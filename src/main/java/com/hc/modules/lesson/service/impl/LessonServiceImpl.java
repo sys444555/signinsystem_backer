@@ -67,7 +67,7 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
         if(coursePackageEntity == null){
             throw new JcException("该学员课时包为空或未设置");
         }
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = simpleDateFormat.parse(coursePackageEntity.getPeriodOfValidity());
         System.out.println("date = " + date);
         System.out.println("new Date() = " + new Date());

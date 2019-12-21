@@ -29,7 +29,7 @@
         WHERE student_id = #{studentId}
     </select>
 
-    <select id="getCpid">
+    <select id="getCpid" resultType="Integer">
         SELECT c_p_id from class_student WHERE c_id=#{classId} AND s_id=#{studentId}
     </select>
 

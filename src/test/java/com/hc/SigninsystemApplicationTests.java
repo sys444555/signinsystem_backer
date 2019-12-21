@@ -5,6 +5,7 @@ import com.hc.modules.course.service.CourseService;
 import com.hc.modules.lesson.entity.LessonEntity;
 import com.hc.modules.lesson.service.LessonService;
 import com.hc.modules.student.entity.StudentEntity;
+import com.hc.modules.student.service.CoursePackageService;
 import com.hc.modules.student.service.StudentService;
 import com.hc.modules.teacher.service.TeacherService;
 import org.junit.jupiter.api.Test;
@@ -14,6 +15,7 @@ import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.List;
+import java.util.Map;
 
 @SpringBootTest
 class SigninsystemApplicationTests {
@@ -28,6 +30,9 @@ class SigninsystemApplicationTests {
     private LessonService lessonService;
 
     @Resource
+    private CoursePackageService coursePackageService;
+
+    @Resource
     private TeacherService teacherService;
 
     @Test
@@ -40,7 +45,8 @@ class SigninsystemApplicationTests {
     }
     @Test
     void t1() {
-        teacherService.getClassList();
+        Map<String, Object> stringObjectMap = coursePackageService.coursePackageList(1, 1);
+        System.out.println("stringObjectMap.get(\"coursePackageList\") = " + stringObjectMap.get("coursePackageList"));
 
     }
 
