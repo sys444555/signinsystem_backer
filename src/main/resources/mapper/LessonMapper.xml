@@ -34,8 +34,8 @@
     </select>
 
     <insert id="insertLesson">
-        INSERT INTO lesson(name,class_id,class_hour,start_date,end_date,lesson_now)
-        VALUES (#{name},#{classId},#{classHour},#{startDate},#{endDate},lesson_now++)
+        INSERT INTO lesson(name,class_id,class_hour,start_date,end_date)
+        VALUES (#{name},#{classId},#{classHour},#{startDate},#{endDate})
     </insert>
 
     <insert id="insertLessonStudents">
