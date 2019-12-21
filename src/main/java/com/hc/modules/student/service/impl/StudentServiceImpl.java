@@ -26,5 +26,13 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, StudentEntity
         studentMapper.linkClassStudent(id, cid);
     }
 
+    @Override
+    public StudentEntity getStudentById(Integer sid) {
+
+        StudentEntity studentEntity = studentMapper.selectById(sid);
+
+        return studentEntity;
+    }
+
 
 }

@@ -29,4 +29,11 @@ public class StudentController {
         studentService.insertStudent(studentEntity, cid);
         return ResponseUtil.success();
     }
+
+    @RequestMapping(value = "/student/getStudentById",method = RequestMethod.GET)
+    public ResponseUtil getStudentById(Integer sid){
+
+        return ResponseUtil.success(studentService.getStudentById(sid));
+    }
+
 }

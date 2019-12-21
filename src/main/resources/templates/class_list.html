@@ -172,17 +172,80 @@
 					</h4>
 				</div>
 				<div class="modal-body">
-
+					<div>
+						<table class="table" id="studentTable1">
+							<!--<tr>-->
+								<!--<td>123</td>-->
+								<!--<td>男</td>-->
+							<!--</tr>-->
+							<!--<tr>-->
+								<!--<td>1994-07-07</td>-->
+								<!--<td>居住地址</td>-->
+							<!--</tr>-->
+							<!--<tr>-->
+								<!--<td>监护人：XXXX</td>-->
+								<!--<td>联系方式：XXXX</td>-->
+							<!--</tr>-->
+						</table>
+					</div>
+					<div style=" padding: 0 20px 0;margin: 20px 0;line-height: 1px; border-left: 200px solid #ddd; border-right: 200px solid #ddd;letter-spacing: 3px" >--------------课包区-------------</div>
+					<div id="studentCourseArea">
+						<table class="table">
+							<thead >
+								<tr>
+									<td>课包名字</td>
+									<td>收费标准</td>
+									<td>总课时</td>
+									<td>是否有效</td>
+									<td>课包截止时间</td>
+									<td>操作</td>
+								</tr>
+							</thead>
+							<tbody style="text-align: center;">
+							</tbody>
+						</table>
+						<button type="button" class="btn btn-primary" data-status="0">
+							为学员添加新课包
+						</button>
+					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary">
-					提交保存
-					</button>
-					<button type="button" onclick="cancelClassModal1()" class="btn btn-default" data-dismiss="modal">关闭
+					<!--<button type="button" class="btn btn-primary">-->
+					<!--提交保存-->
+					<!--</button>-->
+					<button type="button" onclick="cancelClassModal2()" class="btn btn-default" data-dismiss="modal">关闭
 					</button>
 
 				</div>
 
+			</div>
+		</div>
+	</div>
+
+
+	<div class="modal" id="add_package_alter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width: auto;">
+		<div class="modal-dialog" id="add_package_dialog">
+			<div class="modal-content" align="center" style="overflow: auto; height: 500px; width: 800px">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="cancelClassModal2()">
+						×
+					</button>
+					<h4 class="modal-title" id="myModalLabel5">
+						学生详情页面
+					</h4>
+				</div>
+				<div class="modal-body">
+					<table width="100%" align="absbottom" class="table" style="overflow: auto">
+						<form id="addPackage" method="post">
+							<div style="margin-bottom: 10px">学生名字 : <input name="name" required="required"/><span style="color: red">*</span></div>
+							<div style="margin-bottom: 10px">学生性别 : <select name="gender" style="width: 174px"><option value="0">男</option><option value="1">女</option> </select><span style="color: red">*</span></div>
+							<div style="margin-bottom: 10px">学生生日 : <input name="birth" style="width: 174px" type="date" required="required"><span style="color: red">*</span></div>
+							<div style="margin-bottom: 10px">监护人员 : <input name="guarder"  required="required"><span style="color: red">*</span></div>
+							<div style="margin-bottom: 10px">监护手机 : <input name="guarderPhone" type="tel" required="required"><span style="color: red">*</span></div>
+							<div style="margin-bottom: 10px">居住地址 : <input name="address" required="required"><span style="color: red">*</span></div>
+						</form>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>

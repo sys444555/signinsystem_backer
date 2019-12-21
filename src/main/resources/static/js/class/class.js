@@ -34,7 +34,7 @@ $(function () {
 
                     html = html.replace(/#{id}/g,dataList[i].id)
                     html = html.replace(/#{className}/g,dataList[i].className)
-                    html = html.replace(/#{courseName}/g,dataList[i].name)
+                    html = html.replace(/#{courseName}/g,dataList[i].courseName)
                     html = html.replace(/#{classHour}/g,dataList[i].classHour)
                     html = html.replace(/#{teacherName}/g,dataList[i].teacherName)
                     html = html.replace("#{createTime}",dataList[i].createTime)
@@ -236,10 +236,108 @@ function showStudent(studentId) {
 
     studentId = studentId;
 
+    $("#student_info_alter").show()
+
+    $.ajax({
+        url:'http://localhost:8080/student/getStudentById',
+        type:'get', //GET
+        async:true,    //或false,是否异步
+        headers:{
+            "token" : getCookie("token")
+        },
+        data:{
+            "sid" : studentId
+        },
+        timeout:5000,    //超时时间
+        dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+        success:function(data){
+            $("#studentTable1").empty()
+            if(data.code == 0 ){
+
+                var html = '<tr data-id="#{id}">'
+                    + '<td class="td_lable"> #{name}</td>'
+                    + '<td class="td_lable"> #{gender}</td>'
+                    +'</tr>'
+                    + '<tr>'
+                    + '<td class="td_lable">#{birth}</td>'
+                    + '<td class="td_lable">#{address}</td>'
+                    + '</tr>'
+                    + '<tr>'
+                    + '<td class="td_lable">#{guarder}</td>'
+                    + '<td class="td_lable">#{guarderPhone}</td>'
+                    + '</tr>'
+
+                html = html.replace(/#{id}/g,data.data.id)
+                html = html.replace(/#{name}/g,data.data.name)
+                html = html.replace(/#{gender}/g,data.data.gender==0? '男' : '女')
+                html = html.replace(/#{birth}/g,data.data.birth)
+                html = html.replace(/#{address}/g,data.data.address)
+                html = html.replace(/#{guarder}/g,data.data.guarder)
+                html = html.replace(/#{guarderPhone}/g,data.data.guarderPhone)
+
+                $("#studentTable1").append(html)
+
+            }else{
+                alert("查询学生信息失败！")
+            }
+        },
+        error:function () {
+            alert("服务器异常，请稍后再试！")
+        }
+    })
+
+    $.ajax({
+        url:'http://localhost:8080/student/coursePackage/list/'+studentId,
+        type:'get', //GET
+        async:true,    //或false,是否异步
+        headers:{
+            "token" : getCookie("token")
+        },
+        data:{
+        },
+        timeout:5000,    //超时时间
+        dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+        success:function(data){
+            $("#studentCourseArea tbody").empty()
+            if(data.code == 0 ){
+
+                for(var i=0;i<data.data.length;i++){
+
+                    var html = '<tr data-id="#{id}">'
+                        + '<td class="td_lable"> #{classPackage}</td>'
+                        + '<td class="td_lable"> #{chargingStandard}</td>'
+                        + '<td class="td_lable"> #{buyClassHour}</td>'
+                        + '<td class="td_lable">#{isValidity}</td>'
+                        + '<td class="td_lable">#{periodOfValidity}</td>'
+                        + '<td class="td_lable"><a href="javascript:void(0)" onclick="changeMR(#{id}})">修改默认</a></td>'
+                        + '</tr>'
+
+                    html = html.replace(/#{id}/g,data.data[i].id)
+                    html = html.replace(/#{classPackage}/g,data.data[i].classPackage)
+                    html = html.replace(/#{chargingStandard}/g,data.data[i].chargingStandard)
+                    html = html.replace(/#{buyClassHour}/g,data.data[i].buyClassHour)
+                    html = html.replace(/#{isValidity}/g,data.data[i].isValidity==0?'无效':'有效')
+                    html = html.replace(/#{periodOfValidity}/g,data.data[i].periodOfValidity)
+
+                    $("#studentCourseArea tbody").append(html)
+
+                }
+            }else{
+                alert("查询课包信息失败！")
+            }
+        },
+        error:function () {
+            alert("服务器异常，请稍后再试！")
+        }
+    })
 
 
 }
 
+function cancelClassModal2() {
+    $("#student_info_alter").hide()
+    $("#class_info_alter").show()
+}
 
 function cancelClassModal1() {
     $("#class_info_alter").hide()
