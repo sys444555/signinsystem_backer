@@ -54,5 +54,7 @@ public class ClassEntity  {
 
 	private Integer cId;
 
-	private String name;
+	private String courseName;
+
+	private String teacherName;
 }
