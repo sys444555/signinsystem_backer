@@ -45,8 +45,7 @@ class SigninsystemApplicationTests {
     }
     @Test
     void t1() {
-        Map<String, Object> stringObjectMap = coursePackageService.coursePackageList(1, 1);
-        System.out.println("stringObjectMap.get(\"coursePackageList\") = " + stringObjectMap.get("coursePackageList"));
+        coursePackageService.setCoursePackage(19,1,2);
 
     }
 
@@ -55,7 +54,7 @@ class SigninsystemApplicationTests {
 
         LessonEntity lessonEntity = new LessonEntity();
         lessonEntity.setId(1);
-        lessonEntity.setClassHour(new BigDecimal(1.0));
+        lessonEntity.setClassHour(new BigDecimal(2.0));
 
         lessonService.lessonSign(lessonEntity,1);
 
