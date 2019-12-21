@@ -45,9 +45,9 @@ public class TeacherController {
      * 查询班级列表
      */
     @RequestMapping(value = "/class/list",method = RequestMethod.GET)
-    public ResponseUtil getClassList(Integer pageNo, Integer pageSize, Integer cId, HttpServletRequest httpRequest){
+    public ResponseUtil getClassList(Integer pageNo, Integer pageSize, HttpServletRequest httpRequest){
         PageHelper.startPage(pageNo, pageSize);
-        List<ClassEntity> classList = teacherService.getClassList(cId);
+        List<ClassEntity> classList = teacherService.getClassList();
         PageInfo<ClassEntity> pageInfo = new PageInfo<>(classList);
         return ResponseUtil.success(pageInfo);
     }

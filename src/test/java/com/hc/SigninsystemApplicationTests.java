@@ -39,7 +39,7 @@ class SigninsystemApplicationTests {
     }
     @Test
     void t1() {
-        teacherService.getClassList(1);
+        teacherService.getClassList();
 
     }
 

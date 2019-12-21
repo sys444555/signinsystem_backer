@@ -3,10 +3,15 @@ package com.hc.modules.teacher.entity;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
+
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import com.hc.modules.course.entity.CourseEntity;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
 import java.util.Date;
 /**
  * 班级表
@@ -17,7 +22,8 @@ import java.util.Date;
  */
 @TableName("class")
 @Data
-public class ClassEntity  extends CourseEntity {
+public class ClassEntity  {
+
 
 
 	/**
@@ -36,7 +42,7 @@ public class ClassEntity  extends CourseEntity {
 		/**
 	 * 老师id
 	 */
-	private Integer tId;
+	private Integer teacherId;
 		/**
 	 *
 	 */
@@ -48,5 +54,5 @@ public class ClassEntity  extends CourseEntity {
 
 	private Integer cId;
 
-
+	private String name;
 }

@@ -25,8 +25,8 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, TeacherEntity
     private JWTUtil jwtUtil;
 
     @Override
-    public List<ClassEntity> getClassList(Integer cId) {
-        List<ClassEntity> classList = teacherMapper.getClassList(cId);
+    public List<ClassEntity> getClassList() {
+        List<ClassEntity> classList = teacherMapper.getClassList();
         return classList;
     }
 

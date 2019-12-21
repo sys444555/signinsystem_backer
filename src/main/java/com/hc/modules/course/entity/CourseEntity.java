@@ -7,22 +7,23 @@ import com.hc.modules.student.entity.StudentEntity;
 import com.hc.modules.teacher.entity.TeacherEntity;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
 @Data
 @TableName("course")
-public class CourseEntity extends TeacherEntity {
+public class CourseEntity  extends TeacherEntity implements Serializable {
 
-    @TableId(type = IdType.AUTO)
+    private static final long serialVersionUID = 1L;
+
     private Integer id;
 
     private String name;
 
     private Integer tId;
 
-    private Date createTime;
 
 
 }
