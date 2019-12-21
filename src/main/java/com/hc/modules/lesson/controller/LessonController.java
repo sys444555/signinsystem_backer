@@ -29,8 +29,8 @@ public class LessonController {
      * 新增课节
      */
     @RequestMapping(value = "/class/lesson/create", method = RequestMethod.POST)
-    public ResponseUtil createLesson(LessonEntity lessonEntity, String dataRange){
-        lessonService.insertLesson(lessonEntity, dataRange);
+    public ResponseUtil createLesson(LessonEntity lessonEntity, String dataRange, Integer period, Integer times) throws ParseException {
+        lessonService.insertLesson(lessonEntity, dataRange, period, times);
         return ResponseUtil.success();
     }
 
@@ -70,6 +70,15 @@ public class LessonController {
     public ResponseUtil lessonSign(LessonEntity lessonEntity, Integer studentId) throws ParseException {
         lessonService.lessonSign(lessonEntity, studentId);
         return ResponseUtil.success();
+    }
+
+    /**
+     * 查看课节
+     */
+    @RequestMapping(value = "/class/lesson/get/lessonId", method = RequestMethod.GET)
+    public ResponseUtil lessonSign(@PathVariable(value = "lessonId") Integer lessonId){
+        LessonEntity lesson = lessonService.getLesson(lessonId);
+        return ResponseUtil.success(lesson);
     }
 
 }

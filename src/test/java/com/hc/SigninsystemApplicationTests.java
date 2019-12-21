@@ -4,6 +4,7 @@ import com.hc.modules.course.entity.CourseEntity;
 import com.hc.modules.course.service.CourseService;
 import com.hc.modules.lesson.entity.LessonEntity;
 import com.hc.modules.lesson.service.LessonService;
+import com.hc.modules.student.entity.CoursePackageEntity;
 import com.hc.modules.student.entity.StudentEntity;
 import com.hc.modules.student.service.CoursePackageService;
 import com.hc.modules.student.service.StudentService;
@@ -36,16 +37,20 @@ class SigninsystemApplicationTests {
     private TeacherService teacherService;
 
     @Test
-    void contextLoads() {
-        StudentEntity studentEntity = new StudentEntity();
-        studentEntity.setAddress("a");
-        Integer id = 1;
-        studentService.insertStudent(studentEntity, 1);
+    void contextLoads() throws ParseException {
+        LessonEntity lessonEntity = new LessonEntity();
+        lessonEntity.setClassHour(new BigDecimal(2.0));
+        lessonEntity.setClassId(1);
+        lessonEntity.setName("hello");
+       lessonService.insertLesson(lessonEntity,"2019-12-13 01:01:01 - 2019-12-13 02:02:06",1,2 );
 
     }
     @Test
     void t1() {
-        coursePackageService.setCoursePackage(19,1,2);
+        CoursePackageEntity coursePackageEntity = new CoursePackageEntity();
+        coursePackageEntity.setClassPackage("跆拳道包");
+
+        coursePackageService.createCoursePackage(coursePackageEntity);
 
     }
 
