@@ -229,21 +229,33 @@ function showClassInfo(classId,className,courseName,classHour,teacherName) {
 
 
 }
+function cancelClassModal5() {
+
+    $("#class_info_alter").show()
+    $("#show_lesson_alter").hide()
+
+}
 
 function showLessonInfo(id) {
+
+
+    $("#show_lesson_alter").show()
+    $("#class_info_alter").hide();
+
     if(isEmpty(id)){
         alert("课时id无法获取，请稍后再试！")
         return;
     }
+    sessionStorage.setItem("lessonId",id)
 
     //获取当前lession回显信息
 
     $.ajax({
-        url:'',
-        type:'POST', //GET
+        url:'http://localhost:8080/class/lesson/get/'+id,
+        type:'get', //GET
         async:true,    //或false,是否异步
         headers:{
-
+            token : getCookie("token")
         },
         data:{
 
@@ -251,12 +263,72 @@ function showLessonInfo(id) {
         timeout:5000,    //超时时间
         dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
         success:function(data){
+            $("#lesson_info tbody").empty()
             //console.log(data)；
+            if(data.code == 0){
+
+                var html = "<tr>"
+                    +  "<td class='td_lable'>课程名：#{name}</td>"
+                    +  "<td class='td_lable'>课程消耗：#{classHour}</td>"
+                    + "</tr>"
+                    + "<tr>"
+                    +  "<td class='td_lable'>开始时间：#{startDate}</td>"
+                    +  "<td class='td_lable'>结束时间：#{endDate}</td>"
+                    + "</tr>"
+
+                html = html.replace(/#{name}/g,data.data.name)
+                html = html.replace(/#{classHour}/g,data.data.classHour)
+                html = html.replace(/#{startDate}/g,data.data.startDate)
+                html = html.replace(/#{endDate}/g,data.data.endDate)
+
+                $("#lesson_info tbody").append(html)
+
+            }else{
+                alert("获取课程失败！")
+            }
         },
         error:function () {
             alert("服务器异常，请稍后再试！")
         }
     })
+
+
+    $.ajax({
+        url:'http://localhost:8080/class/lesson/student/list/'+id,
+        type:'get', //GET
+        async:true,    //或false,是否异步
+        headers:{
+            "token" : getCookie("token")
+        },
+        data:{
+
+        },
+        timeout:5000,    //超时时间
+        dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+        success:function(data){
+
+            $("#lesson_studentInfo tbody").empty()
+
+            if(data.code==0){
+                for (var i =0 ; i<data.data.length;i++){
+                    var html = "<tr>"
+                    + "<td>#{name}</td>"
+                    + "<td><a href='javascript:void(0)' onclick='qiandao(#{id})'>签到</a></td>"
+                    + "</tr>>"
+                    html = html.replace(/#{id}/g,data.data[i].id)
+                    html = html.replace(/#{name}/g,data.data[i].name)
+                    $("#lesson_studentInfo tbody").append(html)
+                }
+
+            }else{
+                alert("获取课时学员失败！")
+            }
+        },
+        error:function () {
+            alert("服务器异常，请稍后再试！")
+        }
+    })
+
 
 }
 
@@ -469,6 +541,112 @@ function showStudent(studentId) {
         }
     })
 }
+
+function addStudentToLesson() {
+    $("#show_studenList_alter").show()
+    $("#show_lesson_alter").hide()
+
+
+    if( isEmpty(sessionStorage.getItem("classId"))){
+        alert("获取班级id失败！")
+        return
+    }
+
+    $.ajax({
+        url:'http://localhost:8080/class/getStudent/'+   sessionStorage.getItem("classId"),
+        type:'get', //GET
+        async:true,    //或false,是否异步
+        headers:{
+            "token" : getCookie("token")
+        },
+        data:{
+            pageNo:1,
+            pageSize:9999
+        },
+        timeout:5000,    //超时时间
+        dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+        success:function(data){
+            $("#studentLesson tbody").empty()
+           if(data.code ==0){
+               for(var i =0;i<data.data.list.length;i++){
+                   var html = "<tr data-id='#{id}'>"
+                   + "<td>#{name}</td>"
+                   +"<td><input type='button' class='btn-green' value='加入课程' onclick='insertStudent(#{id})'></td>"
+                   + "</tr>"
+
+                   html = html.replace(/#{id}/g,data.data.list[i].id)
+                   html = html.replace(/#{name}/g,data.data.list[i].name)
+
+                   $("#studentLesson tbody").append(html)
+               }
+           }
+        },
+        error:function () {
+            alert("服务器异常，请稍后再试！")
+        }
+    })
+
+}
+
+function saveStudenToLesson() {
+
+    var list = $("#studentLesson").find("tr[data-select=1]");
+
+    var studentList = []
+
+    for(var i=0;i<list.length ;i++){
+        studentList.push(list[i].dataset.id)
+    }
+
+    $.ajax({
+        url:'http://localhost:8080/class/lesson/students/create',
+        type:'POST', //GET
+        async:true,    //或false,是否异步
+        headers:{
+            "token" : getCookie("token")
+        },
+        traditional: true,
+        data:{
+            coid : sessionStorage.getItem("lessonId"),
+            studentList : studentList
+        },
+        timeout:5000,    //超时时间
+        dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+        success:function(data){
+            //console.log(data)；
+            if(data.code==0){
+                alert("添加学员至课时成功！")
+                window.location.reload()
+            }else{
+                alert("添加失败")
+            }
+        },
+        error:function () {
+            alert("服务器异常，请稍后再试！")
+        }
+    })
+
+
+
+}
+
+function insertStudent(sid) {
+
+    if($("#studentLesson").find("tr[data-id="+sid+"]").attr("data-select") == 1){
+        $("#studentLesson").find("tr[data-id="+sid+"]").find("td").next().children().val("加入课程")
+        $("#studentLesson").find("tr[data-id="+sid+"]").removeAttr("data-select")
+    }else{
+        $("#studentLesson").find("tr[data-id="+sid+"]").find("td").next().children().val("移出课程")
+        $("#studentLesson").find("tr[data-id="+sid+"]").attr("data-select","1")
+    }
+
+}
+
+function cancelClassModal6() {
+    $("#show_studenList_alter").hide()
+    $("#show_lesson_alter").show()
+}
+
 
 function changeMR(id) {
 

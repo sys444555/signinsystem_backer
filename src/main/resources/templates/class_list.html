@@ -336,6 +336,10 @@
 
 					<div class="studentInfo">
 						<table id="lesson_studentInfo" style="width: 750px" class="table">
+							<thead>
+								<tr><td>学员名字</td><td>操作</td></tr>
+
+							</thead>
 							<tbody>
 
 							</tbody>
@@ -348,6 +352,37 @@
 		</div>
 	</div>
 
+	<div class="modal" id="show_studenList_alter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width: auto;">
+		<div class="modal-dialog" id="show_studentList_dialog">
+			<div class="modal-content" align="center" style="overflow: auto; height: 500px; width: 800px">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="cancelClassModal6()">
+						×
+					</button>
+					<h4 class="modal-title" id="myModalLabel8">
+						添加学员
+					</h4>
+				</div>
+				<div class="modal-body">
+					<table class="table" id="studentLesson">
+						<thead>
+							<tr><td>学员名</td><td>状态</td></tr>
+						</thead>
+						<tbody>
+
+						</tbody>
+					</table>
+
+
+				</div>
+				<button type="button" class="btn btn-primary" onclick="saveStudenToLesson()">
+					提交保存
+				</button>
+				<button type="button" onclick="cancelClassModal6()" class="btn btn-default" data-dismiss="modal">关闭
+				</button>
+			</div>
+		</div>
+	</div>
 
 </body>
 </html>
