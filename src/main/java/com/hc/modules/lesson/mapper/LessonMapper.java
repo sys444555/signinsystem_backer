@@ -33,4 +33,7 @@ public interface LessonMapper extends BaseMapper<LessonEntity> {
     public Integer updateCoursePackage(CoursePackageEntity coursePackageEntity);
 
     public LessonEntity getLesson(@Param(value = "classId") Integer classId);
+
+    public List<StudentEntity> getLessonStudentList(@Param(value = "classId") Integer lessonId);
+
 }

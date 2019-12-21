@@ -56,12 +56,12 @@ public class LessonController {
 
     /**
      * 查询班级单课节学员列表
-     *//*
+     */
     @RequestMapping(value = "/class/lesson/student/list/{lessonId}",method = RequestMethod.GET)
     public ResponseUtil getLessonStudentList(@PathVariable(value = "lessonId") Integer lessonId){
         List<StudentEntity> studentEntityList = lessonService.getLessonStudentList(lessonId);
         return ResponseUtil.success(studentEntityList);
-    }*/
+    }
 
     /**
      * 单个学员签到

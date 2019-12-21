@@ -24,6 +24,16 @@
        </collection>
    </resultMap>
 
+    <resultMap id="studentMap" type="com.hc.modules.student.entity.StudentEntity">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="gender" column="gender"/>
+        <result property="birth" column="birth"/>
+        <result property="guarder" column="guarder"/>
+        <result property="guarderPhone" column="guarder_phone"/>
+        <result property="address" column="address"/>
+    </resultMap>
+
     <select id="getClassLessonList" resultMap="lessonResultMap">
         SELECT a.id,a.name,a.class_id,a.class_hour,a.status,a.start_date,a.end_date,a.lesson_now,a.create_time,
         c.id AS s_id, c.name AS s_name,c.gender,c.birth,c.guarder,c.guarder_phone
@@ -58,6 +68,12 @@
 
     <select id="getLesson" resultType="com.hc.modules.lesson.entity.LessonEntity">
         SELECT * FROM lesson WHERE id=#{lessonId}
+    </select>
+
+    <select id="getLessonStudentList" resultMap="studentMap">
+        SELECT b.id,b.name,b.gender,b.birth,b.guarder,b.guarder_phone,b.address FROM lesson_student a
+        LEFT JOIN student b ON a.student_id = b.id
+        WHERE lesson_id=#{lessonId}
     </select>
 
 </mapper>
