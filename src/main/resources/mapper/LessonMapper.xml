@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.hc.modules.course.mapper.CourseMapper">
+<mapper namespace="com.hc.modules.lesson.mapper.LessonMapper">
 
-   <resultMap id="courseResultMap" type="com.hc.modules.course.entity.CourseEntity">
+   <resultMap id="lessonResultMap" type="com.hc.modules.lesson.entity.LessonEntity">
        <id property="id" column="id"/>
        <result property="name" column="name"/>
        <result property="classId" column="class_id"/>
@@ -19,38 +19,40 @@
            <result property="birth" column="birth"/>
            <result property="guarder" column="guarder"/>
            <result property="guarderPhone" column="guarder_phone"/>
-           <result property="classPackage" column="class_package"/>
-           <result property="chargingStandard" column="charging_standard"/>
-           <result property="buyClassHour" column="buy_class_hour"/>
-           <result property="consumedClassHour" column="consumed_class_hour"/>
-           <result property="isValidity" column="is_validity"/>
-           <result property="periodOfValidity" column="period_of_validity"/>
-           <result property="price" column="price"/>
            <result property="createTime" column="create_time"/>
        </collection>
    </resultMap>
 
-    <select id="getClassCourseList" resultMap="courseResultMap">
+    <select id="getClassLessonList" resultMap="lessonResultMap">
         SELECT a.id,a.name,a.class_id,a.class_hour,a.status,a.start_date,a.end_date,a.create_time,
-        c.id AS s_id, c.name AS s_name,c.gender,c.birth,c.guarder,c.guarder_phone,c.class_package,c.charging_standard,
-        c.buy_class_hour,c.consumed_class_hour,c.is_validity,c.period_of_validity,c.price
-        FROM course a
-        LEFT JOIN course_student b ON a.id = b.course_id
+        c.id AS s_id, c.name AS s_name,c.gender,c.birth,c.guarder,c.guarder_phone
+        FROM lesson a
+        LEFT JOIN lesson_student b ON a.id = b.lesson_id
         LEFT JOIN student c ON b.student_id = c.id
         WHERE class_id=#{cid}
     </select>
 
-    <insert id="insertCourse">
-        INSERT INTO course(name,class_id,class_hour,start_date,end_date)
+    <insert id="insertLesson">
+        INSERT INTO lesson(name,class_id,class_hour,start_date,end_date)
         VALUES (#{name},#{classId},#{classHour},#{startDate},#{endDate})
     </insert>
 
-    <insert id="insertCourseStudents">
-        INSERT INTO course_student(course_id, student_id)
+    <insert id="insertLessonStudents">
+        INSERT INTO lesson_student(lesson_id, student_id)
         VALUES
         <foreach collection ="list" item="item" separator ="," index="index">
             (#{coid}, #{item})
         </foreach >
     </insert>
+
+    <select id="lessonSign" resultType="com.hc.modules.student.entity.CoursePackageEntity">
+        SELECT * FROM course_package WHERE id =
+        (SELECT c_p_id FROM class_student WHERE s_id=#{studentId} AND c_id =
+        (SELECT class_id FROM lesson WHERE id = #{id}))
+    </select>
+
+    <update id="updateCoursePackage">
+        UPDATE course_package SET consumed_class_hour=#{subtract} WHERE id=#{id}
+    </update>
 
 </mapper>

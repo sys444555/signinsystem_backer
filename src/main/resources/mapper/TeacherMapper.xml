@@ -5,26 +5,27 @@
 
     <!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="com.hc.modules.teacher.entity.ClassEntity" id="classMap" extends="courseMap">
-        <result property="id" column="id"/>
+        <id property="id" column="id"/>
         <result property="className" column="class_name"/>
         <result property="classHour" column="class_hour"/>
-        <result property="tId" column="t_id"/>
+        <result property="teacherId" column="teacher_id"/>
         <result property="createTime" column="create_time"/>
         <result property="status" column="status"/>
+        <result property="cId" column="c_id"/>
+        <result property="name" column="name"/>
     </resultMap>
 
     <resultMap id="courseMap" type="com.hc.modules.course.entity.CourseEntity">
-        <result property="id" column="id"/>
+        <id property="id" column="id"/>
         <result property="name" column="name"/>
         <result property="tId" column="t_id"/>
-        <result property="createTime" column="create_time"/>
     </resultMap>
 
     <resultMap id="teacherMap" type="com.hc.modules.teacher.entity.TeacherEntity">
-        <result property="id" column="id"/>
-        <result property="name" column="name"/>
+        <id property="id" column="tea_id"/>
+        <result property="name" column="teacher_name"/>
         <result property="gender" column="gender"/>
-        <result property="user_id" column="userId"/>
+        <result property="userId" column="user_id"/>
     </resultMap>
 
     <resultMap id="studentMap" type="com.hc.modules.student.entity.StudentEntity">
@@ -45,16 +46,16 @@
     </resultMap>
 
     <select id="getClassList" resultMap="classMap">
-        SELECT a.id,a.class_name,c.name,a.class_hour,a.t_id,b.name,a.create_time,a.status
-        FROM class a
-         LEFT JOIN  teacher b
-         on a.t_id = b.id
-         LEFT JOIN course c
-         ON a.c_id = c.id
+
+      SELECT a.id ,c.name
+            FROM class a
+            LEFT JOIN course c ON a.c_id = c.id
+             LEFT JOIN  teacher b
+             on a.teacher_id = b.id
     </select>
 
     <select id="getTeacherList" resultMap="teacherMap">
-        SELECT id,name,gender,user_id FROM teacher
+        SELECT id AS tea_id,name,gender,user_id FROM teacher
     </select>
 
     <insert id="insertClass" parameterType="com.hc.modules.teacher.entity.ClassEntity">

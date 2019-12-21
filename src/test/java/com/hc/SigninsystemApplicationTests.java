@@ -2,8 +2,11 @@ package com.hc;
 
 import com.hc.modules.course.entity.CourseEntity;
 import com.hc.modules.course.service.CourseService;
+import com.hc.modules.lesson.entity.LessonEntity;
+import com.hc.modules.lesson.service.LessonService;
 import com.hc.modules.student.entity.StudentEntity;
 import com.hc.modules.student.service.StudentService;
+import com.hc.modules.teacher.service.TeacherService;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -20,6 +23,12 @@ class SigninsystemApplicationTests {
     @Resource
     private CourseService courseService;
 
+    @Resource
+    private LessonService lessonService;
+
+    @Resource
+    private TeacherService teacherService;
+
     @Test
     void contextLoads() {
         StudentEntity studentEntity = new StudentEntity();
@@ -30,17 +39,15 @@ class SigninsystemApplicationTests {
     }
     @Test
     void t1() {
-
+        teacherService.getClassList();
 
     }
 
     @Test
     void te(){
 
-        CourseEntity courseEntity = new CourseEntity();
-        courseEntity.setName("hello");
 
-        courseService.insertCourse(courseEntity, "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqd3QtaWQiOiIwN2M5NGYwYi04OWQxLTQ1NjEtODM1Yy0xYWE1ZDMyNzgwMWUiLCJleHAiOjE1NzY4MzY0NTEsInVzZXJuYW1lIjoidXNlciJ9.cHEi3LgEfRltkHof5JzxDTClytv6PR62O16c1P6dIM0");
+        lessonService.getClassLessonList(1);
 
 
     }

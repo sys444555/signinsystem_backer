@@ -62,4 +62,13 @@ public class LessonController {
         return ResponseUtil.success(studentEntityList);
     }*/
 
+    /**
+     * 单个学员签到
+     */
+    @RequestMapping(value = "/class/lesson/student/sign", method = RequestMethod.POST)
+    public ResponseUtil lessonSign(LessonEntity lessonEntity, Integer studentId){
+        lessonService.lessonSign(lessonEntity, studentId);
+        return ResponseUtil.success();
+    }
+
 }

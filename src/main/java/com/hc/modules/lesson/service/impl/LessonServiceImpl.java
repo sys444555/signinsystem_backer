@@ -6,9 +6,11 @@ import com.hc.modules.lesson.mapper.LessonMapper;
 import com.hc.modules.lesson.entity.LessonEntity;
 
 import com.hc.modules.lesson.service.LessonService;
+import com.hc.modules.student.entity.CoursePackageEntity;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,6 +54,27 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
             throw new JcException("新增学员失败");
         }
 
+
+    }
+
+    @Override
+    public void lessonSign(LessonEntity lessonEntity, Integer studentId) {
+
+        CoursePackageEntity coursePackageEntity = lessonMapper.lessonSign(lessonEntity.getId(), studentId);
+        if(coursePackageEntity == null){
+            throw new JcException("该学员课时包为空或未设置");
+        }
+        BigDecimal classHour = lessonEntity.getClassHour();
+        BigDecimal consumedClassHour = coursePackageEntity.getConsumedClassHour();
+        if(coursePackageEntity.getIsValidity() == null || coursePackageEntity.getIsValidity() == 0){
+            throw new JcException("该学员课时包不在有效期");
+        }
+        BigDecimal subtract = consumedClassHour.subtract(classHour);
+        if(subtract.compareTo(BigDecimal.ZERO) < 0){
+            throw new JcException("该学员课时包课时不足");
+        }
+        coursePackageEntity.setConsumedClassHour(subtract);
+        lessonMapper.updateCoursePackage(coursePackageEntity);
 
     }
 }
