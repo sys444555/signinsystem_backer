@@ -45,10 +45,9 @@ class SigninsystemApplicationTests {
 
     @Test
     void te(){
-        LessonEntity  lessonEntity = new LessonEntity();
-        lessonEntity.setId(1);
 
-        lessonService.lessonSign(lessonEntity,16);
+
+        lessonService.getClassLessonList(1);
 
 
     }

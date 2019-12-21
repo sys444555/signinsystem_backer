@@ -51,7 +51,7 @@
         LEFT JOIN course c ON a.c_id = c.id
          LEFT JOIN  teacher b
          on a.t_id = b.id
-    
+
     </select>
 
     <select id="getTeacherList" resultMap="teacherMap">
