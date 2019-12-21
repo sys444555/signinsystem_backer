@@ -190,4 +190,11 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
         lessonMapper.updateCoursePackage(coursePackageEntity);
 
     }
+
+    @Override
+    public LessonEntity getLesson(Integer lessonId) {
+        LessonEntity lesson = lessonMapper.getLesson(lessonId);
+
+        return lesson;
+    }
 }

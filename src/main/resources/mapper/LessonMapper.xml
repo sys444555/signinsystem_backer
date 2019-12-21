@@ -56,4 +56,8 @@
         UPDATE course_package SET consumed_class_hour=#{consumedClassHour}, left_class_hour=#{leftClassHour} WHERE id=#{id}
     </update>
 
+    <select id="getLesson" resultType="com.hc.modules.lesson.entity.LessonEntity">
+        SELECT * FROM lesson WHERE id=#{lessonId}
+    </select>
+
 </mapper>

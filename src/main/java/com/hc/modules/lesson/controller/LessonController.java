@@ -72,4 +72,13 @@ public class LessonController {
         return ResponseUtil.success();
     }
 
+    /**
+     * 查看课节
+     */
+    @RequestMapping(value = "/class/lesson/get/lessonId", method = RequestMethod.GET)
+    public ResponseUtil lessonSign(@PathVariable(value = "lessonId") Integer lessonId){
+        LessonEntity lesson = lessonService.getLesson(lessonId);
+        return ResponseUtil.success(lesson);
+    }
+
 }
