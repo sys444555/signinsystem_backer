@@ -53,7 +53,7 @@
     </select>
 
     <update id="updateCoursePackage">
-        UPDATE course_package SET consumed_class_hour=#{subtract} WHERE id=#{id}
+        UPDATE course_package SET consumed_class_hour=#{consumedClassHour}, left_class_hour=#{leftClassHour} WHERE id=#{id}
     </update>
 
 </mapper>

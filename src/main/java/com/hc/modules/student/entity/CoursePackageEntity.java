@@ -9,6 +9,8 @@ import java.io.Serializable;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 /**
  * 课时包表
@@ -67,5 +69,6 @@ private Integer studentId;
 	 * 已耗课时
 	 */
 	private BigDecimal leftClassHour;
+
 
 }
