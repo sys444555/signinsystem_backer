@@ -71,9 +71,12 @@
     </select>
 
     <select id="getLessonStudentList" resultMap="studentMap">
-        SELECT b.id,b.name,b.gender,b.birth,b.guarder,b.guarder_phone,b.address FROM lesson_student a
+        SELECT DISTINCT b.id,b.name,b.gender,b.birth,b.guarder,b.guarder_phone,b.address FROM lesson_student a
         LEFT JOIN student b ON a.student_id = b.id
-        WHERE lesson_id=#{lessonId}
+        WHERE a.lesson_id=#{lessonId}
     </select>
 
+    <delete id="deleteLessonStudent">
+        DELETE FROM lesson_student WHERE lesson_id = #{lessonId}
+    </delete>
 </mapper>
