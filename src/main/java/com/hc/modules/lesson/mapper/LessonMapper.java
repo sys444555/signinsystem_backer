@@ -34,6 +34,8 @@ public interface LessonMapper extends BaseMapper<LessonEntity> {
 
     public LessonEntity getLesson(@Param(value = "lessonId") Integer lessonId);
 
-    public List<StudentEntity> getLessonStudentList(@Param(value = "classId") Integer lessonId);
+    public List<StudentEntity> getLessonStudentList(@Param(value = "lessonId") Integer lessonId);
+
+    public Integer deleteLessonStudent(@Param(value = "lessonId") Integer lessonId);
 
 }
