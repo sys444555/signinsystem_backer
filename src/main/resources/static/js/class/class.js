@@ -106,6 +106,8 @@ $(function () {
 
 function addStudent() {
 
+    $("#createStudentForm")[0].reset
+
     $("#class_student_alter").show();
     $("#class_info_alter").hide()
 
@@ -214,7 +216,7 @@ function showClassInfo(classId,className,courseName,classHour,teacherName) {
                     html = html.replace(/#{id}/g,dataList[i].id)
                     html = html.replace(/#{name}/g,dataList[i].name)
                     html = html.replace(/#{time}/g,dataList[i].startDate + " - " + dataList[i].endDate)
-                    html = html.replace(/#{lessonNow}/g, '第'+dataList[i].lessonNow+'节')
+                    html = html.replace(/#{lessonNow}/g, '第'+(i+1)+'节')
 
                     $("#lessonTable tbody").append(html)
                 }
@@ -333,29 +335,6 @@ function showLessonInfo(id) {
 }
 
 function saveLesson() {
-    $.ajax({
-        url:'',
-        type:'POST', //GET
-        async:true,    //或false,是否异步
-        headers:{
-            "token" : getCookie("token")
-        },
-        data:{
-
-        },
-        timeout:5000,    //超时时间
-        dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
-        success:function(data){
-            //console.log(data)；
-        },
-        error:function () {
-            alert("服务器异常，请稍后再试！")
-        }
-    })
-
-}
-
-function saveLesson() {
 
     var name = $("#add_lesson_alter input[name=name]").val()
 
@@ -378,7 +357,7 @@ function saveLesson() {
     // }
 
     $.ajax({
-        url:'http://localhost:8080/abc/1',
+        url:'http://localhost:8080/class/lesson/create',
         type:'POST', //GET
         async:true,    //或false,是否异步
         headers:{
@@ -543,6 +522,7 @@ function showStudent(studentId) {
 }
 
 function addStudentToLesson() {
+
     $("#show_studenList_alter").show()
     $("#show_lesson_alter").hide()
 
@@ -789,6 +769,7 @@ function saveStudent() {
                     $("#class_student_alter").hide()
                     // $("#class_info_alter").show().reload()
                     //模拟点击一下事件
+                    window.location.reload()
                 }else{
                     alert("新增学员失败！")
                 }
@@ -843,7 +824,7 @@ function isEmptyForm1(){
 
 function isEmptyForm(){
     var flag=true;
-    $(".modal-body").find("input").each(function(i,item){
+    $("#createStudentForm").find("input").each(function(i,item){
         if(item.value=="" || item.value == undefined || item.value == null){
             flag=false;
             return false;
