@@ -28,5 +28,7 @@ public interface LessonService extends IService<LessonEntity> {
 
     public LessonEntity getLesson( Integer lessonId);
 
+    public List<StudentEntity> getLessonStudentList(Integer lessonId);
+
 }
 
