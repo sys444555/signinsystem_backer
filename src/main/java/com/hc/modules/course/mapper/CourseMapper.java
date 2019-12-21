@@ -20,8 +20,7 @@ public interface CourseMapper extends BaseMapper<CourseEntity> {
 
     public List<CourseEntity> getCourseList(@Param("username") String username);
 
-    public Integer insertCourse(CourseEntity courseEntity
-                                );
+    public Integer insertCourse(CourseEntity courseEntity);
 
     public TeacherEntity getT(@Param("username") String username);
 }
