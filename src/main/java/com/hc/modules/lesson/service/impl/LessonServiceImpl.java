@@ -51,7 +51,7 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
                     Date parseStartDate = simpleDateFormat.parse(split[0]);
                     Calendar c1 = Calendar.getInstance();
                     c1.setTime(parseStartDate);
-                    c1.add(Calendar.DAY_OF_MONTH, 1);
+                    c1.add(Calendar.DAY_OF_MONTH, i);
                     parseStartDate = c1.getTime();
                     String startDate = simpleDateFormat.format(parseStartDate);
                     lessonEntity.setStartDate(startDate);
@@ -59,7 +59,7 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
                     Date parseEndDate = simpleDateFormat.parse(split[1]);
                     Calendar c2 = Calendar.getInstance();
                     c2.setTime(parseEndDate);
-                    c2.add(Calendar.DAY_OF_MONTH, 1);
+                    c2.add(Calendar.DAY_OF_MONTH, i);
                     parseEndDate = c2.getTime();
                     String endDate = simpleDateFormat.format(parseEndDate);
                     lessonEntity.setEndDate(endDate);
@@ -74,7 +74,7 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
                     Date parseStartDate = simpleDateFormat.parse(split[0]);
                     Calendar c1 = Calendar.getInstance();
                     c1.setTime(parseStartDate);
-                    c1.add(Calendar.DAY_OF_MONTH, 2);
+                    c1.add(Calendar.DAY_OF_MONTH, 2*i);
                     parseStartDate = c1.getTime();
                     String startDate = simpleDateFormat.format(parseStartDate);
                     lessonEntity.setStartDate(startDate);
@@ -82,7 +82,7 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
                     Date parseEndDate = simpleDateFormat.parse(split[1]);
                     Calendar c2 = Calendar.getInstance();
                     c2.setTime(parseEndDate);
-                    c2.add(Calendar.DAY_OF_MONTH, 2);
+                    c2.add(Calendar.DAY_OF_MONTH, 2*i);
                     parseEndDate = c2.getTime();
                     String endDate = simpleDateFormat.format(parseEndDate);
                     lessonEntity.setEndDate(endDate);
@@ -97,7 +97,7 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
                     Date parseStartDate = simpleDateFormat.parse(split[0]);
                     Calendar c1 = Calendar.getInstance();
                     c1.setTime(parseStartDate);
-                    c1.add(Calendar.DAY_OF_MONTH, 7);
+                    c1.add(Calendar.DAY_OF_MONTH, 7*i);
                     parseStartDate = c1.getTime();
                     String startDate = simpleDateFormat.format(parseStartDate);
                     lessonEntity.setStartDate(startDate);
@@ -105,7 +105,7 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
                     Date parseEndDate = simpleDateFormat.parse(split[1]);
                     Calendar c2 = Calendar.getInstance();
                     c2.setTime(parseEndDate);
-                    c2.add(Calendar.DAY_OF_MONTH, 7);
+                    c2.add(Calendar.DAY_OF_MONTH, 7*i);
                     parseEndDate = c2.getTime();
                     String endDate = simpleDateFormat.format(parseEndDate);
                     lessonEntity.setEndDate(endDate);
@@ -120,7 +120,7 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
                     Date parseStartDate = simpleDateFormat.parse(split[0]);
                     Calendar c1 = Calendar.getInstance();
                     c1.setTime(parseStartDate);
-                    c1.add(Calendar.DAY_OF_MONTH, 14);
+                    c1.add(Calendar.DAY_OF_MONTH, 14*i);
                     parseStartDate = c1.getTime();
                     String startDate = simpleDateFormat.format(parseStartDate);
                     lessonEntity.setStartDate(startDate);
@@ -128,7 +128,7 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
                     Date parseEndDate = simpleDateFormat.parse(split[1]);
                     Calendar c2 = Calendar.getInstance();
                     c2.setTime(parseEndDate);
-                    c2.add(Calendar.DAY_OF_MONTH, 14);
+                    c2.add(Calendar.DAY_OF_MONTH, 14*i);
                     parseEndDate = c2.getTime();
                     String endDate = simpleDateFormat.format(parseEndDate);
                     lessonEntity.setEndDate(endDate);

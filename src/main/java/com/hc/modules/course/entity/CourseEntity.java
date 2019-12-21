@@ -17,7 +17,7 @@ import java.util.List;
 public class CourseEntity   {
 
 
-
+    @TableId(type = IdType.AUTO)
     private Integer id;
 
     private String name;
