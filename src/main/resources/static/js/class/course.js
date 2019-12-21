@@ -146,7 +146,7 @@ function saveClass() {
                 "className": $("input[name=className]").val(),
                 "courseName": $("input[name=courseName]").val(),
                 "classHour": $("select[name=classHour]").val(),
-                "tId": $("select[name=tId]").val(),
+                "teacherId": $("select[name=tId]").val(),
                 "cId": sessionStorage.getItem("clickCourseId")
             },
             timeout: 5000,    //超时时间

@@ -24,7 +24,7 @@
 
     <resultMap id="teacherMap" type="com.hc.modules.teacher.entity.TeacherEntity">
         <id property="id" column="tea_id"/>
-        <result property="name" column="teacher_name"/>
+        <result property="name" column="name"/>
         <result property="gender" column="gender"/>
         <result property="userId" column="user_id"/>
     </resultMap>
@@ -60,8 +60,8 @@
     </select>
 
     <insert id="insertClass" parameterType="com.hc.modules.teacher.entity.ClassEntity">
-        INSERT INTO class(class_name,course_name,class_hour,t_id,c_id)
-        VALUES(#{className},#{courseName},#{classHour},#{tId},#{cId})
+        INSERT INTO class(class_name,course_name,class_hour,teacher_id,c_id)
+        VALUES(#{className},#{courseName},#{classHour},#{teacherId},#{cId})
     </insert>
 
     <update id="updateClassStatus">

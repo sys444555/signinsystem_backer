@@ -38,6 +38,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, CourseEntity> i
         String username = jwtUtil.getUsername(token);
         TeacherEntity t = courseMapper.getT(username);
         courseEntity.setTId(t.getId());
+        System.out.println("courseEntity = " + courseEntity);
         Integer integer = courseMapper.insertCourse(courseEntity);
         if(integer == null || integer == 0){
             throw new JcException("新增课程失败");

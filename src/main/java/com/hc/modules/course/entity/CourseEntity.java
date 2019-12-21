@@ -14,7 +14,7 @@ import java.util.List;
 
 @Data
 @TableName("course")
-public class CourseEntity  extends TeacherEntity implements Serializable {
+public class CourseEntity  implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
