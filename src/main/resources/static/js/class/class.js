@@ -161,7 +161,6 @@ function showClassInfo(classId,className,courseName,classHour,teacherName) {
 
                     var html = '<tr data-id="#{id}">'
                     + '<td class="td_lable"><span>#{name}</span></td>'
-                    + '<td class="td_lable" onclick="addLesson(#{id})" style="cursor: pointer"><span style="color: lightsalmon">为该学员添加课包</span></td>'
                     + '<td class="td_lable"><a href="javascript:void(0)" onclick="showStudent(#{id})">查看详情</a></td>>'
                     + '<tr>'
 
@@ -208,13 +207,14 @@ function showClassInfo(classId,className,courseName,classHour,teacherName) {
                     var html = '<tr data-id="#{id}">'
                     + '<td class="td_lable"><span>#{name}</span></td>'
                     + '<td class="td_lable"><span>课时段： #{time}</span></td>'
-                    + '<td class="td_lable"><span>节课 加字段</span></td>'
-                    + '<td class="td_lable"><a href="javascript:void(0)" onclick="showLessonInfo(#{id}})">详情操作</a></td>'
+                    + '<td class="td_lable"><span>#{lessonNow}</span></td>'
+                    + '<td class="td_lable"><a href="javascript:void(0)" onclick="showLessonInfo(#{id})">详情操作</a></td>'
                     + '<tr>'
 
                     html = html.replace(/#{id}/g,dataList[i].id)
                     html = html.replace(/#{name}/g,dataList[i].name)
                     html = html.replace(/#{time}/g,dataList[i].startDate + " - " + dataList[i].endDate)
+                    html = html.replace(/#{lessonNow}/g, '第'+dataList[i].lessonNow+'节')
 
                     $("#lessonTable tbody").append(html)
                 }
@@ -230,11 +230,143 @@ function showClassInfo(classId,className,courseName,classHour,teacherName) {
 
 }
 
+function showLessonInfo(id) {
+    if(isEmpty(id)){
+        alert("课时id无法获取，请稍后再试！")
+        return;
+    }
+
+    //获取当前lession回显信息
+
+    $.ajax({
+        url:'',
+        type:'POST', //GET
+        async:true,    //或false,是否异步
+        headers:{
+
+        },
+        data:{
+
+        },
+        timeout:5000,    //超时时间
+        dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+        success:function(data){
+            //console.log(data)；
+        },
+        error:function () {
+            alert("服务器异常，请稍后再试！")
+        }
+    })
+
+}
+
+function saveLesson() {
+    $.ajax({
+        url:'',
+        type:'POST', //GET
+        async:true,    //或false,是否异步
+        headers:{
+            "token" : getCookie("token")
+        },
+        data:{
+
+        },
+        timeout:5000,    //超时时间
+        dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+        success:function(data){
+            //console.log(data)；
+        },
+        error:function () {
+            alert("服务器异常，请稍后再试！")
+        }
+    })
+
+}
+
+function saveLesson() {
+
+    var name = $("#add_lesson_alter input[name=name]").val()
+
+    var classHour = $("select[name=classHour]").val()
+
+    //"2019-12-13 01:01:01 - 2019-12-13 02:02:06"
+    var dataRange = $("#dataRange").val();
+
+    var period = $("select[name=period]").val()
+
+    var times = $("#times").val()
+
+    if(sessionStorage.getItem("classId")==undefined){
+        alert("获取班级id失败")
+    }
+
+    // if(!(isEmpty(name) && isEmpty(classHour) && isEmpty(dataRange) && isEmpty(period))){
+    //     alert("存在信息未填写，请确认！")
+    //     return
+    // }
+
+    $.ajax({
+        url:'http://localhost:8080/abc/1',
+        type:'POST', //GET
+        async:true,    //或false,是否异步
+        headers:{
+            "token" : getCookie("token")
+        },
+        data:{
+            "name" : name,
+            "classHour" : classHour,
+            "dataRange" : dataRange,
+            "period" : period,
+            "times" : times,
+            "classId" : sessionStorage.getItem("classId")
+        },
+        timeout:5000,    //超时时间
+        dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+        success:function(data){
+            if(data.code == 0){
+                alert("添加课时成功！")
+                window.location.reload()
+            }else{
+                alert("添加课时失败！")
+            }
+        },
+        error:function () {
+            alert("服务器存在异常，请稍后再试！")
+        }
+    })
+
+}
+
+function showTimes(obj) {
+    $(obj).find(":checked").val() != 0 ?  $(obj).find(":checked").parent().parent().next().show() : $(obj).find(":checked").parent().parent().next().hide()
+
+}
+
+function addLesson() {
+
+    $("#class_info_alter").hide()
+    $("#add_lesson_alter").show()
+
+    laydate.render({
+        elem : '#dataRange',
+        type: 'datetime',
+        range: true
+    })
+
+}
+
+function cancelClassModal4() {
+    $("#class_info_alter").show()
+    $("#add_lesson_alter").hide()
+}
+
+
 var studentId;
 
 function showStudent(studentId) {
 
     studentId = studentId;
+    sessionStorage.setItem("sid",studentId)
 
     $("#student_info_alter").show()
 
@@ -294,6 +426,7 @@ function showStudent(studentId) {
             "token" : getCookie("token")
         },
         data:{
+            classId : sessionStorage.getItem("classId")
         },
         timeout:5000,    //超时时间
         dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
@@ -301,7 +434,9 @@ function showStudent(studentId) {
             $("#studentCourseArea tbody").empty()
             if(data.code == 0 ){
 
-                for(var i=0;i<data.data.length;i++){
+                var default1 = data.data.defaultUse;
+
+                for(var i=0;i<data.data.coursePackageList.length;i++){
 
                     var html = '<tr data-id="#{id}">'
                         + '<td class="td_lable"> #{classPackage}</td>'
@@ -309,15 +444,18 @@ function showStudent(studentId) {
                         + '<td class="td_lable"> #{buyClassHour}</td>'
                         + '<td class="td_lable">#{isValidity}</td>'
                         + '<td class="td_lable">#{periodOfValidity}</td>'
-                        + '<td class="td_lable"><a href="javascript:void(0)" onclick="changeMR(#{id}})">修改默认</a></td>'
+                        + '<td class="td_lable">#{MR}</td>'
                         + '</tr>'
 
-                    html = html.replace(/#{id}/g,data.data[i].id)
-                    html = html.replace(/#{classPackage}/g,data.data[i].classPackage)
-                    html = html.replace(/#{chargingStandard}/g,data.data[i].chargingStandard)
-                    html = html.replace(/#{buyClassHour}/g,data.data[i].buyClassHour)
-                    html = html.replace(/#{isValidity}/g,data.data[i].isValidity==0?'无效':'有效')
-                    html = html.replace(/#{periodOfValidity}/g,data.data[i].periodOfValidity)
+                    html = html.replace(/#{id}/g,data.data.coursePackageList[i].id)
+                    html = html.replace(/#{classPackage}/g,data.data.coursePackageList[i].classPackage)
+                    html = html.replace(/#{chargingStandard}/g,data.data.coursePackageList[i].chargingStandard)
+                    html = html.replace(/#{buyClassHour}/g,data.data.coursePackageList[i].buyClassHour)
+                    html = html.replace(/#{isValidity}/g,data.data.coursePackageList[i].isValidity==0?'无效':'有效')
+                    html = html.replace(/#{periodOfValidity}/g,data.data.coursePackageList[i].periodOfValidity)
+                    html = html.replace(/#{MR}/g,data.data.coursePackageList[i].id == default1? '<span style="color: firebrick">默认</span>':'<a href="javascript:void(0)" onclick="changeMR('+data.data.coursePackageList[i].id+')">修改默认</a>')
+
+
 
                     $("#studentCourseArea tbody").append(html)
 
@@ -330,8 +468,106 @@ function showStudent(studentId) {
             alert("服务器异常，请稍后再试！")
         }
     })
+}
+
+function changeMR(id) {
+
+    if(isEmpty(id) || isEmpty(sessionStorage.getItem("sid")) || isEmpty(sessionStorage.getItem("classId"))){
+        alert("获取参数失败，请稍后再试！")
+        return;
+    }
+
+    $.ajax({
+        url:'http://localhost:8080/student/coursePackage/set',
+        type:'POST', //GET
+        async:true,    //或false,是否异步
+        headers:{
+            "token" : getCookie("token")
+        },
+        data:{
+            "studentId" : sessionStorage.getItem("sid"),
+            "classId" : sessionStorage.getItem("classId"),
+            "cpid":id
+        },
+        timeout:5000,    //超时时间
+        dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+        success:function(data){
+            if(data.code == 0){
+                alert("修改默认课包成功，签到将扣除本课包！")
+                window.location.reload()
+            }else{
+                alert("修改默认状态失败")
+            }
+        },
+        error:function () {
+            alert("服务器异常，请稍后再试！")
+        }
+    })
+
+}
 
 
+function savePackageToStudent(sid) {
+
+    var classPackage = $("#classPackage").val()
+    var chargingStandard = $("#chargingStandard").val()
+    var bugClassHour = $("#bugClassHour").val()
+    var consumedClassHour = $("#consumedClassHour").val()
+    var isValidity = $("select[name=isValidity]").val()
+    var periodOfValidity = $("#periodOfValidity").val()
+    var price = $("#price").val()
+
+    if(!isEmptyForm1()) {
+        alert("信息为空，请确认")
+        return;
+    }
+
+    $.ajax({
+        url:'http://localhost:8080/student/coursePackage/create',
+        type:'POST', //GET
+        async:true,    //或false,是否异步
+        headers:{
+            "token" : getCookie("token")
+        },
+        data:{
+            classPackage : classPackage,
+            chargingStandard: chargingStandard,
+            buyClassHour:bugClassHour,
+            consumedClassHour:consumedClassHour,
+            isValidity:isValidity,
+            periodOfValidity:periodOfValidity,
+            price:price,
+            studentId:sessionStorage.getItem("sid")
+        },
+        timeout:5000,    //超时时间
+        dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+        success:function(data){
+            //console.log(data)；
+            if(data.code==0){
+                alert("添加成功，刷新页面！")
+                window.location.reload()
+            }else{
+                alert("添加失败！")
+            }
+        },
+        error:function () {
+            alert("服务器异常，请稍后再试！")
+        }
+    })
+
+}
+
+
+function addPackageToStuden() {
+
+    $("#student_info_alter").hide()
+    $("#add_package_alter").show()
+
+}
+
+function cancelClassModal3() {
+    $("#add_package_alter").hide()
+    $("#student_info_alter").show()
 }
 
 function cancelClassModal2() {
@@ -414,6 +650,17 @@ function isEmpty(obj){
     }else{
         return false;
     }
+}
+
+function isEmptyForm1(){
+    var flag=true;
+    $("#addPackage").find("input").each(function(i,item){
+        if(item.value=="" || item.value == undefined || item.value == null){
+            flag=false;
+            return false;
+        }
+    });
+    return flag;
 }
 
 function isEmptyForm(){
