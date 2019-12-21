@@ -118,24 +118,29 @@
 				<div class="modal-body" id="modalBodyId">
 
 					<div class="classInfoHead">
-						<table>
+						<table style="width:750px" class="table">
 						</table>
 					</div>
 
-					<div style=" padding: 0 20px 0;margin: 20px 0;line-height: 1px; border-left: 200px solid #ddd; border-right: 200px solid #ddd;" >---------------------------------------</div>
+					<div style=" padding: 0 20px 0;margin: 20px 0;line-height: 1px; border-left: 200px solid #ddd; border-right: 200px solid #ddd;letter-spacing: 3px" >--------------班级学员区-------------</div>
 
 					<div class="studentInfo">
-						<div><a href="javascript:void(0)" onclick="showStudentInfo(1)"><span>张三</span></a></div>
-						<div><a href="javascript:void(0)" onclick="showStudentInfo(2)"><span>李四</span></a></div>
-						<button class="btn" onclick="addStudent()" value="添加学员进班">添加学员进班</button>
+						<table id="studentTable" style="width: 750px" class="table">
+							<tbody>
+
+							</tbody>
+						</table>
+						<button class="btn-green" onclick="addStudent()" value="添加学员进班">添加学员进班</button>
 					</div>
 
-					<div style=" padding: 0 20px 0;margin: 20px 0;line-height: 1px; border-left: 200px solid #ddd; border-right: 200px solid #ddd;" >---------------------------------------</div>
+					<div style=" padding: 0 20px 0;margin: 20px 0;line-height: 1px; border-left: 200px solid #ddd; border-right: 200px solid #ddd;letter-spacing: 3px" >----------------课时区---------------</div>
 
 					<div class="lessonInfo">
-						<div><a href="javascript:void(0)" onclick="showLessonInfo(1)"><span>跆拳道1课时</span></a></div>
-						<div><a href="javascript:void(0)" onclick="showLessonInfo(2)"><span>跆拳道2课时</span></a></div>
-						<button class="btn" onclick="addLession()" value="添加课时">添加课时</button>
+						<table id="lessonTable" style="width: 750px" class="table">
+							<tbody>
+							</tbody>
+						</table>
+						<button class="btn-green" onclick="addLesson()" value="添加课时">添加课时进班</button>
 					</div>
 
 
@@ -152,6 +157,34 @@
 			<!-- /.modal-content -->
 		</div>
 		<!-- /.modal -->
+	</div>
+
+
+	<div class="modal" id="student_info_alter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width: auto;">
+		<div class="modal-dialog" id="student_info_dialog">
+			<div class="modal-content" align="center" style="overflow: auto; height: 500px; width: 800px">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="cancelClassModal2()">
+						×
+					</button>
+					<h4 class="modal-title" id="myModalLabel4">
+						学生详情页面
+					</h4>
+				</div>
+				<div class="modal-body">
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary">
+					提交保存
+					</button>
+					<button type="button" onclick="cancelClassModal1()" class="btn btn-default" data-dismiss="modal">关闭
+					</button>
+
+				</div>
+
+			</div>
+		</div>
 	</div>
 
 

@@ -14,6 +14,8 @@ $(function () {
         success:function(data){
             //console.log(data)；
 
+            $("#class_td").html("")
+
             if(data.code == 0 && data.data.list.length >0) {
                 var dataList = data.data.list;
 
@@ -27,7 +29,7 @@ $(function () {
                         + "<td>#{teacherName}</td>"
                         + "<td>#{createTime}</td>"
                         + "<td data-status='#{statusnum}'>#{status}</td>"
-                        + "<td><a href='javascript:void(0)' target='_blank' onclick='showClassInfo(#{id},\"#{className}\",\"#{courseName}\",\"#{classHour}\",\"#{teacherName}\")'>查看详情</a></td>"
+                        + "<td id='td#{id}'><a href='javascript:void(0)' target='_blank' onclick='showClassInfo(#{id},\"#{className}\",\"#{courseName}\",\"#{classHour}\",\"#{teacherName}\")'>查看详情</a></td>"
                         + "</tr>"
 
                     html = html.replace(/#{id}/g,dataList[i].id)
@@ -75,7 +77,7 @@ $(function () {
                                             + "<td>#{teacherName}</td>"
                                             + "<td>#{createTime}</td>"
                                             + "<td>#{status}</td>"
-                                            + "<td><a href='javascript:void(0)' onclick='showClassInfo(#{id},\"#{className}\",\"#{courseName}\",\"#{classHour}\",\"#{teacherName}\"})' target='_blank'>查看详情</a></td>"
+                                            + "<td id='td#{id}'><a href='javascript:void(0)' onclick='showClassInfo(#{id},\"#{className}\",\"#{courseName}\",\"#{classHour}\",\"#{teacherName}\"})' target='_blank'>查看详情</a></td>"
                                             + "</tr>"
 
                                         html = html.replace(/#{id}/g,dataList[i].id)
@@ -102,7 +104,16 @@ $(function () {
 
 })
 
+function addStudent() {
+
+    $("#class_student_alter").show();
+    $("#class_info_alter").hide()
+
+}
+
 function showClassInfo(classId,className,courseName,classHour,teacherName) {
+
+    sessionStorage.setItem("classId",classId)
 
     if(isEmpty(classId)) {
         alert("班级id无法获取！")
@@ -110,6 +121,7 @@ function showClassInfo(classId,className,courseName,classHour,teacherName) {
     }
     $("#class_info_alter").show()
 
+    $(".classInfoHead table").empty()
     //初始化信息
     var html = "<tr>" +
             "<td>班级名："+className+"</td>" +
@@ -122,6 +134,109 @@ function showClassInfo(classId,className,courseName,classHour,teacherName) {
 
     $(".classInfoHead table").append(html)
 
+    //加载当前班的所有学员
+    $.ajax({
+        url:'http://localhost:8080/class/getStudent/'+classId,
+        type:'get', //GET
+        async:true,    //或false,是否异步
+        headers:{
+            "token" : getCookie("token")
+        },
+        data:{
+            "pageNo" : 1,
+            "pageSize":99999
+        },
+        timeout:5000,    //超时时间
+        dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+        success:function(data){
+
+            $("#studentTable tbody").empty();
+
+            //console.log(data)；
+            if(data.code == 0){
+
+                var dataList = data.data.list
+
+                for(var i = 0;i<dataList.length ; i++){
+
+                    var html = '<tr data-id="#{id}">'
+                    + '<td class="td_lable"><span>#{name}</span></td>'
+                    + '<td class="td_lable" onclick="addLesson(#{id})" style="cursor: pointer"><span style="color: lightsalmon">为该学员添加课包</span></td>'
+                    + '<td class="td_lable"><a href="javascript:void(0)" onclick="showStudent(#{id})">查看详情</a></td>>'
+                    + '<tr>'
+
+                    html = html.replace(/#{id}/g,dataList[i].id)
+                    html = html.replace(/#{name}/g,dataList[i].name)
+
+                    $("#studentTable tbody").append(html)
+
+                }
+
+            }else{
+                alert("获取班级学员信息失败！")
+            }
+        },
+        error:function () {
+            alert("服务器异常，请稍后再试！")
+        }
+    })
+
+    //加载课时信息
+    $.ajax({
+        url:'http://localhost:8080/class/lesson/list',
+        type:'get', //GET
+        async:true,    //或false,是否异步
+        headers:{
+            "token" : getCookie("token")
+        },
+        data:{
+            "pageNo":1,
+            "pageSize":9999,
+            "cid" : sessionStorage.getItem("classId")
+        },
+        timeout:5000,    //超时时间
+        dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+        success:function(data){
+            $("#lessonTable tbody").empty();
+            if(data.code == 0){
+
+                var dataList = data.data.list
+
+                for(var i = 0;i<dataList.length ; i++){
+
+
+                    var html = '<tr data-id="#{id}">'
+                    + '<td class="td_lable"><span>#{name}</span></td>'
+                    + '<td class="td_lable"><span>课时段： #{time}</span></td>'
+                    + '<td class="td_lable"><span>节课 加字段</span></td>'
+                    + '<td class="td_lable"><a href="javascript:void(0)" onclick="showLessonInfo(#{id}})">详情操作</a></td>'
+                    + '<tr>'
+
+                    html = html.replace(/#{id}/g,dataList[i].id)
+                    html = html.replace(/#{name}/g,dataList[i].name)
+                    html = html.replace(/#{time}/g,dataList[i].startDate + " - " + dataList[i].endDate)
+
+                    $("#lessonTable tbody").append(html)
+                }
+            }else{
+                alert("获取该班级课时失败！")
+            }
+        },
+        error:function () {
+            alert("服务器异常，请稍后再试！")
+        }
+    })
+
+
+}
+
+var studentId;
+
+function showStudent(studentId) {
+
+    studentId = studentId;
+
+
 
 }
 
@@ -132,7 +247,7 @@ function cancelClassModal1() {
 
 function saveStudent() {
 
-    if(isEmpty(sessionStorage.getItem("clickClassId"))){
+    if(isEmpty(sessionStorage.getItem("classId"))){
         alert("获取班级id失败")
         return;
     }
@@ -152,14 +267,16 @@ function saveStudent() {
                 "guarder":$("input[name=guarder]").val(),
                 "guarderPhone":$("input[name=guarderPhone]").val(),
                 "address":$("input[name=address]").val(),
-                "cid" : sessionStorage.getItem("clickClassId")
+                "cid" : sessionStorage.getItem("classId")
             },
             timeout:5000,    //超时时间
             dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
             success:function(data){
                 if(data.code == 0){
                     alert("新增学员成功，请在班级查看详情查看！")
-                    window.location.reload();
+                    $("#class_student_alter").hide()
+                    // $("#class_info_alter").show().reload()
+                    //模拟点击一下事件
                 }else{
                     alert("新增学员失败！")
                 }
@@ -175,26 +292,9 @@ function saveStudent() {
 
 }
 
-function createStudent() {
-    if(  $("#t_table1").find(":checked").length == 0){
-        alert("请选择班级！")
-        return
-    }else if(  $("#t_table1").find(":checked").length >1){
-        alert("请选择单个班级操作增加！")
-        return;
-    }
-
-    $("#class_student_alter").show();
-
-    var courseId = $("#t_table1").find(":checked").parent().next().html();
-
-    sessionStorage.setItem("clickClassId",courseId);
-
-}
-
 function cancelClassModal() {
     $("#class_student_alter").hide()
-    $("#createClassForm")[0].reset()
+    $("#class_info_alter").show()
 }
 
 function getCookie(name)
