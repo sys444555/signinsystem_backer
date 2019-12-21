@@ -24,6 +24,6 @@ public class CourseEntity  extends TeacherEntity implements Serializable {
 
     private Integer tId;
 
-
+    private Date createTime;
 
 }
