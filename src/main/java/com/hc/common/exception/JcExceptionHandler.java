@@ -34,7 +34,7 @@ public class JcExceptionHandler {
     public ResponseUtil handleJcException(JcException e){
         System.out.println("e = " + e);
         logger.error(e.getMsg(),e);
-        return ResponseUtil.error(e.getCode(), "服务器端出现异常");
+        return ResponseUtil.error(e.getCode(), e.getMsg());
     }
 
     @ExceptionHandler(AuthenticationException.class)

@@ -311,14 +311,31 @@ function showLessonInfo(id) {
 
             $("#lesson_studentInfo tbody").empty()
 
+            var classId = sessionStorage.getItem("classId");
+
             if(data.code==0){
                 for (var i =0 ; i<data.data.length;i++){
                     var html = "<tr>"
                     + "<td>#{name}</td>"
-                    + "<td><a href='javascript:void(0)' onclick='qiandao(#{id})'>签到</a></td>"
+                    + "#{status}"
+                    + "<td>#{signTime}</td>"
+                    + "#{yc}"
+                    + "#{qd}"
                     + "</tr>>"
+
+                    html = html.replace("#{yc}",data.data[i].status==0 ? "<td><a href='javascript:void(0)' onclick='' style='cursor: pointer;color: firebrick'>移出课时</a></td>" :"<td></td>")
+                    html = html.replace("#{qd}",data.data[i].status==0 ? "<td><a href='javascript:void(0)' onclick='qiandao(#{id},"+id+")' id='qd#{index}'>签到</a></td>" : "<td></td>")
+                    html = html.replace("#{index}",i)
                     html = html.replace(/#{id}/g,data.data[i].id)
                     html = html.replace(/#{name}/g,data.data[i].name)
+                    html = html.replace(/#{status}/g,data.data[i].status == 0 ? '<td styl="color: firebrick">未签到</td>' : '<td style="color: mediumspringgreen">已签到</td>')
+                    html = html.replace(/#{signTime}/g,data.data[i].signTime == null? "":data.data[i].signTime)
+
+
+                    if(data.data[i].status == 1 ){
+                        $("#qd"+i).attr("data-status",1)
+                    }
+
                     $("#lesson_studentInfo tbody").append(html)
                 }
 
@@ -333,6 +350,69 @@ function showLessonInfo(id) {
 
 
 }
+
+function removeStudent(sid,lessonid,classid) {
+
+    if(isEmpty(sid) || isEmpty((lessonid) || isEmpty(classid))){
+        alert("获取信息失败，请稍后再试！")
+        return
+    }
+
+    $.ajax({
+        url:'http://localhost:8080/class/lesson/remove/student/'+sid,
+        type:'POST', //GET
+        async:true,    //或false,是否异步
+        headers:{
+            "token" : getCookie("token")
+        },
+        data:{
+            "lessonId" : lessonid
+        },
+        timeout:5000,    //超时时间
+        dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+        success:function(data){
+            alert("移除成功")
+            window.location.reload()
+        },
+        error:function () {
+            alert("服务器异常，请稍后再试！")
+        }
+    })
+
+}
+
+function qiandao(sid,lesssonId) {
+
+    if(confirm("是否发送签到短信？")) {
+        $.ajax({
+            url:'http://localhost:8080/class/lesson/student/sign',
+            type:'POST', //GET
+            async:true,    //或false,是否异步
+            headers:{
+                "token":getCookie("token")
+            },
+            data:{
+                lessonId:lesssonId,
+                studentId:sid
+            },
+            timeout:5000,    //超时时间
+            dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+            success:function(data){
+                if(data.code == 0){
+                    alert("已发送短信成功！")
+                    window.location.reload()
+                }else if(data.code == 999){
+                    alert(data.msg)
+                }
+            },
+            error:function () {
+                alert("服务器异常，请稍后再试！")
+            }
+        })
+    }
+
+}
+
 
 function saveLesson() {
 
@@ -533,29 +613,28 @@ function addStudentToLesson() {
     }
 
     $.ajax({
-        url:'http://localhost:8080/class/getStudent/'+   sessionStorage.getItem("classId"),
+        url:'http://localhost:8080/class/student/absent/list/'+   sessionStorage.getItem("lessonId"),
         type:'get', //GET
         async:true,    //或false,是否异步
         headers:{
             "token" : getCookie("token")
         },
         data:{
-            pageNo:1,
-            pageSize:9999
+            "classId" : sessionStorage.getItem("classId")
         },
         timeout:5000,    //超时时间
         dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
         success:function(data){
             $("#studentLesson tbody").empty()
            if(data.code ==0){
-               for(var i =0;i<data.data.list.length;i++){
+               for(var i =0;i<data.data.length;i++){
                    var html = "<tr data-id='#{id}'>"
                    + "<td>#{name}</td>"
                    +"<td><input type='button' class='btn-green' value='加入课程' onclick='insertStudent(#{id})'></td>"
                    + "</tr>"
 
-                   html = html.replace(/#{id}/g,data.data.list[i].id)
-                   html = html.replace(/#{name}/g,data.data.list[i].name)
+                   html = html.replace(/#{id}/g,data.data[i].id)
+                   html = html.replace(/#{name}/g,data.data[i].name)
 
                    $("#studentLesson tbody").append(html)
                }

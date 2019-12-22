@@ -175,7 +175,7 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
 
         CoursePackageEntity coursePackageEntity = lessonMapper.findCoursePackage(lessonId, studentId);
         if(coursePackageEntity == null){
-            throw new JcException("该学员课时包为空或未设置");
+            throw new JcException(999,"该学员课时包为空或未设置");
         }
         LessonEntity lesson = this.getLesson(lessonId);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -183,18 +183,18 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
         System.out.println("date = " + date);
         System.out.println("new Date() = " + new Date());
         if(date.compareTo(new Date()) < 0){
-            throw new JcException("该学员课时包已过期");
+            throw new JcException(999,"该学员课时包已过期");
         }
         BigDecimal classHour = lesson.getClassHour();
         BigDecimal leftClassHour = coursePackageEntity.getLeftClassHour();
         BigDecimal consumedClassHour = coursePackageEntity.getConsumedClassHour();
         if(coursePackageEntity.getIsValidity() == null || coursePackageEntity.getIsValidity() == 0){
-            throw new JcException("该学员课时包不在有效期");
+            throw new JcException(999,"该学员课时包不在有效期");
         }
         BigDecimal add = consumedClassHour.add(classHour);
         BigDecimal subtract = leftClassHour.subtract(classHour);
         if(subtract.compareTo(BigDecimal.ZERO) < 0){
-            throw new JcException("该学员课时包课时不足");
+            throw new JcException(999,"该学员课时包课时不足");
         }
         lessonMapper.lessonSign(lessonId, studentId);
         coursePackageEntity.setLeftClassHour(subtract);
