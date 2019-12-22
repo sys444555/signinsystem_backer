@@ -71,6 +71,7 @@ public class TransactionAdviceAOP {
         map.put("change*", ruleChange);
         map.put("delete*", ruleChange);
         map.put("remove*", ruleChange);
+        map.put("lesson*", ruleChange);
         source.setNameMap(map);
         //配置事务拦截器
         TransactionInterceptor transactionInterceptor = new TransactionInterceptor(platformTransactionManager, source);

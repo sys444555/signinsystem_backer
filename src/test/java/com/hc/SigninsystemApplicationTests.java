@@ -62,10 +62,9 @@ class SigninsystemApplicationTests {
         lessonEntity.setId(1);
         lessonEntity.setClassHour(new BigDecimal(2.0));
 
-        LessonEntity lesson = lessonService.getLesson(1);
-        System.out.println("lesson = " + lesson);
-        List<StudentLessonEntity> classLessonList = lessonService.getLessonStudentList(26);
-        System.out.println("classLessonList = " + classLessonList);
+        lessonService.lessonSign(26, 39);
+
+
 
     }
 

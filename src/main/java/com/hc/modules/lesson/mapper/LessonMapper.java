@@ -46,5 +46,7 @@ public interface LessonMapper extends BaseMapper<LessonEntity> {
                                 @Param(value = "lessonId")Integer lessonId);
 
     public Integer lessonSign(@Param(value = "lessonId") Integer lessonId,
-                              @Param(value = "classId") Integer classId);
+                              @Param(value = "studentId") Integer studentId);
+
+
 }

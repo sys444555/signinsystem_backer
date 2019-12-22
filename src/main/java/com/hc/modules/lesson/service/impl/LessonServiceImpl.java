@@ -1,7 +1,11 @@
 package com.hc.modules.lesson.service.impl;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.github.qcloudsms.SmsSingleSender;
+import com.github.qcloudsms.SmsSingleSenderResult;
 import com.hc.common.exception.JcException;
+import com.hc.common.utils.SmsUtils;
 import com.hc.modules.lesson.mapper.LessonMapper;
 import com.hc.modules.lesson.entity.LessonEntity;
 
@@ -9,6 +13,9 @@ import com.hc.modules.lesson.service.LessonService;
 import com.hc.modules.student.entity.CoursePackageEntity;
 import com.hc.modules.student.entity.StudentEntity;
 import com.hc.modules.student.entity.StudentLessonEntity;
+import com.hc.modules.student.mapper.StudentMapper;
+import com.hc.modules.student.service.StudentService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -26,6 +33,8 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
     @Resource
     private LessonMapper lessonMapper;
 
+    @Resource
+    private StudentMapper studentMapper;
 
     @Override
     public List<LessonEntity> getClassLessonList(Integer cid) {
@@ -162,12 +171,13 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
     }
 
     @Override
-    public void lessonSign(LessonEntity lessonEntity, Integer studentId) throws ParseException {
+    public void lessonSign(Integer lessonId, Integer studentId) throws ParseException {
 
-        CoursePackageEntity coursePackageEntity = lessonMapper.findCoursePackage(lessonEntity.getId(), studentId);
+        CoursePackageEntity coursePackageEntity = lessonMapper.findCoursePackage(lessonId, studentId);
         if(coursePackageEntity == null){
             throw new JcException("该学员课时包为空或未设置");
         }
+        LessonEntity lesson = this.getLesson(lessonId);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = simpleDateFormat.parse(coursePackageEntity.getPeriodOfValidity());
         System.out.println("date = " + date);
@@ -175,7 +185,7 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
         if(date.compareTo(new Date()) < 0){
             throw new JcException("该学员课时包已过期");
         }
-        BigDecimal classHour = lessonEntity.getClassHour();
+        BigDecimal classHour = lesson.getClassHour();
         BigDecimal leftClassHour = coursePackageEntity.getLeftClassHour();
         BigDecimal consumedClassHour = coursePackageEntity.getConsumedClassHour();
         if(coursePackageEntity.getIsValidity() == null || coursePackageEntity.getIsValidity() == 0){
@@ -186,12 +196,62 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
         if(subtract.compareTo(BigDecimal.ZERO) < 0){
             throw new JcException("该学员课时包课时不足");
         }
-        lessonMapper.lessonSign(lessonEntity.getId(), studentId);
+        lessonMapper.lessonSign(lessonId, studentId);
         coursePackageEntity.setLeftClassHour(subtract);
         coursePackageEntity.setConsumedClassHour(add);
         lessonMapper.updateCoursePackage(coursePackageEntity);
+        this.sengSms(studentId, lesson);
 
     }
+
+
+    public String sengSms(Integer studentId, LessonEntity lessonEntity) throws ParseException {
+
+        StudentEntity student= studentMapper.getStudentById(studentId);
+        //校验相关信息，发送短信验证
+        String startDate = lessonEntity.getStartDate();
+        String endDate = lessonEntity.getEndDate();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date parse = simpleDateFormat.parse(startDate);
+        SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("MM月dd日");
+        String format = simpleDateFormat1.format(parse);
+
+        //转化星期几
+        String[] weekDays = { "星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六" };
+        Calendar cal = Calendar.getInstance(); // 获得一个日历
+        cal.setTime(parse);
+        int w = cal.get(Calendar.DAY_OF_WEEK) - 1; // 指示一个星期中的某天。
+
+        SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("HH:mm");
+        String format1 = simpleDateFormat2.format(simpleDateFormat2.parse(startDate.split(" ")[1]));
+        String format2 = simpleDateFormat2.format(simpleDateFormat2.parse(endDate.split(" ")[1]));
+
+        String msg = lessonEntity.getName()+ "于" + format + " (" + weekDays[w] + ") " + format1 + " - " +  format2;
+        System.out.println("msg = " + msg);
+        //1.封装数据  参数1.code值， 参数2. 分钟数
+        String[] pararms = {student.getName(),msg};
+
+        SmsSingleSender smsSingleSender = new SmsSingleSender(Integer.parseInt(SmsUtils.APPID), SmsUtils.APPKEY);
+
+        SmsSingleSenderResult result = null;
+
+        String ext = null;
+
+        try {
+
+            result = smsSingleSender.sendWithParam("86",  student.getGuarderPhone(), Integer.parseInt(SmsUtils.CODETEMPLEID), pararms, SmsUtils.SIGN, "", "");
+            ext = result.ext;
+
+            if(result.result != 0){
+                return "-1";
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ext;
+    }
+
 
     @Override
     public LessonEntity getLesson(Integer lessonId) {

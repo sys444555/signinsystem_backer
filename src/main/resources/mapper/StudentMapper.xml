@@ -14,4 +14,8 @@
         VALUES(#{sid},#{cid})
     </insert>
 
+    <select id="getStudentById" resultType="com.hc.modules.student.entity.StudentEntity">
+        SELECT * FROM student WHERE id=#{sid}
+    </select>
+
 </mapper>

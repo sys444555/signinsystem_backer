@@ -29,7 +29,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, StudentEntity
     @Override
     public StudentEntity getStudentById(Integer sid) {
 
-        StudentEntity studentEntity = studentMapper.selectById(sid);
+        StudentEntity studentEntity = studentMapper.getStudentById(sid);
 
         return studentEntity;
     }
