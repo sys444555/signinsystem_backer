@@ -3,6 +3,7 @@ package com.hc.modules.lesson.service;
 import com.baomidou.mybatisplus.service.IService;
 import com.hc.modules.lesson.entity.LessonEntity;
 import com.hc.modules.student.entity.StudentEntity;
+import com.hc.modules.student.entity.StudentLessonEntity;
 import org.apache.ibatis.annotations.Param;
 
 import java.text.ParseException;
@@ -28,7 +29,7 @@ public interface LessonService extends IService<LessonEntity> {
 
     public LessonEntity getLesson( Integer lessonId);
 
-    public List<StudentEntity> getLessonStudentList(Integer lessonId);
+    public List<StudentLessonEntity> getLessonStudentList(Integer lessonId);
 
     public void removeLessonStudent(Integer studentId, Integer lessonId);
 

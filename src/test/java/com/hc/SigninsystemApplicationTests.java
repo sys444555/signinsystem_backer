@@ -6,6 +6,7 @@ import com.hc.modules.lesson.entity.LessonEntity;
 import com.hc.modules.lesson.service.LessonService;
 import com.hc.modules.student.entity.CoursePackageEntity;
 import com.hc.modules.student.entity.StudentEntity;
+import com.hc.modules.student.entity.StudentLessonEntity;
 import com.hc.modules.student.service.CoursePackageService;
 import com.hc.modules.student.service.StudentService;
 import com.hc.modules.teacher.service.TeacherService;
@@ -63,7 +64,7 @@ class SigninsystemApplicationTests {
 
         LessonEntity lesson = lessonService.getLesson(1);
         System.out.println("lesson = " + lesson);
-        List<StudentEntity> classLessonList = lessonService.getLessonStudentList(1);
+        List<StudentLessonEntity> classLessonList = lessonService.getLessonStudentList(1);
         System.out.println("classLessonList = " + classLessonList);
 
     }

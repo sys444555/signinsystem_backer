@@ -8,6 +8,7 @@ import com.hc.modules.lesson.entity.LessonEntity;
 import com.hc.modules.lesson.entity.LessonEntity;
 import com.hc.modules.lesson.service.LessonService;
 import com.hc.modules.student.entity.StudentEntity;
+import com.hc.modules.student.entity.StudentLessonEntity;
 import com.hc.modules.teacher.entity.ClassEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,7 +61,7 @@ public class LessonController {
      */
     @RequestMapping(value = "/class/lesson/student/list/{lessonId}",method = RequestMethod.GET)
     public ResponseUtil getLessonStudentList(@PathVariable(value = "lessonId") Integer lessonId){
-        List<StudentEntity> studentEntityList = lessonService.getLessonStudentList(lessonId);
+        List<StudentLessonEntity> studentEntityList = lessonService.getLessonStudentList(lessonId);
         return ResponseUtil.success(studentEntityList);
     }
 

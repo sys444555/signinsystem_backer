@@ -8,6 +8,7 @@ import com.hc.modules.lesson.entity.LessonEntity;
 import com.hc.modules.lesson.service.LessonService;
 import com.hc.modules.student.entity.CoursePackageEntity;
 import com.hc.modules.student.entity.StudentEntity;
+import com.hc.modules.student.entity.StudentLessonEntity;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -200,8 +201,8 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
     }
 
     @Override
-    public List<StudentEntity> getLessonStudentList(Integer lessonId) {
-        List<StudentEntity> lessonStudentList = lessonMapper.getLessonStudentList(lessonId);
+    public List<StudentLessonEntity> getLessonStudentList(Integer lessonId) {
+        List<StudentLessonEntity> lessonStudentList = lessonMapper.getLessonStudentList(lessonId);
         return lessonStudentList;
     }
 
