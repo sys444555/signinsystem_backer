@@ -47,15 +47,10 @@ public class CoursePackageServiceImpl extends ServiceImpl<CoursePackageMapper, C
 
     @Override
     public void setCoursePackage(Integer studentId, Integer classId, Integer cpid) {
-        Integer cpid1 = coursePackageMapper.getCpid(studentId, classId);
-        if(cpid1 != null){
-            coursePackageMapper.updateCoursePackage(studentId, classId, cpid);
-        }else{
-            Integer result = coursePackageMapper.setCoursePackage(studentId, classId, cpid);
-            if(result == null || result == 0){
-                throw new JcException("设置默认课时包失败");
-            }
-        }
+
+        coursePackageMapper.updateCoursePackage(studentId, classId, cpid);
+
+
 
     }
 

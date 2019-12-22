@@ -33,10 +33,10 @@
         SELECT c_p_id from class_student WHERE c_id=#{classId} AND s_id=#{studentId}
     </select>
 
-    <insert id="setCoursePackage">
+    <!--<insert id="setCoursePackage">
         INSERT INTO class_student(c_id,s_id,c_p_id)
         VALUES (#{classId},#{studentId},#{cpid})
-    </insert>
+    </insert>-->
 
     <update id="updateCoursePackage">
         UPDATE class_student SET c_p_id=#{cpid} WHERE c_id=#{classId} AND s_id=#{studentId}
