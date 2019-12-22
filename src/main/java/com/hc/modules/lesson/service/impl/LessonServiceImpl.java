@@ -163,7 +163,7 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
     @Override
     public void lessonSign(LessonEntity lessonEntity, Integer studentId) throws ParseException {
 
-        CoursePackageEntity coursePackageEntity = lessonMapper.lessonSign(lessonEntity.getId(), studentId);
+        CoursePackageEntity coursePackageEntity = lessonMapper.findCoursePackage(lessonEntity.getId(), studentId);
         if(coursePackageEntity == null){
             throw new JcException("该学员课时包为空或未设置");
         }
@@ -185,6 +185,7 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
         if(subtract.compareTo(BigDecimal.ZERO) < 0){
             throw new JcException("该学员课时包课时不足");
         }
+        lessonMapper.lessonSign(lessonEntity.getId(), studentId);
         coursePackageEntity.setLeftClassHour(subtract);
         coursePackageEntity.setConsumedClassHour(add);
         lessonMapper.updateCoursePackage(coursePackageEntity);

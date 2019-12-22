@@ -56,7 +56,7 @@
         </foreach >
     </insert>
 
-    <select id="lessonSign" resultType="com.hc.modules.student.entity.CoursePackageEntity">
+    <select id="findCoursePackage" resultType="com.hc.modules.student.entity.CoursePackageEntity">
         SELECT * FROM course_package WHERE id =
         (SELECT c_p_id FROM class_student WHERE s_id=#{studentId} AND c_id =
         (SELECT class_id FROM lesson WHERE id = #{id}))
@@ -90,4 +90,8 @@
     <delete id="removeLessonStudent">
         DELETE FROM lesson_student WHERE student_id = #{studentId} AND lesson_id=#{lessonId}
     </delete>
+
+    <update id="lessonSign">
+        UPDATE lesson_student SET status=1 WHERE student_id=#{studentId} AND lesson_id=#{lessonId}
+    </update>
 </mapper>

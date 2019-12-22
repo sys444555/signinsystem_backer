@@ -27,7 +27,7 @@ public interface LessonMapper extends BaseMapper<LessonEntity> {
                                         @Param(value = "list") List<Integer> list);
 
 
-    public CoursePackageEntity lessonSign(@Param(value = "id") Integer id,
+    public CoursePackageEntity findCoursePackage(@Param(value = "id") Integer id,
                                           @Param(value = "studentId")Integer studentId);
 
     public Integer updateCoursePackage(CoursePackageEntity coursePackageEntity);
@@ -43,4 +43,7 @@ public interface LessonMapper extends BaseMapper<LessonEntity> {
 
     Integer removeLessonStudent(@Param(value = "studentId")Integer studentId,
                                 @Param(value = "lessonId")Integer lessonId);
+
+    public Integer lessonSign(@Param(value = "lessonId") Integer lessonId,
+                              @Param(value = "classId") Integer classId);
 }
