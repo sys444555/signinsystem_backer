@@ -209,8 +209,8 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
     }
 
     @Override
-    public List<StudentEntity> getLessonAbsentStudentList(Integer lessonId) {
-        List<StudentEntity> lessonAbsentStudentList = lessonMapper.lessonAbsentStudentList(lessonId);
+    public List<StudentEntity> getLessonAbsentStudentList(Integer lessonId, Integer classId) {
+        List<StudentEntity> lessonAbsentStudentList = lessonMapper.lessonAbsentStudentList(lessonId, classId);
         return lessonAbsentStudentList;
     }
 }

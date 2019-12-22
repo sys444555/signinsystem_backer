@@ -86,10 +86,10 @@ public class LessonController {
      * 查看未加入该课节的学生录
      */
     @RequestMapping(value = "/class/student/absent/list/{lessonId}",method = RequestMethod.GET)
-    public ResponseUtil getLessonAbsentStudentList(@PathVariable(value = "lessonId") Integer lessonId){
-        List<StudentEntity> studentEntityList = lessonService.getLessonAbsentStudentList(lessonId);
+    public ResponseUtil getLessonAbsentStudentList(@PathVariable(value = "lessonId") Integer lessonId, Integer classId){
+        List<StudentEntity> studentEntityList = lessonService.getLessonAbsentStudentList(lessonId, classId);
         return ResponseUtil.success(studentEntityList);
     }
-    
+
 
 }
