@@ -146,10 +146,6 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
     public void insertLessonStudents(Integer coid, String[] studentList) {
 
 
-        //清空课节学员
-        Integer result = lessonMapper.deleteLessonStudent(coid);
-        System.out.println("result = " + result);
-
         if(studentList != null){
             List<Integer> list = new ArrayList<>();
             for(int i=0;i<studentList.length;i++){
@@ -206,6 +202,14 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
     public List<StudentEntity> getLessonStudentList(Integer lessonId) {
         List<StudentEntity> lessonStudentList = lessonMapper.getLessonStudentList(lessonId);
         return lessonStudentList;
+    }
+
+    @Override
+    public void removeLessonStudent(Integer studentId) {
+        Integer result = lessonMapper.removeLessonStudent(studentId);
+        if(result == null || result == 0){
+            throw new JcException("课程移除学员失败");
+        }
     }
 
     @Override

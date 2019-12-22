@@ -41,4 +41,5 @@ public interface LessonMapper extends BaseMapper<LessonEntity> {
 
     public Integer deleteLessonStudent(@Param(value = "lessonId") Integer lessonId);
 
+    Integer removeLessonStudent(@Param(value = "studentId")Integer studentId);
 }

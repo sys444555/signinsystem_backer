@@ -86,4 +86,8 @@
         AND b.id NOT IN (select student_id from lesson_student where lesson_id=#{lessonId})
 
     </select>
+
+    <delete id="removeLessonStudent">
+        DELETE FROM lesson_student WHERE student_id = #{studentId}
+    </delete>
 </mapper>

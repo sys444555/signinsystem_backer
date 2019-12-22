@@ -91,5 +91,15 @@ public class LessonController {
         return ResponseUtil.success(studentEntityList);
     }
 
+    /**
+     * 移除课节学员
+     */
+    @RequestMapping(value = "/class/lesson/remove/student/{studentId}", method = RequestMethod.POST)
+    public ResponseUtil removeLessonStudent(@PathVariable(value = "studentId") Integer studentId){
+        lessonService.removeLessonStudent(studentId);
+        return ResponseUtil.success();
+
+
+    }
 
 }

@@ -63,11 +63,14 @@ public class TransactionAdviceAOP {
         map.put("find*", ruleSelect);
         map.put("query*", ruleSelect);
         map.put("select*", ruleSelect);
+        map.put("get*", ruleSelect);
+        map.put("create*", ruleChange);
         map.put("insert*", ruleChange);
         map.put("batch*", ruleChange);
         map.put("update*", ruleChange);
+        map.put("change*", ruleChange);
         map.put("delete*", ruleChange);
-
+        map.put("remove*", ruleChange);
         source.setNameMap(map);
         //配置事务拦截器
         TransactionInterceptor transactionInterceptor = new TransactionInterceptor(platformTransactionManager, source);
