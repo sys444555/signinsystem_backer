@@ -30,7 +30,7 @@ public interface LessonService extends IService<LessonEntity> {
 
     public List<StudentEntity> getLessonStudentList(Integer lessonId);
 
-    public void removeLessonStudent(Integer studentId);
+    public void removeLessonStudent(Integer studentId, Integer lessonId);
 
     public List<StudentEntity> getLessonAbsentStudentList(Integer lessonId, Integer classId);
 

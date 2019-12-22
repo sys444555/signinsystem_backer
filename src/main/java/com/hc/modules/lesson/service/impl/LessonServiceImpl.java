@@ -205,8 +205,8 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
     }
 
     @Override
-    public void removeLessonStudent(Integer studentId) {
-        Integer result = lessonMapper.removeLessonStudent(studentId);
+    public void removeLessonStudent(Integer studentId, Integer lessonId) {
+        Integer result = lessonMapper.removeLessonStudent(studentId, lessonId);
         if(result == null || result == 0){
             throw new JcException("课程移除学员失败");
         }

@@ -88,6 +88,6 @@
     </select>
 
     <delete id="removeLessonStudent">
-        DELETE FROM lesson_student WHERE student_id = #{studentId}
+        DELETE FROM lesson_student WHERE student_id = #{studentId} AND lesson_id=#{lessonId}
     </delete>
 </mapper>

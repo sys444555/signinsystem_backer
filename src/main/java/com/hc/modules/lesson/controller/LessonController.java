@@ -95,8 +95,8 @@ public class LessonController {
      * 移除课节学员
      */
     @RequestMapping(value = "/class/lesson/remove/student/{studentId}", method = RequestMethod.POST)
-    public ResponseUtil removeLessonStudent(@PathVariable(value = "studentId") Integer studentId){
-        lessonService.removeLessonStudent(studentId);
+    public ResponseUtil removeLessonStudent(@PathVariable(value = "studentId") Integer studentId, Integer lessonId){
+        lessonService.removeLessonStudent(studentId, lessonId);
         return ResponseUtil.success();
 
 
