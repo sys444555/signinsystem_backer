@@ -64,7 +64,7 @@ class SigninsystemApplicationTests {
 
         LessonEntity lesson = lessonService.getLesson(1);
         System.out.println("lesson = " + lesson);
-        List<StudentLessonEntity> classLessonList = lessonService.getLessonStudentList(1);
+        List<StudentLessonEntity> classLessonList = lessonService.getLessonStudentList(26);
         System.out.println("classLessonList = " + classLessonList);
 
     }

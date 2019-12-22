@@ -9,7 +9,6 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
-@TableName("student")
 public class StudentEntity {
 
     @TableId(type = IdType.AUTO)
@@ -28,4 +27,6 @@ public class StudentEntity {
     private String address;
 
     private Date createTime;
+
+
 }

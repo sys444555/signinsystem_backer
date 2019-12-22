@@ -24,9 +24,16 @@
        </collection>
    </resultMap>
 
-    <resultMap id="lessonStudentMap" type="com.hc.modules.student.entity.StudentLessonEntity" extends="studentMap">
+    <resultMap id="lessonStudentMap" type="com.hc.modules.student.entity.StudentLessonEntity" >
         <result property="status" column="status"/>
         <result property="signTime" column="sign_time"/>
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="gender" column="gender"/>
+        <result property="birth" column="birth"/>
+        <result property="guarder" column="guarder"/>
+        <result property="guarderPhone" column="guarder_phone"/>
+        <result property="address" column="address"/>
     </resultMap>
 
     <resultMap id="studentMap" type="com.hc.modules.student.entity.StudentEntity">

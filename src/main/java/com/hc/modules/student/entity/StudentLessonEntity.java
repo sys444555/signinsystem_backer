@@ -1,5 +1,7 @@
 package com.hc.modules.student.entity;
 
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.enums.IdType;
 import lombok.Data;
 import java.util.Date;
 /**
@@ -10,10 +12,27 @@ import java.util.Date;
  * @version:
  */
 @Data
-public class StudentLessonEntity extends StudentEntity{
+public class StudentLessonEntity {
 
     private Integer status;
 
     private Date signTime;
+
+    @TableId(type = IdType.AUTO)
+    private Integer id;
+
+    private String name;
+
+    private Integer gender;
+
+    private String birth;
+
+    private String guarder;
+
+    private String guarderPhone;
+
+    private String address;
+
+    private Date createTime;
 
 }
