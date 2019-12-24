@@ -38,7 +38,7 @@
 					<div id="box_top">课程包</div>
 						<div id="box_bottom">
 							<input type="button" value="新增课程包" class="ui_input_btn01" onclick="createCourse();" />
-							<input type="button" value="添加新班级" class="ui_input_btn01" onclick="createClass();" />
+							<!--<input type="button" value="添加新班级" class="ui_input_btn01" onclick="createClass();" />-->
 						</div>
 					</div>
 			</div>
@@ -47,11 +47,9 @@
 					<table id="t_table" class="table" cellspacing="0" cellpadding="0" width="100%" align="center" border="0" style="text-align: center">
 						<thead style="text-align: center">
 						<tr >
-							<th><input type="checkbox" class="bs-checkbox"  style="width: 36px;"></th>
 							<th>编号</th>
 							<th>课程名字</th>
-							<th>创建时间</th>
-							<th>操作</th>
+							<th>添加新班</th>
 						</tr>
 						</thead>
 						<tbody style="text-align: center;" id="class_td"></tbody>
@@ -70,7 +68,7 @@
 		<div class="modal-dialog" id="course_create_dialog">
 			<div class="modal-content" align="center" style="overflow: hidden; height: 500px; width: 800px">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="cancelClassModal()">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true" aria-label="Close" onclick="cc()">
 						×
 					</button>
 					<h4 class="modal-title" id="myModalLabel2">
@@ -86,12 +84,9 @@
 
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" id="saveCourse" onclick="saveCourse()">
+					<button type="button" class="btn btn-primary" id="saveCourse" onclick="saveCourse()" >
 						提交保存
 					</button>
-					<button type="button" onclick="cancelClassModal()" class="btn btn-default" data-dismiss="modal">关闭
-					</button>
-
 				</div>
 			</div>
 			<!-- /.modal-content -->
@@ -116,7 +111,6 @@
 					<table width="100%" align="absbottom" class="table">
 						<form id="createClassForm" method="post">
 							<div style="margin-bottom: 20px">班级名字 : <input name="className" required="required"/><span style="color: red">*</span></div>
-							<div style="margin-bottom: 20px">课程名字 : <input name="courseName" required="required"/><span style="color: red">*</span></div>
 							<div style="margin-bottom: 20px">班级课时 :
 								<select name="classHour" style="width: 174px" required="required">
 									<option value="-1">请选择</option>

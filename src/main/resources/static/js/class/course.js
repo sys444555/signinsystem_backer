@@ -19,15 +19,14 @@ $(function () {
 
                 for (var i = 0; i < dataList.length; i++) {
                     var html = "<tr style='text-align: center'>"
-                        + "<td><input type='checkbox' data-courseid='#{id}'></td>"
                         + "<td>#{id}</td>"
                         + "<td>#{name}</td>"
-                        + "<td>#{createTime}</td>"
-                        + "<td><a href='javascript:void(0)' onclick='showCourse(#{id})'>操作课程</a></td>"
+                        + "<td data-id='#{id}' style='color: firebrick;cursor: pointer' onclick='createClass(this)'>(点击这里) 添加班级</td>"
+                        + "</tr>"
 
-                    html = html.replace(/#{id}/g, dataList[i].id)
+                    html = html.replace(/"#{id}"/g, dataList[i].id)
+                    html = html.replace(/#{id}/g, i+1)
                     html = html.replace(/#{name}/, dataList[i].name)
-                    html = html.replace(/#{createTime}/g, dataList[i].createTime)
 
                 $("#t_table tbody").append(html)
                 }
@@ -61,16 +60,15 @@ $(function () {
                                     var dataList = data.data.list;
 
                                     for (var i = 0; i < dataList.length; i++) {
-                                        var html = "<tr >"
-                                            + "<td><input type='checkbox' data-courseid='#{id}'></td>"
-                                            + "<td>#{id}</td>"
+                                        var html = "<tr style='text-align: center'>"
+                                            + "<td>#{index}</td>"
                                             + "<td>#{name}</td>"
-                                            + "<td>#{createTime}</td>"
-                                            + "<td><a href='javascript:void(0)' id='controller' onclick='showCourse(#{id})'>操作课程</a></td>"
+                                            + "<td data-id='#{id}' style='color: firebrick' onclick='createClass(this)'>(点击这里) 添加班级</td>"
+                                            + "</tr>"
 
-                                        html = html.replace(/#{id}/g, dataList[i].id)
+                                        html = html.replace(/"#{id}"/g, dataList[i].id)
+                                        html = html.replace(/#{index}/g, i+1)
                                         html = html.replace(/#{name}/, dataList[i].name)
-                                        html = html.replace(/#{createTime}/g, dataList[i].createTime)
 
                                         $("#t_table tbody").append(html)
                                     }
@@ -115,6 +113,9 @@ $(function () {
 })
 //-------------------------------------- ------------------------------------
 
+function cc() {
+    $("#course_create_alter").hide()
+}
 
 
 function saveClass() {
@@ -125,14 +126,14 @@ function saveClass() {
 
     var form = $("#createClassForm").serialize();
 
-    if(form.indexOf("classHour=-1")>0){
+    if(!(isEmpty($("input[name='className']").val()))){
+        alert("存在信息未填写，请确认")
+        return;
+    }else if(form.indexOf("classHour=-1")>0){
         alert("课时未选择！")
         return;
     }else if(form.indexOf("tId=-1")>0){
         alert("任课教师未选择！")
-        return;
-    }else if(!(isEmpty($("input[name='className']").val()) || isEmpty($("input[name='courseName']").val()))){
-        alert("存在信息未填写，请确认")
         return;
     }else {
         $.ajax({
@@ -144,7 +145,6 @@ function saveClass() {
             },
             data: {
                 "className": $("input[name=className]").val(),
-                "courseName": $("input[name=courseName]").val(),
                 "classHour": $("select[name=classHour]").val(),
                 "teacherId": $("select[name=tId]").val(),
                 "cId": sessionStorage.getItem("clickCourseId")
@@ -165,18 +165,10 @@ function saveClass() {
     }
 }
 
-function createClass() {
-    if($("#class_td").find(":checked").length ==0){
-        alert("请选择课程包！")
-        return;
-    }else if($("#class_td").find(":checked").length > 1){
-        alert("请选择一条数据！")
-        return
-    }
+function createClass(obj) {
 
-    var courseId = $("#class_td").find(":checked").parent().next().html();
 
-    sessionStorage.setItem("clickCourseId",courseId);
+    sessionStorage.setItem("clickCourseId",$(obj).data().id);
 
     $("#class_create_alter").show();
 

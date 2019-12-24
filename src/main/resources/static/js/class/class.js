@@ -21,15 +21,11 @@ $(function () {
 
                 for (var i = 0; i < dataList.length; i++) {
                     var html = "<tr data-cid='#{id}'>"
-                        + "<td><input type='checkbox' ></td>"
-                        + "<td>#{id}</td>"
                         + "<td>#{className}</td>"
-                        + "<td>#{courseName}</td>"
                         + "<td>#{classHour}</td>"
                         + "<td>#{teacherName}</td>"
-                        + "<td>#{createTime}</td>"
                         + "<td data-status='#{statusnum}'>#{status}</td>"
-                        + "<td id='td#{id}'><a href='javascript:void(0)' target='_blank' onclick='showClassInfo(#{id},\"#{className}\",\"#{courseName}\",\"#{classHour}\",\"#{teacherName}\")'>查看详情</a></td>"
+                        + "<td id='td#{id}'><a href='javascript:void(0)' style='color: firebrick;cursor: pointer' target='_blank' onclick='showClassInfo(#{id},\"#{className}\",\"#{courseName}\",\"#{classHour}\",\"#{teacherName}\")'>查看详情</a></td>"
                         + "</tr>"
 
                     html = html.replace(/#{id}/g,dataList[i].id)
@@ -69,15 +65,11 @@ $(function () {
 
                                     for (var i = 0; i < dataList.length; i++) {
                                         var html = "<tr data-cid='#{id}'>"
-                                            + "<td><input type='checkbox' ></td>"
-                                            + "<td>#{id}</td>"
                                             + "<td>#{className}</td>"
-                                            + "<td>#{courseName}</td>"
                                             + "<td>#{classHour}</td>"
                                             + "<td>#{teacherName}</td>"
-                                            + "<td>#{createTime}</td>"
-                                            + "<td>#{status}</td>"
-                                            + "<td id='td#{id}'><a href='javascript:void(0)' onclick='showClassInfo(#{id},\"#{className}\",\"#{courseName}\",\"#{classHour}\",\"#{teacherName}\"})' target='_blank'>查看详情</a></td>"
+                                            + "<td data-status='#{statusnum}'>#{status}</td>"
+                                            + "<td id='td#{id}'><a href='javascript:void(0)' style='color: firebrick;cursor: pointer' target='_blank' onclick='showClassInfo(#{id},\"#{className}\",\"#{courseName}\",\"#{classHour}\",\"#{teacherName}\")'>查看详情</a></td>"
                                             + "</tr>"
 
                                         html = html.replace(/#{id}/g,dataList[i].id)
