@@ -88,7 +88,7 @@
         DELETE FROM lesson_student WHERE lesson_id = #{lessonId}
     </delete>
 
-    <select id="lessonAbsentStudentList" resultMap="studentMap">
+    <select id="getLessonAbsentStudentList" resultMap="studentMap">
          SELECT  b.id,b.name,b.gender,b.birth,b.guarder_phone
         FROM class_student a LEFT JOIN student b ON a.s_id = b.id WHERE a.c_id=#{classId}
         AND b.id NOT IN (select student_id from lesson_student where lesson_id=#{lessonId})

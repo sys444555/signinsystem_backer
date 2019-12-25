@@ -36,13 +36,6 @@
         <result property="birth" column="birth"/>
         <result property="guarderPhone" column="guarder_phone"/>
         <result property="teacherId" column="teacher_id"/>
-        <result property="classPackage" column="class_package"/>
-        <result property="chargingStandard" column="charging_standard"/>
-        <result property="buyClassHour" column="buy_class_hour"/>
-        <result property="consumedClassHour" column="consumed_class_hour"/>
-        <result property="isValidity" column="is_validity"/>
-        <result property="periodOfValidity" column="period_of_validity"/>
-        <result property="price" column="price"/>
         <result property="createTime" column="create_time"/>
     </resultMap>
 
@@ -75,5 +68,18 @@
         WHERE a.id=#{id}
     </select>
 
+    <insert id="insertClassStudents">
+        INSERT INTO class_student(c_id, s_id)
+        VALUES
+        <foreach collection ="list" item="item" separator ="," index="index">
+            (#{coid}, #{item})
+        </foreach >
+    </insert>
 
+    <select id="getClassAbsentStudentList" resultMap="studentMap">
+         SELECT  a.id,a.name,a.gender,a.birth,a.guarder_phone
+        FROM student a
+        WHERE a.id NOT IN (select s_id from class_student where c_id=#{classId})
+
+    </select>
 </mapper>

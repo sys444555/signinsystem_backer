@@ -1,6 +1,7 @@
 package com.hc.modules.user.controller;
 
 import com.hc.common.utils.JWTUtil;
+import com.hc.common.utils.RedisUtil;
 import com.hc.model.ResultMap;
 import com.hc.modules.user.mapper.RoleUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import com.hc.common.utils.ResponseUtil;
 
 /**
  * @Author
@@ -30,6 +32,10 @@ public class LoginController {
     @Resource
     private ResultMap resultMap;
 
+
+    @Resource
+    private RedisUtil redisUtil;
+
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResultMap login(@RequestParam(value = "username") String username,
                            @RequestParam(value = "password") String password,
@@ -46,6 +52,16 @@ public class LoginController {
 
             return resultMap.success().code(200).message(token);
         }
+    }
+
+    @RequestMapping(value = "/logout",method = RequestMethod.POST)
+    public ResponseUtil logout(HttpServletRequest httpServletRequest){
+        String token=httpServletRequest.getHeader("token");
+        String jwtid=jwtUtil.getJwtIdByToken(token);
+        System.out.println("jwtid:"+jwtid);
+        redisUtil.deleteCache("JWT-SESSION-"+jwtid);
+        httpServletRequest.getSession().setAttribute("uid", null);
+        return ResponseUtil.success();
     }
 
 

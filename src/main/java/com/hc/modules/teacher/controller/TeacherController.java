@@ -89,11 +89,25 @@ public class TeacherController {
         PageHelper.startPage(pageNo, pageSize);
         List<CourseEntity> courseList = teacherService.getClassCourseById(cid);
         PageInfo<CourseEntity> pageInfo = new PageInfo<>(courseList);
-
         return ResponseUtil.success(pageInfo);
-
     }
 
+    /**
+     * 新增班学生
+     */
+    @RequestMapping(value = "/class/lesson/students/create", method = RequestMethod.POST)
+    public ResponseUtil insertClassStudents(Integer classId, String[] studentList){
+        teacherService.insertClassStudents(classId, studentList);
+        return ResponseUtil.success();
+    }
 
+    /**
+     * 查看未加入该课节的学生录
+     */
+    @RequestMapping(value = "/class/student/absent/list/{classId}",method = RequestMethod.GET)
+    public ResponseUtil getLessonAbsentStudentList(@PathVariable(value = "classId") Integer classId){
+        List<StudentEntity> studentEntityList = teacherService.getClassAbsentStudentList(classId);
+        return ResponseUtil.success(studentEntityList);
+    }
 
 }

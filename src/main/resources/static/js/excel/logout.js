@@ -3,7 +3,7 @@ function logout() {
     var token = getCookie("token")
     console.log(token)
     $.ajax({
-        url: "../house/logout",
+        url: "../logout",
         headers: {
             "token": token
         },
@@ -14,7 +14,7 @@ function logout() {
             location.href = "login.html";
         },
         "error": function () {
-            alert("导出失败");
+            alert("退出失败");
             window.location.reload(true);
         }
     });

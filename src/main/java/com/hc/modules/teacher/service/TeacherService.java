@@ -29,5 +29,9 @@ public interface TeacherService extends IService<TeacherEntity> {
     public List<StudentEntity> getClassStudentById(Integer id);
 
     public List<CourseEntity> getClassCourseById(Integer id);
+
+    public void insertClassStudents(Integer classId, String[] studentList);
+
+    public List<StudentEntity> getClassAbsentStudentList(Integer classId);
 }
 

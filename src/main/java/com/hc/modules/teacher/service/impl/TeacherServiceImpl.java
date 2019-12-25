@@ -12,6 +12,7 @@ import com.hc.modules.teacher.service.TeacherService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -64,5 +65,23 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, TeacherEntity
     public List<CourseEntity> getClassCourseById(Integer id) {
         List<CourseEntity> courseList = teacherMapper.getCourseById(id);
         return courseList;
+    }
+
+    @Override
+    public void insertClassStudents(Integer classId, String[] studentList) {
+        if(studentList != null){
+            List<Integer> list = new ArrayList<>();
+            for(int i=0;i<studentList.length;i++){
+                Integer integer = Integer.valueOf(studentList[i]);
+                list.add(integer);
+            }
+            teacherMapper.insertClassStudents(classId, list);
+        }
+    }
+
+    @Override
+    public List<StudentEntity> getClassAbsentStudentList(Integer classId) {
+        List<StudentEntity> studentEntityList = teacherMapper.getClassAbsentStudentList(classId);
+        return studentEntityList;
     }
 }

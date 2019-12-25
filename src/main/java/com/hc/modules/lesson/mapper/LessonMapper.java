@@ -37,7 +37,7 @@ public interface LessonMapper extends BaseMapper<LessonEntity> {
 
     public List<StudentLessonEntity> getLessonStudentList(@Param(value = "lessonId") Integer lessonId);
 
-    public List<StudentEntity> lessonAbsentStudentList(@Param(value = "lessonId") Integer lessonId,
+    public List<StudentEntity> getLessonAbsentStudentList(@Param(value = "lessonId") Integer lessonId,
                                                        @Param(value = "classId") Integer classId);
 
     public Integer deleteLessonStudent(@Param(value = "lessonId") Integer lessonId);
