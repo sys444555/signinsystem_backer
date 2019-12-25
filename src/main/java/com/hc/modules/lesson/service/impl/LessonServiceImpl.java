@@ -43,14 +43,16 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
     }
 
     @Override
-    public void insertLesson(LessonEntity lessonEntity, String dataRange, Integer period, Integer times) throws ParseException {
-        String[] split = dataRange.split(" - ");
+    public void insertLesson(LessonEntity lessonEntity, String dataRange, String timeRange, Integer period, Integer times) throws ParseException {
 
+        String[] split = timeRange.split(" - ");
+        String startDate = dataRange + " " + split[0];
+        String endDate = dataRange + " " + split[1];
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         switch (period){
             case 0:
-                lessonEntity.setStartDate(split[0]);
-                lessonEntity.setEndDate(split[1]);
+                lessonEntity.setStartDate(startDate);
+                lessonEntity.setEndDate(endDate);
                 Integer result = lessonMapper.insertLesson(lessonEntity);
                 if(result == null || result == 0){
                     throw new JcException("新增课时失败");
@@ -58,21 +60,21 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
                 break;
             case 1:
                 for(int i=0;i<times;i++){
-                    Date parseStartDate = simpleDateFormat.parse(split[0]);
+                    Date parseStartDate = simpleDateFormat.parse(startDate);
                     Calendar c1 = Calendar.getInstance();
                     c1.setTime(parseStartDate);
                     c1.add(Calendar.DAY_OF_MONTH, i);
                     parseStartDate = c1.getTime();
-                    String startDate = simpleDateFormat.format(parseStartDate);
-                    lessonEntity.setStartDate(startDate);
+                    String newStartDate = simpleDateFormat.format(parseStartDate);
+                    lessonEntity.setStartDate(newStartDate);
 
-                    Date parseEndDate = simpleDateFormat.parse(split[1]);
+                    Date parseEndDate = simpleDateFormat.parse(endDate);
                     Calendar c2 = Calendar.getInstance();
                     c2.setTime(parseEndDate);
                     c2.add(Calendar.DAY_OF_MONTH, i);
                     parseEndDate = c2.getTime();
-                    String endDate = simpleDateFormat.format(parseEndDate);
-                    lessonEntity.setEndDate(endDate);
+                    String newEndDate = simpleDateFormat.format(parseEndDate);
+                    lessonEntity.setEndDate(newEndDate);
                     Integer result1 = lessonMapper.insertLesson(lessonEntity);
                     if(result1 == null || result1 == 0){
                         throw new JcException("新增课时失败");
@@ -81,21 +83,21 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
                 break;
             case 2:
                 for(int i=0;i<times;i++){
-                    Date parseStartDate = simpleDateFormat.parse(split[0]);
+                    Date parseStartDate = simpleDateFormat.parse(startDate);
                     Calendar c1 = Calendar.getInstance();
                     c1.setTime(parseStartDate);
                     c1.add(Calendar.DAY_OF_MONTH, 2*i);
                     parseStartDate = c1.getTime();
-                    String startDate = simpleDateFormat.format(parseStartDate);
-                    lessonEntity.setStartDate(startDate);
+                    String newStartDate = simpleDateFormat.format(parseStartDate);
+                    lessonEntity.setStartDate(newStartDate);
 
-                    Date parseEndDate = simpleDateFormat.parse(split[1]);
+                    Date parseEndDate = simpleDateFormat.parse(endDate);
                     Calendar c2 = Calendar.getInstance();
                     c2.setTime(parseEndDate);
                     c2.add(Calendar.DAY_OF_MONTH, 2*i);
                     parseEndDate = c2.getTime();
-                    String endDate = simpleDateFormat.format(parseEndDate);
-                    lessonEntity.setEndDate(endDate);
+                    String newEndDate = simpleDateFormat.format(parseEndDate);
+                    lessonEntity.setEndDate(newEndDate);
                     Integer result1 = lessonMapper.insertLesson(lessonEntity);
                     if(result1 == null || result1 == 0){
                         throw new JcException("新增课时失败");
@@ -104,21 +106,21 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
                 break;
             case 3:
                 for(int i=0;i<times;i++){
-                    Date parseStartDate = simpleDateFormat.parse(split[0]);
+                    Date parseStartDate = simpleDateFormat.parse(startDate);
                     Calendar c1 = Calendar.getInstance();
                     c1.setTime(parseStartDate);
                     c1.add(Calendar.DAY_OF_MONTH, 7*i);
                     parseStartDate = c1.getTime();
-                    String startDate = simpleDateFormat.format(parseStartDate);
-                    lessonEntity.setStartDate(startDate);
+                    String newStartDate = simpleDateFormat.format(parseStartDate);
+                    lessonEntity.setStartDate(newStartDate);
 
-                    Date parseEndDate = simpleDateFormat.parse(split[1]);
+                    Date parseEndDate = simpleDateFormat.parse(endDate);
                     Calendar c2 = Calendar.getInstance();
                     c2.setTime(parseEndDate);
                     c2.add(Calendar.DAY_OF_MONTH, 7*i);
                     parseEndDate = c2.getTime();
-                    String endDate = simpleDateFormat.format(parseEndDate);
-                    lessonEntity.setEndDate(endDate);
+                    String newEndDate = simpleDateFormat.format(parseEndDate);
+                    lessonEntity.setEndDate(newEndDate);
                     Integer result1 = lessonMapper.insertLesson(lessonEntity);
                     if(result1 == null || result1 == 0){
                         throw new JcException("新增课时失败");
@@ -127,21 +129,21 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
                 break;
             case 4:
                 for(int i=0;i<times;i++){
-                    Date parseStartDate = simpleDateFormat.parse(split[0]);
+                    Date parseStartDate = simpleDateFormat.parse(startDate);
                     Calendar c1 = Calendar.getInstance();
                     c1.setTime(parseStartDate);
                     c1.add(Calendar.DAY_OF_MONTH, 14*i);
                     parseStartDate = c1.getTime();
-                    String startDate = simpleDateFormat.format(parseStartDate);
-                    lessonEntity.setStartDate(startDate);
+                    String newStartDate = simpleDateFormat.format(parseStartDate);
+                    lessonEntity.setStartDate(newStartDate);
 
-                    Date parseEndDate = simpleDateFormat.parse(split[1]);
+                    Date parseEndDate = simpleDateFormat.parse(endDate);
                     Calendar c2 = Calendar.getInstance();
                     c2.setTime(parseEndDate);
                     c2.add(Calendar.DAY_OF_MONTH, 14*i);
                     parseEndDate = c2.getTime();
-                    String endDate = simpleDateFormat.format(parseEndDate);
-                    lessonEntity.setEndDate(endDate);
+                    String newEndDate = simpleDateFormat.format(parseEndDate);
+                    lessonEntity.setEndDate(newEndDate);
                     Integer result1 = lessonMapper.insertLesson(lessonEntity);
                     if(result1 == null || result1 == 0){
                         throw new JcException("新增课时失败");

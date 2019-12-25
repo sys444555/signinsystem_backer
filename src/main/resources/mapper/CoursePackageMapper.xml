@@ -40,7 +40,7 @@
 
     <select id="getStudentCoursePackageList" resultMap="studentMap">
         SELECT a.id,a.name,a.gender,a.birth,a.guarder_phone,a.teacher_id,
-        b.id AS c_id,b.class_package,b.charging_standard,b.buy_class_hour,b.consumed_class_hour,b.is_validity,b.period_of_validity,b.price,b.create_time,b.left_class_hour
+        b.id AS c_id,b.class_package,b.buy_class_hour,b.consumed_class_hour,b.is_validity,b.period_of_validity,b.price,b.create_time,b.left_class_hour
         FROM student a LEFT JOIN course_package b ON a.id = b.student_id
         WHERE a.id=#{studentId}
     </select>
@@ -51,7 +51,7 @@
     </insert>
 
     <select id="coursePackageList" resultMap="coursePackageMap">
-        SELECT id,class_package,charging_standard,buy_class_hour,consumed_class_hour,left_class_hour,is_validity,period_of_validity,price,create_time,student_id
+        SELECT id,class_package,buy_class_hour,consumed_class_hour,left_class_hour,is_validity,period_of_validity,price,create_time,student_id
         FROM course_package
         WHERE student_id = #{studentId}
     </select>

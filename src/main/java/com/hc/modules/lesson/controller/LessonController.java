@@ -30,8 +30,8 @@ public class LessonController {
      * 新增课节
      */
     @RequestMapping(value = "/class/lesson/create", method = RequestMethod.POST)
-    public ResponseUtil createLesson(LessonEntity lessonEntity, String dataRange, Integer period, Integer times) throws ParseException {
-        lessonService.insertLesson(lessonEntity, dataRange, period, times);
+    public ResponseUtil createLesson(LessonEntity lessonEntity, String dataRange, String timeRange,Integer period, Integer times) throws ParseException {
+        lessonService.insertLesson(lessonEntity, dataRange, timeRange,period, times);
         return ResponseUtil.success();
     }
 

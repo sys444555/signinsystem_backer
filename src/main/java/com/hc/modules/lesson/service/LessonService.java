@@ -21,7 +21,7 @@ public interface LessonService extends IService<LessonEntity> {
 
     public List<LessonEntity> getClassLessonList(Integer cid);
 
-    public void insertLesson(LessonEntity lessonEntity, String dataRange, Integer period, Integer times) throws ParseException;
+    public void insertLesson(LessonEntity lessonEntity, String dataRange,String timeRange, Integer period, Integer times) throws ParseException;
 
     public void insertLessonStudents(Integer coid, String[] studentList);
 
