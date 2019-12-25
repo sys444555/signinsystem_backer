@@ -48,8 +48,8 @@
     </select>
 
     <insert id="createCoursePackage">
-        INSERT INTO course_package(class_package,charging_standard,buy_class_hour,left_class_hour,is_validity,period_of_validity,price,student_id)
-        VALUES (#{classPackage},#{chargingStandard},#{buyClassHour},#{buyClassHour},#{isValidity},#{periodOfValidity},#{price},#{studentId})
+        INSERT INTO course_package(class_package,charging_standard,buy_class_hour,consumed_class_hour,left_class_hour,is_validity,period_of_validity,price,student_id)
+        VALUES (#{classPackage},#{chargingStandard},#{buyClassHour},#{consumedClassHour},#{leftClassHour},#{isValidity},#{periodOfValidity},#{price},#{studentId})
     </insert>
 
     <select id="coursePackageList" resultMap="coursePackageMap">

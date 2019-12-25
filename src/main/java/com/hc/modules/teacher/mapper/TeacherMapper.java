@@ -32,7 +32,7 @@ public interface TeacherMapper extends BaseMapper<TeacherEntity> {
     public List<CourseEntity> getCourseById(@Param(value = "id") Integer id);
 
     public Integer insertClassStudents(@Param(value = "classId") Integer classId,
-                                        @Param(value = "classId") List<Integer> list);
+                                        @Param(value = "list") List<Integer> list);
 
     public List<StudentEntity> getClassAbsentStudentList(@Param(value = "classId") Integer classId);
 

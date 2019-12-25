@@ -10,6 +10,7 @@ import com.hc.modules.student.entity.CoursePackageEntity;
 import com.hc.modules.student.service.CoursePackageService;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,7 +37,8 @@ public class CoursePackageServiceImpl extends ServiceImpl<CoursePackageMapper, C
 
     @Override
     public void createCoursePackage(CoursePackageEntity coursePackageEntity) {
-
+        BigDecimal subtract = coursePackageEntity.getBuyClassHour().subtract(coursePackageEntity.getLeftClassHour());
+        coursePackageEntity.setConsumedClassHour(subtract);
         Integer result = coursePackageMapper.createCoursePackage(coursePackageEntity);
         if(result == null || result == 0){
             throw new JcException("添加课时包失败");

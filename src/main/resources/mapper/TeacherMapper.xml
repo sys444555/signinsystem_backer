@@ -82,4 +82,12 @@
         WHERE a.id NOT IN (select s_id from class_student where c_id=#{classId})
 
     </select>
+
+    <insert id="insertLessonStudents">
+        INSERT INTO lesson_student(lesson_id, student_id)
+        VALUES
+        <foreach collection ="list" item="item" separator ="," index="index">
+            (#{coid}, #{item})
+        </foreach >
+    </insert>
 </mapper>
