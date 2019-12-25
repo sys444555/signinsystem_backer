@@ -58,8 +58,9 @@ class SigninsystemApplicationTests {
     @Test
     void te() throws ParseException {
 
-        studentService.selectStudentList("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqd3QtaWQiOiI0NDk3YzBhMi1iOWYwLTQ0YTMtOGI3Yy1hZTY1ZjI2MDNkNWMiLCJleHAiOjE1NzcxODE2NDYsInVzZXJuYW1lIjoidXNlciJ9.VgevY8U97MBliEcYiuRbEZdSBnZ-v90mgLntzLWaZhE");
+        List<StudentEntity> studentCoursePackageList = studentService.getStudentCoursePackageList(35);
 
+        System.out.println("studentCoursePackageList = " + studentCoursePackageList);
     }
 
 }

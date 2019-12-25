@@ -5,6 +5,7 @@ import com.hc.common.exception.JcException;
 import com.hc.common.utils.JWTUtil;
 import com.hc.modules.course.mapper.CourseMapper;
 import com.hc.modules.student.entity.StudentEntity;
+import com.hc.modules.student.mapper.CoursePackageMapper;
 import com.hc.modules.student.mapper.StudentMapper;
 import com.hc.modules.student.service.StudentService;
 import com.hc.modules.teacher.entity.TeacherEntity;
@@ -26,6 +27,10 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, StudentEntity
 
     @Resource
     private CourseMapper courseMapper;
+
+    @Resource
+    private CoursePackageMapper coursePackageMapper;
+
 
     @Override
     public void createStudent(StudentEntity studentEntity, Integer cid) {
@@ -79,7 +84,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, StudentEntity
 
     @Override
     public List<StudentEntity> getStudentCoursePackageList(Integer studentId) {
-        List<StudentEntity> studentCoursePackageList = studentMapper.getStudentCoursePackageList(studentId);
+        List<StudentEntity> studentCoursePackageList = coursePackageMapper.getStudentCoursePackageList(studentId);
         return studentCoursePackageList;
     }
 

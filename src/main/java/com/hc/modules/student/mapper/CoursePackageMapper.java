@@ -3,6 +3,7 @@ package com.hc.modules.student.mapper;
 import com.hc.modules.student.entity.CoursePackageEntity;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.hc.modules.student.entity.StudentEntity;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -30,4 +31,6 @@ public interface CoursePackageMapper extends BaseMapper<CoursePackageEntity> {
     public Integer updateCoursePackage(@Param(value = "studentId") Integer studentId,
                                        @Param(value = "classId") Integer classId,
                                        @Param(value = "cpid") Integer cpid);
+
+    public List<StudentEntity> getStudentCoursePackageList(@Param(value = "studentId") Integer studentId);
 }
