@@ -22,7 +22,7 @@ public interface CoursePackageService extends IService<CoursePackageEntity> {
 
     public Map<String, Object> coursePackageList(Integer studentId, Integer classId);
 
-    public void createCoursePackage(CoursePackageEntity coursePackageEntity);
+    public void createCoursePackage(CoursePackageEntity coursePackageEntity, Integer classId);
 
     public void setCoursePackage(Integer studentId, Integer classId, Integer cpid);
 

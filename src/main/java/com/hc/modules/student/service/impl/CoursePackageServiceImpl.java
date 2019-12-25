@@ -36,15 +36,16 @@ public class CoursePackageServiceImpl extends ServiceImpl<CoursePackageMapper, C
     }
 
     @Override
-    public void createCoursePackage(CoursePackageEntity coursePackageEntity) {
+    public void createCoursePackage(CoursePackageEntity coursePackageEntity, Integer classId) {
         BigDecimal subtract = coursePackageEntity.getBuyClassHour().subtract(coursePackageEntity.getConsumedClassHour());
         coursePackageEntity.setLeftClassHour(subtract);
         Integer result = coursePackageMapper.createCoursePackage(coursePackageEntity);
         if(result == null || result == 0){
             throw new JcException("添加课时包失败");
         }
-
-
+        Integer cpid = coursePackageEntity.getId();
+        this.setCoursePackage(coursePackageEntity.getStudentId(), classId, cpid);
+        
     }
 
     @Override

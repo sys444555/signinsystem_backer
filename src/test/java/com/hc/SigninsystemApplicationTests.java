@@ -43,7 +43,6 @@ class SigninsystemApplicationTests {
         lessonEntity.setClassHour(new BigDecimal(2.0));
         lessonEntity.setClassId(1);
         lessonEntity.setName("hello");
-       lessonService.insertLesson(lessonEntity,"2019-12-13 01:01:01 - 2019-12-13 02:02:06",1,2 );
 
     }
     @Test

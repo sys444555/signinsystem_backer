@@ -45,8 +45,8 @@ public class CoursePackageController {
      * 新增课时包
      */
     @RequestMapping(value = "/student/coursePackage/create", method = RequestMethod.POST)
-    public ResponseUtil createCoursePackage(CoursePackageEntity coursePackageEntity){
-        coursePackageService.createCoursePackage(coursePackageEntity);
+    public ResponseUtil createCoursePackage(CoursePackageEntity coursePackageEntity, Integer classId){
+        coursePackageService.createCoursePackage(coursePackageEntity, classId);
         return ResponseUtil.success();
     }
 
