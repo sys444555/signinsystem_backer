@@ -2,9 +2,14 @@ package com.hc.modules.student.service.impl;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.hc.common.exception.JcException;
+import com.hc.common.utils.JWTUtil;
+import com.hc.modules.course.mapper.CourseMapper;
 import com.hc.modules.student.entity.StudentEntity;
 import com.hc.modules.student.mapper.StudentMapper;
 import com.hc.modules.student.service.StudentService;
+import com.hc.modules.teacher.entity.TeacherEntity;
+import com.hc.modules.teacher.mapper.TeacherMapper;
+import com.hc.modules.teacher.service.TeacherService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -15,10 +20,15 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, StudentEntity
     @Resource
     private StudentMapper studentMapper;
 
+    @Resource
+    private JWTUtil jwtUtil;
+
+    @Resource
+    private CourseMapper courseMapper;
 
     @Override
-    public void insertStudent(StudentEntity studentEntity, Integer cid) {
-        Integer result = studentMapper.insertStudent(studentEntity);
+    public void createStudent(StudentEntity studentEntity, Integer cid) {
+        Integer result = studentMapper.createStudent(studentEntity);
         if(result == null || result == 0){
             throw new JcException("新增学员失败");
         }
@@ -32,6 +42,17 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, StudentEntity
         StudentEntity studentEntity = studentMapper.getStudentById(sid);
 
         return studentEntity;
+    }
+
+    @Override
+    public void insertStudent(StudentEntity studentEntity, String token) {
+        String username = jwtUtil.getUsername(token);
+        TeacherEntity t = courseMapper.getT(username);
+        studentEntity.setTeacherId(t.getId());
+        Integer result = studentMapper.createStudent(studentEntity);
+        if(result == null || result == 0){
+            throw new JcException("新增学员失败");
+        }
     }
 
 

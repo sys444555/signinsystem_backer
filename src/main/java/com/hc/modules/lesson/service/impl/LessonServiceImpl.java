@@ -241,13 +241,13 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
 
             result = smsSingleSender.sendWithParam("86",  student.getGuarderPhone(), Integer.parseInt(SmsUtils.CODETEMPLEID), pararms, SmsUtils.SIGN, "", "");
             ext = result.ext;
-
-            if(result.result != 0){
-                return "-1";
-            }
+            System.out.println("result = " + result);
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        if(result.result != 0){
+            throw new JcException(999, "签到失败,发送通知短信不成功");
         }
         return ext;
     }

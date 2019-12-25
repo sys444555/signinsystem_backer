@@ -34,8 +34,8 @@
         <result property="name" column="name"/>
         <result property="gender" column="gender"/>
         <result property="birth" column="birth"/>
-        <result property="guarder" column="guarder"/>
         <result property="guarderPhone" column="guarder_phone"/>
+        <result property="teacherId" column="teacher_id"/>
         <result property="classPackage" column="class_package"/>
         <result property="chargingStandard" column="charging_standard"/>
         <result property="buyClassHour" column="buy_class_hour"/>

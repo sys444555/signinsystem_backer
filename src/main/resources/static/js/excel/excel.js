@@ -261,7 +261,7 @@ function exportExcel() {
         type: "GET",
         async: true,
         success: function () {
-            window.location.href="http://122.51.78.195:8080/house/excel";
+            window.location.href="http://localhost:8080/house/excel";
             // if (json.code == 0) {
             //     //  alert("导出成功");
             //     //window.location.reload(true);

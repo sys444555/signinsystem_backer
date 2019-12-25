@@ -27,11 +27,7 @@ public class StudentLessonEntity {
 
     private String birth;
 
-    private String guarder;
-
     private String guarderPhone;
-
-    private String address;
 
     private Date createTime;
 

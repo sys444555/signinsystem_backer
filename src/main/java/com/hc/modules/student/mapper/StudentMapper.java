@@ -20,10 +20,11 @@ public interface StudentMapper extends BaseMapper<StudentEntity> {
 
 
 
-    public Integer insertStudent(StudentEntity studentEntity);
+    public Integer createStudent(StudentEntity studentEntity);
 
     public Integer linkClassStudent(@Param(value = "sid") Integer sid,
                                     @Param(value = "cid") Integer cid);
 
     public StudentEntity getStudentById(@Param(value = "sid") Integer sid);
+
 }

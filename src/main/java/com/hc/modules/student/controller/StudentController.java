@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 public class StudentController {
@@ -22,11 +23,11 @@ public class StudentController {
     private StudentService studentService;
 
     /**
-     * 新增
+     * 新增班学生
      */
-    @RequestMapping(value = "/student/create", method = RequestMethod.POST)
+    @RequestMapping(value = "/class/student/create", method = RequestMethod.POST)
     public ResponseUtil createStudent(StudentEntity studentEntity, Integer cid){
-        studentService.insertStudent(studentEntity, cid);
+        studentService.createStudent(studentEntity, cid);
         return ResponseUtil.success();
     }
 
@@ -34,6 +35,16 @@ public class StudentController {
     public ResponseUtil getStudentById(Integer sid){
 
         return ResponseUtil.success(studentService.getStudentById(sid));
+    }
+
+    /**
+     * 新增学生
+     */
+    @RequestMapping(value = "/student/insert", method = RequestMethod.POST)
+    public ResponseUtil insertStudent(StudentEntity studentEntity, HttpServletRequest httpRequest){
+        String token = httpRequest.getHeader("token");
+        studentService.insertStudent(studentEntity, token);
+        return ResponseUtil.success();
     }
 
 }

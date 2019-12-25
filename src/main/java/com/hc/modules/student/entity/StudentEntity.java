@@ -22,20 +22,11 @@ public class StudentEntity {
 
     private String birth;
 
-    private String guarder;
 
     private String guarderPhone;
 
-    private String address;
 
     private Date createTime;
 
-    public static void main(String[] args) throws ParseException {
-        String startDate = "2019-12-31 17:00:00";
-        String[] s = startDate.split(" ");
-        System.out.println("s[1] = " + s[1]);
-        SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("HH:mm");
-        String format1 = simpleDateFormat2.format(simpleDateFormat2.parse(startDate.split(" ")[1]));
-        System.out.println("format1 = " + format1);
-    }
+    private Integer teacherId;
 }

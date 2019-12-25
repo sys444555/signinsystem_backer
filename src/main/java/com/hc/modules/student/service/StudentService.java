@@ -18,8 +18,10 @@ import java.util.List;
 public interface StudentService extends IService<StudentEntity> {
 
 
-    public void insertStudent(StudentEntity studentEntity, Integer cid);
+    public void createStudent(StudentEntity studentEntity, Integer cid);
 
     public StudentEntity getStudentById(Integer sid);
+
+    public void insertStudent(StudentEntity studentEntity, String token);
 }
 

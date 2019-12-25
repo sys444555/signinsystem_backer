@@ -3,10 +3,9 @@
 
 <mapper namespace="com.hc.modules.student.mapper.StudentMapper">
 
-   <insert id="insertStudent" useGeneratedKeys="true" keyProperty="id">
-       INSERT INTO student(name,gender,birth,guarder,guarder_phone,
-       address)
-       VALUES(#{name},#{gender},#{birth},#{guarder},#{guarderPhone},#{address})
+   <insert id="createStudent" useGeneratedKeys="true" keyProperty="id">
+       INSERT INTO student(name,gender,birth,guarder_phone)
+       VALUES(#{name},#{gender},#{birth},#{guarderPhone})
    </insert>
 
     <insert id="linkClassStudent" >
@@ -17,5 +16,6 @@
     <select id="getStudentById" resultType="com.hc.modules.student.entity.StudentEntity">
         SELECT * FROM student WHERE id=#{sid}
     </select>
+
 
 </mapper>
