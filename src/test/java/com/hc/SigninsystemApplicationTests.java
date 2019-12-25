@@ -50,7 +50,7 @@ class SigninsystemApplicationTests {
         CoursePackageEntity coursePackageEntity = new CoursePackageEntity();
         coursePackageEntity.setClassPackage("跆拳道包");
 
-        coursePackageService.createCoursePackage(coursePackageEntity);
+   
 
     }
 

@@ -43,9 +43,10 @@ public class CoursePackageServiceImpl extends ServiceImpl<CoursePackageMapper, C
         if(result == null || result == 0){
             throw new JcException("添加课时包失败");
         }
+
         Integer cpid = coursePackageEntity.getId();
         this.setCoursePackage(coursePackageEntity.getStudentId(), classId, cpid);
-        
+
     }
 
     @Override
