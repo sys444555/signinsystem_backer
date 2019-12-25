@@ -29,4 +29,6 @@ public interface StudentMapper extends BaseMapper<StudentEntity> {
 
     public List<StudentEntity> selectStudentList(@Param(value = "id") Integer id);
 
+    public List<StudentEntity> getStudentCoursePackageList(@Param(value = "studentId") Integer studentId);
+
 }

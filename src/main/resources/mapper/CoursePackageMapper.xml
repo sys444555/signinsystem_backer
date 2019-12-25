@@ -18,6 +18,36 @@
         <result property="leftClassHour" column="left_class_hour"/>
     </resultMap>
 
+    <resultMap id="studentMap" type="com.hc.modules.student.entity.StudentEntity">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="gender" column="gender"/>
+        <result property="birth" column="birth"/>
+        <result property="guarderPhone" column="guarder_phone"/>
+        <result property="address" column="address"/>
+        <result property="teacherId" column="teacher_id"/>
+        <collection property="coursePackageEntityList" ofType="com.hc.modules.student.entity.CoursePackageEntity" javaType="ArrayList">
+            <result property="id" column="c_id"/>
+            <result property="classPackage" column="class_package"/>
+            <result property="chargingStandard" column="charging_standard"/>
+            <result property="buyClassHour" column="buy_class_hour"/>
+            <result property="consumedClassHour" column="consumed_class_hour"/>
+            <result property="isValidity" column="is_validity"/>
+            <result property="periodOfValidity" column="period_of_validity"/>
+            <result property="price" column="price"/>
+            <result property="createTime" column="create_time"/>
+            <result property="studentId" column="student_id"/>
+            <result property="leftClassHour" column="left_class_hour"/>
+        </collection>
+    </resultMap>
+
+    <select id="getStudentCoursePackageList" resultMap="studentMap">
+        SELECT a.id,a.name,a.gender,a.birth,a.guarder_phone,a.address,a.teacher_id,
+        b.id AS c_id,b.class_package,b.charging_standard,b.buy_class_hour,b.consumed_class_hour,b.is_validity,b.period_of_validity,b.price,b.create_time,b.left_class_hour
+        FROM student a LEFT JOIN course_package b ON a.id = b.student_id
+        WHERE a.id=#{studentId}
+    </select>
+
     <insert id="createCoursePackage">
         INSERT INTO course_package(class_package,charging_standard,buy_class_hour,left_class_hour,is_validity,period_of_validity,price,student_id)
         VALUES (#{classPackage},#{chargingStandard},#{buyClassHour},#{buyClassHour},#{isValidity},#{periodOfValidity},#{price},#{studentId})

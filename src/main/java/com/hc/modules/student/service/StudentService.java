@@ -5,6 +5,7 @@ import com.hc.modules.course.entity.CourseEntity;
 import com.hc.modules.student.entity.StudentEntity;
 import com.hc.modules.teacher.entity.ClassEntity;
 import com.hc.modules.teacher.entity.TeacherEntity;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -25,5 +26,7 @@ public interface StudentService extends IService<StudentEntity> {
     public void insertStudent(StudentEntity studentEntity, String token);
 
     public List<StudentEntity> selectStudentList(String token);
+
+    public List<StudentEntity> getStudentCoursePackageList(Integer studentId);
 }
 

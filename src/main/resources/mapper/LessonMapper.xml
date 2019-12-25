@@ -18,7 +18,6 @@
            <result property="name" column="s_name"/>
            <result property="gender" column="gender"/>
            <result property="birth" column="birth"/>
-           <result property="guarder" column="guarder"/>
            <result property="guarderPhone" column="guarder_phone"/>
            <result property="createTime" column="create_time"/>
        </collection>
@@ -41,7 +40,6 @@
         <result property="name" column="name"/>
         <result property="gender" column="gender"/>
         <result property="birth" column="birth"/>
-        <result property="guarder" column="guarder"/>
         <result property="guarderPhone" column="guarder_phone"/>
         <result property="address" column="address"/>
         <result property="teacherId" column="teacher_id"/>
@@ -49,7 +47,7 @@
 
     <select id="getClassLessonList" resultMap="lessonResultMap">
         SELECT a.id,a.name,a.class_id,a.class_hour,a.status,a.start_date,a.end_date,a.lesson_now,a.create_time,
-        c.id AS s_id, c.name AS s_name,c.gender,c.birth,c.guarder,c.guarder_phone
+        c.id AS s_id, c.name AS s_name,c.gender,c.birth,c.guarder_phone
         FROM lesson a
         LEFT JOIN lesson_student b ON a.id = b.lesson_id
         LEFT JOIN student c ON b.student_id = c.id
@@ -84,7 +82,7 @@
     </select>
 
     <select id="getLessonStudentList" resultMap="lessonStudentMap">
-        SELECT  b.id,b.name,b.gender,b.birth,b.guarder,b.guarder_phone,b.address,a.status,a.sign_time FROM lesson_student a
+        SELECT  b.id,b.name,b.gender,b.birth,b.guarder_phone,b.address,a.status,a.sign_time FROM lesson_student a
         LEFT JOIN student b ON a.student_id = b.id
         WHERE a.lesson_id=#{lessonId}
     </select>
@@ -94,7 +92,7 @@
     </delete>
 
     <select id="lessonAbsentStudentList" resultMap="studentMap">
-         SELECT  b.id,b.name,b.gender,b.birth,b.guarder,b.guarder_phone,b.address
+         SELECT  b.id,b.name,b.gender,b.birth,b.guarder_phone,b.address
         FROM class_student a LEFT JOIN student b ON a.s_id = b.id WHERE a.c_id=#{classId}
         AND b.id NOT IN (select student_id from lesson_student where lesson_id=#{lessonId})
 

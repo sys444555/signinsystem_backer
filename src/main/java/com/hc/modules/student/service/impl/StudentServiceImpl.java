@@ -77,5 +77,11 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, StudentEntity
         return studentEntityList;
     }
 
+    @Override
+    public List<StudentEntity> getStudentCoursePackageList(Integer studentId) {
+        List<StudentEntity> studentCoursePackageList = studentMapper.getStudentCoursePackageList(studentId);
+        return studentCoursePackageList;
+    }
+
 
 }
