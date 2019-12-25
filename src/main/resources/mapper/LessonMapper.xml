@@ -30,9 +30,7 @@
         <result property="name" column="name"/>
         <result property="gender" column="gender"/>
         <result property="birth" column="birth"/>
-        <result property="guarder" column="guarder"/>
         <result property="guarderPhone" column="guarder_phone"/>
-        <result property="address" column="address"/>
     </resultMap>
 
     <resultMap id="studentMap" type="com.hc.modules.student.entity.StudentEntity">
@@ -41,7 +39,6 @@
         <result property="gender" column="gender"/>
         <result property="birth" column="birth"/>
         <result property="guarderPhone" column="guarder_phone"/>
-        <result property="address" column="address"/>
         <result property="teacherId" column="teacher_id"/>
     </resultMap>
 
@@ -82,7 +79,7 @@
     </select>
 
     <select id="getLessonStudentList" resultMap="lessonStudentMap">
-        SELECT  b.id,b.name,b.gender,b.birth,b.guarder_phone,b.address,a.status,a.sign_time FROM lesson_student a
+        SELECT  b.id,b.name,b.gender,b.birth,b.guarder_phone,a.status,a.sign_time FROM lesson_student a
         LEFT JOIN student b ON a.student_id = b.id
         WHERE a.lesson_id=#{lessonId}
     </select>
@@ -92,7 +89,7 @@
     </delete>
 
     <select id="lessonAbsentStudentList" resultMap="studentMap">
-         SELECT  b.id,b.name,b.gender,b.birth,b.guarder_phone,b.address
+         SELECT  b.id,b.name,b.gender,b.birth,b.guarder_phone
         FROM class_student a LEFT JOIN student b ON a.s_id = b.id WHERE a.c_id=#{classId}
         AND b.id NOT IN (select student_id from lesson_student where lesson_id=#{lessonId})
 

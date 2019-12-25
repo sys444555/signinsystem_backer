@@ -23,9 +23,7 @@ public class StudentEntity {
 
     private String birth;
 
-
     private String guarderPhone;
-
 
     private Date createTime;
 

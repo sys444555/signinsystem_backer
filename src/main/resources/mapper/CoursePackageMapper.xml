@@ -24,7 +24,6 @@
         <result property="gender" column="gender"/>
         <result property="birth" column="birth"/>
         <result property="guarderPhone" column="guarder_phone"/>
-        <result property="address" column="address"/>
         <result property="teacherId" column="teacher_id"/>
         <collection property="coursePackageEntityList" ofType="com.hc.modules.student.entity.CoursePackageEntity" javaType="ArrayList">
             <result property="id" column="c_id"/>
@@ -42,7 +41,7 @@
     </resultMap>
 
     <select id="getStudentCoursePackageList" resultMap="studentMap">
-        SELECT a.id,a.name,a.gender,a.birth,a.guarder_phone,a.address,a.teacher_id,
+        SELECT a.id,a.name,a.gender,a.birth,a.guarder_phone,a.teacher_id,
         b.id AS c_id,b.class_package,b.charging_standard,b.buy_class_hour,b.consumed_class_hour,b.is_validity,b.period_of_validity,b.price,b.create_time,b.left_class_hour
         FROM student a LEFT JOIN course_package b ON a.id = b.student_id
         WHERE a.id=#{studentId}
