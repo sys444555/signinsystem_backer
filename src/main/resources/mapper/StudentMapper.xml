@@ -3,9 +3,20 @@
 
 <mapper namespace="com.hc.modules.student.mapper.StudentMapper">
 
+    <resultMap id="studentMap" type="com.hc.modules.student.entity.StudentEntity">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="gender" column="gender"/>
+        <result property="birth" column="birth"/>
+        <result property="guarder" column="guarder"/>
+        <result property="guarderPhone" column="guarder_phone"/>
+        <result property="address" column="address"/>
+        <result property="teacherId" column="teacher_id"/>
+    </resultMap>
+
    <insert id="createStudent" useGeneratedKeys="true" keyProperty="id">
-       INSERT INTO student(name,gender,birth,guarder_phone)
-       VALUES(#{name},#{gender},#{birth},#{guarderPhone})
+       INSERT INTO student(name,gender,birth,guarder_phone,teacher_id)
+       VALUES(#{name},#{gender},#{birth},#{guarderPhone},#{teacherId})
    </insert>
 
     <insert id="linkClassStudent" >
@@ -17,5 +28,8 @@
         SELECT * FROM student WHERE id=#{sid}
     </select>
 
+    <select id="selectStudentList" resultMap="studentMap">
+        SELECT * FROM student WHERE teacher_id=#{id}
+    </select>
 
 </mapper>

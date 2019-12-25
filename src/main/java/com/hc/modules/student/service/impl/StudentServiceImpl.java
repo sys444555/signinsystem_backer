@@ -13,6 +13,7 @@ import com.hc.modules.teacher.service.TeacherService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class StudentServiceImpl extends ServiceImpl<StudentMapper, StudentEntity> implements StudentService {
@@ -48,11 +49,27 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, StudentEntity
     public void insertStudent(StudentEntity studentEntity, String token) {
         String username = jwtUtil.getUsername(token);
         TeacherEntity t = courseMapper.getT(username);
-        studentEntity.setTeacherId(t.getId());
-        Integer result = studentMapper.createStudent(studentEntity);
-        if(result == null || result == 0){
-            throw new JcException("新增学员失败");
+        if(t != null){
+            studentEntity.setTeacherId(t.getId());
+            Integer result = studentMapper.createStudent(studentEntity);
+            if(result == null || result == 0){
+                throw new JcException("新增学员失败");
+            }
+        }else {
+            throw new JcException(999,"服务器端数据异常");
         }
+
+    }
+
+    @Override
+    public List<StudentEntity> selectStudentList(String token) {
+
+        String username = jwtUtil.getUsername(token);
+        TeacherEntity t = courseMapper.getT(username);
+        if(t != null){
+            studentMapper.selectStudentList(t.getId());
+        }
+        return null;
     }
 
 

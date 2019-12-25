@@ -9,12 +9,14 @@ import com.hc.modules.student.service.StudentService;
 
 
 import com.hc.modules.teacher.entity.ClassEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController
 public class StudentController {
@@ -45,6 +47,18 @@ public class StudentController {
         String token = httpRequest.getHeader("token");
         studentService.insertStudent(studentEntity, token);
         return ResponseUtil.success();
+    }
+
+    /**
+     * 查询改老师的学生列表
+     */
+    @RequestMapping(value = "/student/list", method = RequestMethod.GET)
+    public ResponseUtil getClassStudentById(Integer pageNo, Integer pageSize, HttpServletRequest httpRequest){
+        String token = httpRequest.getHeader("token");
+        PageHelper.startPage(pageNo, pageSize);
+        List<StudentEntity> studentList = studentService.selectStudentList(token);
+        PageInfo<StudentEntity> pageInfo = new PageInfo<>(studentList);
+        return ResponseUtil.success(pageInfo);
     }
 
 }

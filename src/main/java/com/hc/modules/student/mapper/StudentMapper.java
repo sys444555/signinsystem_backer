@@ -27,4 +27,6 @@ public interface StudentMapper extends BaseMapper<StudentEntity> {
 
     public StudentEntity getStudentById(@Param(value = "sid") Integer sid);
 
+    public List<StudentEntity> selectStudentList(@Param(value = "id") Integer id);
+
 }

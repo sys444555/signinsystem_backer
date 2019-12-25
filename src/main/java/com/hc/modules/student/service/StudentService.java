@@ -23,5 +23,7 @@ public interface StudentService extends IService<StudentEntity> {
     public StudentEntity getStudentById(Integer sid);
 
     public void insertStudent(StudentEntity studentEntity, String token);
+
+    public List<StudentEntity> selectStudentList(String token);
 }
 

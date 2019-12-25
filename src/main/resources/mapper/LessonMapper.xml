@@ -44,6 +44,7 @@
         <result property="guarder" column="guarder"/>
         <result property="guarderPhone" column="guarder_phone"/>
         <result property="address" column="address"/>
+        <result property="teacherId" column="teacher_id"/>
     </resultMap>
 
     <select id="getClassLessonList" resultMap="lessonResultMap">
