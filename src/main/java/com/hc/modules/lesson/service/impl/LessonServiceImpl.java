@@ -47,6 +47,7 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
 
         String[] split = timeRange.split(" - ");
         String startDate = dataRange + " " + split[0];
+
         String endDate = dataRange + " " + split[1];
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         switch (period){
