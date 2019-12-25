@@ -58,13 +58,7 @@ class SigninsystemApplicationTests {
     @Test
     void te() throws ParseException {
 
-        LessonEntity lessonEntity = new LessonEntity();
-        lessonEntity.setId(1);
-        lessonEntity.setClassHour(new BigDecimal(2.0));
-
-        lessonService.lessonSign(26, 39);
-
-
+        studentService.selectStudentList("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqd3QtaWQiOiI0NDk3YzBhMi1iOWYwLTQ0YTMtOGI3Yy1hZTY1ZjI2MDNkNWMiLCJleHAiOjE1NzcxODE2NDYsInVzZXJuYW1lIjoidXNlciJ9.VgevY8U97MBliEcYiuRbEZdSBnZ-v90mgLntzLWaZhE");
 
     }
 

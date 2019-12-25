@@ -67,8 +67,10 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, StudentEntity
         String username = jwtUtil.getUsername(token);
         TeacherEntity t = courseMapper.getT(username);
         List<StudentEntity> studentEntityList;
+        System.out.println("t = " + t);
         if(t != null){
             studentEntityList = studentMapper.selectStudentList(t.getId());
+            System.out.println("studentEntityList = " + studentEntityList);
         }else {
             throw new JcException(999,"服务器端数据异常");
         }
