@@ -33,6 +33,11 @@ public class StudentController {
         return ResponseUtil.success();
     }
 
+    /**
+     * 查看学生
+     * @param sid
+     * @return
+     */
     @RequestMapping(value = "/student/getStudentById",method = RequestMethod.GET)
     public ResponseUtil getStudentById(Integer sid){
 
@@ -62,7 +67,7 @@ public class StudentController {
     }
 
     /**
-     * 查看学生所以课时包信息
+     * 查看学生所有课时包信息
      */
     @RequestMapping(value = "/student/get/coursePackage/{studentId}", method = RequestMethod.GET)
     public ResponseUtil getStudentCoursePackageList(@PathVariable(value = "studentId") Integer studentId){

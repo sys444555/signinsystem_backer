@@ -95,7 +95,7 @@ public class TeacherController {
     /**
      * 新增班学生
      */
-    @RequestMapping(value = "/class/lesson/students/create", method = RequestMethod.POST)
+    @RequestMapping(value = "/class/students/create", method = RequestMethod.POST)
     public ResponseUtil insertClassStudents(Integer classId, String[] studentList){
         teacherService.insertClassStudents(classId, studentList);
         return ResponseUtil.success();
