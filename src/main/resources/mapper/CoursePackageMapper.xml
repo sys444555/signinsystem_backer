@@ -44,7 +44,7 @@
         FROM student a LEFT JOIN course_package b ON a.id = b.student_id
         WHERE a.id=#{studentId}
     </select>
-k
+
     <insert id="createCoursePackage" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO course_package(class_package,buy_class_hour,consumed_class_hour,left_class_hour,period_of_validity,price,student_id)
         VALUES (#{classPackage},#{buyClassHour},#{consumedClassHour},#{leftClassHour},#{periodOfValidity},#{price},#{studentId})
