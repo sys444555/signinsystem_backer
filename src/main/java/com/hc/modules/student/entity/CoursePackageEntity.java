@@ -24,51 +24,48 @@ import java.util.Date;
 public class CoursePackageEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
-	/**
-	 * 主键id
-	 */
-@TableId(type = IdType.AUTO)
-	private Integer id;
 		/**
-	 * 课包
-	 */
-private String classPackage;
+		 * 主键id
+		 */
+	@TableId(type = IdType.AUTO)
+		private Integer id;
+			/**
+		 * 课包
+		 */
+		private String classPackage;
+
+			/**
+		 * 购买总课时
+		 */
+	private BigDecimal buyClassHour;
+			/**
+		 * 已耗课时
+		 */
+	private BigDecimal consumedClassHour;
+			/**
+		 * 是否在有效期  0不在  1在
+		 */
+	private Integer isValidity;
+			/**
+		 * 有效期到  年月日
+		 */
+	private String periodOfValidity;
+			/**
+		 * 价格
+		 */
+	private BigDecimal price;
+			/**
+		 *
+		 */
+	private Date createTime;
+			/**
+		 * 学生id
+		 */
+	private Integer studentId;
 		/**
-	 * 收费标准
-	 */
-private String chargingStandard;
-		/**
-	 * 购买总课时
-	 */
-private BigDecimal buyClassHour;
-		/**
-	 * 已耗课时
-	 */
-private BigDecimal consumedClassHour;
-		/**
-	 * 是否在有效期  0不在  1在
-	 */
-private Integer isValidity;
-		/**
-	 * 有效期到  年月日
-	 */
-private String periodOfValidity;
-		/**
-	 * 价格
-	 */
-private BigDecimal price;
-		/**
-	 *
-	 */
-private Date createTime;
-		/**
-	 * 学生id
-	 */
-private Integer studentId;
-	/**
-	 * 已耗课时
-	 */
-	private BigDecimal leftClassHour;
+		 * 已耗课时
+		 */
+		private BigDecimal leftClassHour;
 
 
 }

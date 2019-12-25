@@ -57,10 +57,8 @@ class SigninsystemApplicationTests {
 
     @Test
     void te() throws ParseException {
-
-        List<StudentEntity> studentCoursePackageList = studentService.getStudentCoursePackageList(35);
-
-        System.out.println("studentCoursePackageList = " + studentCoursePackageList);
+        String[] s = {"36","35"};
+       teacherService.insertClassStudents(10,s);
     }
 
 }
