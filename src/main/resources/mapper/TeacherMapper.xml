@@ -8,7 +8,6 @@
         <id property="id" column="id"/>
         <result property="className" column="class_name"/>
         <result property="classHour" column="class_hour"/>
-        <result property="teacherId" column="teacher_id"/>
         <result property="createTime" column="create_time"/>
         <result property="status" column="status"/>
         <result property="cId" column="c_id"/>
@@ -53,8 +52,8 @@
     </select>
 
     <insert id="insertClass" parameterType="com.hc.modules.teacher.entity.ClassEntity">
-        INSERT INTO class(class_name,course_name,class_hour,teacher_id,c_id)
-        VALUES(#{className},#{courseName},#{classHour},#{teacherId},#{cId})
+        INSERT INTO class(class_name,course_name,class_hour,teacher_name,c_id)
+        VALUES(#{className},#{courseName},#{classHour},#{teacherName},#{cId})
     </insert>
 
     <update id="updateClassStatus">

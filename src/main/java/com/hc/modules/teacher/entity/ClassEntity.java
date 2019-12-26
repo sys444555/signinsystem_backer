@@ -40,10 +40,6 @@ public class ClassEntity  {
 	 */
 	private BigDecimal classHour;
 		/**
-	 * 老师id
-	 */
-	private Integer teacherId;
-		/**
 	 *
 	 */
 	private Date createTime;
