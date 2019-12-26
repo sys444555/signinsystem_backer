@@ -22,4 +22,9 @@ public interface BusinessMapper extends BaseMapper<BusinessEntity> {
     public Integer insertUser(BusinessEntity businessEntity);
 
     public Integer  insertBusiness(BusinessEntity businessEntity);
+
+    public Integer deleteBusiness(@Param(value = "businessId")Integer businessId);
+
+    public Integer addMsnNumber(@Param(value = "businessId")Integer businessId,
+                                @Param(value = "msnNumber")Integer msnNumber);
 }

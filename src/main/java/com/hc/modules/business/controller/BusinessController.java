@@ -8,6 +8,7 @@ import com.hc.modules.business.entity.BusinessEntity;
 import com.hc.modules.business.service.BusinessService;
 import com.hc.modules.course.entity.CourseEntity;
 import com.hc.modules.course.service.CourseService;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,6 +41,24 @@ public class BusinessController {
     @RequestMapping(value = "/business/create", method = RequestMethod.POST)
     public ResponseUtil createCourse(BusinessEntity businessEntity){
         businessService.insertBusiness(businessEntity);
+        return ResponseUtil.success();
+    }
+
+    /**
+     * 删除加盟商
+     */
+    @RequestMapping(value = "/business/delete/{businessId}", method = RequestMethod.POST)
+    public ResponseUtil deleteStudent(@PathVariable(value = "businessId") Integer businessId){
+        businessService.deleteBusiness(businessId);
+        return ResponseUtil.success();
+    }
+
+    /**
+     * 增加购买短信量
+     */
+    @RequestMapping(value = "/business/add/msnNumber", method = RequestMethod.POST)
+    public ResponseUtil addMsnNumber(Integer businessId, Integer msnNumber){
+        businessService.addMsnNumber(businessId, msnNumber);
         return ResponseUtil.success();
     }
 
