@@ -47,4 +47,21 @@ public class BusinessServiceImpl extends ServiceImpl<BusinessMapper, BusinessEnt
         businessEntity.setUserId(businessEntity.getId());
         businessMapper.insertBusiness(businessEntity);
     }
+
+    @Override
+    public void deleteBusiness(Integer businessId) {
+
+        Integer result = businessMapper.deleteBusiness(businessId);
+        if(result == null || result == 0){
+            throw new JcException("删除加盟商失败");
+        }
+    }
+
+    @Override
+    public void addMsnNumber(Integer businessId, Integer msnNumber) {
+        Integer result = businessMapper.addMsnNumber(businessId, msnNumber);
+        if(result == null || result == 0){
+            throw new JcException("新增短信量失败");
+        }
+    }
 }

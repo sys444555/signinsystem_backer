@@ -32,5 +32,14 @@
         VALUES(#{name},#{phone},#{msnBuyNumber},#{msnBuyNumber},#{company_name,#{userId)
     </insert>
 
-    
+    <delete id="deleteBusiness">
+        DELETE FROM role_user WHERE
+        id =  (SELECT user_id FROM business WHERE id=#{businessId})
+    </delete>
+
+    <update id="addMsnNumber">
+        UPDATE bisiness SET msn_buy_number=msn_buy_number+#{msnNumber},msn_left_number=msn_left_number+#{msnNumber}
+        WHERE id=#{businessId}
+    </update>
+
 </mapper>
