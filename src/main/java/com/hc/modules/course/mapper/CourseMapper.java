@@ -22,5 +22,5 @@ public interface CourseMapper extends BaseMapper<CourseEntity> {
 
     public Integer insertCourse(CourseEntity courseEntity);
 
-    public TeacherEntity getT(@Param("username") String username);
+
 }

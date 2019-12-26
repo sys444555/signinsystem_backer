@@ -31,4 +31,6 @@ public interface StudentMapper extends BaseMapper<StudentEntity> {
 
 
     public Integer deleteStudent(@Param(value = "studentId")Integer studentId);
+
+    public Integer getUserId(@Param("username") String username);
 }

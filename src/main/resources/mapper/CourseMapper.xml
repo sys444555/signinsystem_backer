@@ -12,19 +12,12 @@
 
     <select id="getCourseList" resultMap="courseMap">
 
-        SELECT c.id,c.name,c.t_id,c.create_time FROM role_user a
-          LEFT JOIN teacher b
-          ON a.id = b.user_id
-          LEFT JOIN course c ON b.id = c.t_id
+        SELECT c.id,c.name,c.user_id,c.create_time FROM role_user a
+          LEFT JOIN course c ON a.id = c.user_id
           WHERE a.username=#{username}
     </select>
 
-    <select id="getT" resultType="com.hc.modules.teacher.entity.TeacherEntity">
-         SELECT b.id FROM role_user a
-          LEFT JOIN teacher b
-          ON a.id = b.user_id
-          WHERE a.username=#{username}
-    </select>
+
 
     <insert id="insertCourse">
         INSERT INTO course(name,t_id)

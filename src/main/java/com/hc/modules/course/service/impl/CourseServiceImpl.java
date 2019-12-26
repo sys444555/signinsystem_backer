@@ -23,6 +23,9 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, CourseEntity> i
     private CourseMapper courseMapper;
 
     @Resource
+    private StudentMapper studentMapper;
+
+    @Resource
     private JWTUtil jwtUtil;
 
     @Override
@@ -36,8 +39,8 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, CourseEntity> i
     @Override
     public void insertCourse(CourseEntity courseEntity, String token) {
         String username = jwtUtil.getUsername(token);
-        TeacherEntity t = courseMapper.getT(username);
-        courseEntity.setTId(t.getId());
+        Integer userId = studentMapper.getUserId(username);
+        courseEntity.setTId(userId);
         System.out.println("courseEntity = " + courseEntity);
         Integer integer = courseMapper.insertCourse(courseEntity);
         if(integer == null || integer == 0){

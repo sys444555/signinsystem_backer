@@ -35,11 +35,12 @@
         <result property="birth" column="birth"/>
         <result property="guarderPhone" column="guarder_phone"/>
         <result property="createTime" column="create_time"/>
+        <result property="userId" column="user_id"/>
     </resultMap>
 
     <select id="getClassList" resultMap="classMap">
 
-      SELECT a.* ,c.name AS course_name AS teacher_name
+      SELECT a.* ,c.name AS course_name
             FROM class a
             LEFT JOIN course c ON a.c_id = c.id
     </select>

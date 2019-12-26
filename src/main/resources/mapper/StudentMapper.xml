@@ -11,11 +11,12 @@
         <result property="guarder" column="guarder"/>
         <result property="guarderPhone" column="guarder_phone"/>
         <result property="address" column="address"/>
+        <result property="userId" column="user_id"/>
     </resultMap>
 
    <insert id="createStudent" useGeneratedKeys="true" keyProperty="id">
-       INSERT INTO student(name,gender,birth,guarder_phone)
-       VALUES(#{name},#{gender},#{birth},#{guarderPhone})
+       INSERT INTO student(name,gender,birth,guarder_phone,userId)
+       VALUES(#{name},#{gender},#{birth},#{guarderPhone},#{userId})
    </insert>
 
     <insert id="linkClassStudent" >
@@ -28,11 +29,16 @@
     </select>
 
     <select id="selectStudentList" resultMap="studentMap">
-        SELECT * FROM student WHERE teacher_id=#{id}
+        SELECT * FROM student WHERE user_id=#{id}
     </select>
 
     <delete id="deleteStudent">
         DELETE FROM student Where id=#{studentId}
     </delete>
+
+    <select id="getUserId" resultType="Integer">
+         SELECT a.id FROM role_user a
+          WHERE a.username=#{username}
+    </select>
 
 </mapper>

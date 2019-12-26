@@ -53,9 +53,9 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, StudentEntity
     @Override
     public void insertStudent(StudentEntity studentEntity, String token) {
         String username = jwtUtil.getUsername(token);
-        TeacherEntity t = courseMapper.getT(username);
-        if(t != null){
-            studentEntity.setTeacherId(t.getId());
+        Integer userId = studentMapper.getUserId(username);
+        if(userId != null){
+            studentEntity.setUserId(userId);
             Integer result = studentMapper.createStudent(studentEntity);
             if(result == null || result == 0){
                 throw new JcException("新增学员失败");
@@ -70,11 +70,10 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, StudentEntity
     public List<StudentEntity> selectStudentList(String token) {
 
         String username = jwtUtil.getUsername(token);
-        TeacherEntity t = courseMapper.getT(username);
+        Integer userId = studentMapper.getUserId(username);
         List<StudentEntity> studentEntityList;
-        System.out.println("t = " + t);
-        if(t != null){
-            studentEntityList = studentMapper.selectStudentList(t.getId());
+        if(userId != null){
+            studentEntityList = studentMapper.selectStudentList(userId);
             System.out.println("studentEntityList = " + studentEntityList);
         }else {
             throw new JcException(999,"服务器端数据异常");
