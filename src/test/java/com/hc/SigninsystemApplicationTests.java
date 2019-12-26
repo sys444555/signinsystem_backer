@@ -62,8 +62,13 @@ class SigninsystemApplicationTests {
     @Test
     void te() throws ParseException {
         BusinessEntity businessEntity = new BusinessEntity();
-        businessEntity.setUsername("czczc123");
+        businessEntity.setUsername("czczc11123");
         businessEntity.setPassword("123456");
+        businessEntity.setCompanyName("1");
+        businessEntity.setMsnBuyNumber(1);
+        businessEntity.setMsnLeftNumber(1);
+        businessEntity.setName("1");
+        businessEntity.setPhone("2");
         businessService.insertBusiness(businessEntity);
 
     }

@@ -47,7 +47,7 @@ public class BusinessServiceImpl extends ServiceImpl<BusinessMapper, BusinessEnt
         if(result == null || result == 0){
             throw new JcException("新增加盟商失败");
         }
-        businessEntity.setUserId(businessEntity.getId());
+        businessMapper.insertBusiness(businessEntity);
 
     }
 
