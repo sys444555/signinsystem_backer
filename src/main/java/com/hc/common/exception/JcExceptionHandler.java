@@ -2,6 +2,7 @@ package com.hc.common.exception;
 
 
 import com.hc.common.utils.ResponseUtil;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import org.apache.shiro.ShiroException;
 import org.apache.shiro.authc.AuthenticationException;
 import org.slf4j.Logger;
@@ -60,13 +61,19 @@ public class JcExceptionHandler {
         return ResponseUtil.error(500, "服务器端出现异常");
     }
 
+    @ExceptionHandler(MySQLIntegrityConstraintViolationException.class)
+    public ResponseUtil handleException(MySQLIntegrityConstraintViolationException e){
+        logger.error(e.getMessage(),e);
+        return ResponseUtil.error(888, "该用户名已存在");
+    }
+
+
     // 捕捉shiro的异常
     @ExceptionHandler(ShiroException.class)
     public ResponseUtil handle401(ShiroException e) {
         System.out.println("no");
         return ResponseUtil.error(401, e.getMessage());
     }
-
 
 
 
