@@ -435,6 +435,8 @@ function removeStudent(sid,lessonid,classid) {
         dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
         success:function(data){
             alert("移除成功")
+            console.log("a")
+
             window.location.reload()
             $("#class_info_alter").show();
         },
