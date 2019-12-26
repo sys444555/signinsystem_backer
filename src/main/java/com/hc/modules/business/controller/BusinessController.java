@@ -62,4 +62,15 @@ public class BusinessController {
         return ResponseUtil.success();
     }
 
+    /**
+     * 查看用户信息
+     */
+    @RequestMapping(value = "/business/user/get",method = RequestMethod.GET)
+    public ResponseUtil getBusiness(HttpServletRequest httpRequest){
+        String token = httpRequest.getHeader("token");
+        BusinessEntity businessEntity = businessService.getBusiness(token);
+
+        return ResponseUtil.success(businessEntity);
+    }
+
 }
