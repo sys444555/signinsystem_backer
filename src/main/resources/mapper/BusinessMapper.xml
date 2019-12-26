@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hc.modules.business.mapper.BusinessMapper">
+
+    <resultMap id="businessMap" type="com.hc.modules.business.entity.BusinessEntity">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="phone" column="phone"/>
+        <result property="msnBuyNumber" column="msn_buy_number"/>
+        <result property="msnLeftNumber" column="msn_left_number"/>
+        <result property="companyName" column="company_name"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <select id="getBusinessList" resultMap="businessMap">
+
+        SELECT c.biness,c.name,c.phone,c.msn_buy_number,c.msn_left_number,c.msn_left_number,c.create_time,a.username,a.password FROM role_user a
+          LEFT JOIN biness c ON a.id = c.user_id
+          WHERE a.username=#{username}
+    </select>
+
+    <insert id="insertUser" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO role_user(username,password,role,permission,ban)
+        VALUES(#{username},#{password},'user','normal',0)
+    </insert>
+
+    <insert id="insertBusiness">
+        INSERT INTO biness(name,phone,msn_buy_number,msn_left_number,company_name,user_id)
+        VALUES(#{name},#{phone},#{msnBuyNumber},#{msnBuyNumber},#{company_name,#{userId)
+    </insert>
+
+    
+</mapper>
