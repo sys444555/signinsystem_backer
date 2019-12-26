@@ -69,6 +69,7 @@ public class TransactionAdviceAOP {
         map.put("batch*", ruleChange);
         map.put("update*", ruleChange);
         map.put("change*", ruleChange);
+        map.put("set*", ruleChange);
         map.put("delete*", ruleChange);
         map.put("remove*", ruleChange);
         map.put("lesson*", ruleChange);

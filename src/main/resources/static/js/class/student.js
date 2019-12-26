@@ -132,7 +132,7 @@ function showStudentInfo(sid) {
 
             $("#pkbody").empty()
             //console.log(data)；
-            if(data.code == 0){
+            if(data.code == 0 ){
                 var coursePackageEntityList = data.data[0].coursePackageEntityList
 
                 for(var i =0 ;i<coursePackageEntityList.length ; i++){
@@ -326,13 +326,13 @@ function isEmpty(value){
     }
 }
 
-function isEmpty123(value){
-    if(value == null || value == "" || value == "undefined" || value == undefined || value == "null"){
+function isEmpty123(value) {
+    if (value == null || value == "" || value == "undefined" || value == undefined || value == "null") {
         return true;
     }
-    else{
-        value = value.replace(/\s/g,"");
-        if(value == ""){
+    else {
+        value = value.replace(/\s/g, "");
+        if (value == "") {
             return true;
         }
         return false;

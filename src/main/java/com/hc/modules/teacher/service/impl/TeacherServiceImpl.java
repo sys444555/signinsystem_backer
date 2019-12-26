@@ -84,4 +84,12 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, TeacherEntity
         List<StudentEntity> studentEntityList = teacherMapper.getClassAbsentStudentList(classId);
         return studentEntityList;
     }
+
+    @Override
+    public void deleteClass(Integer classId) {
+        Integer result = teacherMapper.deleteClass(classId);
+        if(result == null || result == 0){
+            throw new JcException(999, "删除班级失败");
+        }
+    }
 }

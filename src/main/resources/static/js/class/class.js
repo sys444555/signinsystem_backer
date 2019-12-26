@@ -99,6 +99,39 @@ $(function () {
 
 function delClass(classId) {
 
+    if(isEmpty(classId)){
+        alert("无法获取当前班级的ID")
+        return;
+    }
+
+    if(confirm("你确定要删除班级吗？")){
+        $.ajax({
+            url:'http://localhost:8080/class/delete/' + classId,
+            type:'POST', //GET
+            async:true,    //或false,是否异步
+            headers:{
+                "token" : getCookie("token")
+            },
+            data:{
+
+            },
+            timeout:5000,    //超时时间
+            dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+            success:function(data){
+                if(data.code==0){
+                    alert("删除成功！")
+                    window.location.reload();
+                }else{
+                    alert("删除失败");
+                }
+            },
+            error:function () {
+                alert("服务器异常，请稍后再试！")
+            }
+        })
+
+    }
+
 }
 
 function addStudent() {

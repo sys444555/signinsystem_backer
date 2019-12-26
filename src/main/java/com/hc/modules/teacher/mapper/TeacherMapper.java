@@ -36,4 +36,6 @@ public interface TeacherMapper extends BaseMapper<TeacherEntity> {
 
     public List<StudentEntity> getClassAbsentStudentList(@Param(value = "classId") Integer classId);
 
+    public Integer deleteClass(@Param(value = "classId") Integer classId);
+
 }
