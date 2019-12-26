@@ -75,4 +75,13 @@ public class StudentController {
         return ResponseUtil.success(studentCoursePackageList);
     }
 
+    /**
+     * 删除学员录学员
+     */
+    @RequestMapping(value = "/student/delete/{studentId}", method = RequestMethod.POST)
+    public ResponseUtil deleteStudent(@PathVariable(value = "studentId") Integer studentId){
+        studentService.deleteStudent(studentId);
+        return ResponseUtil.success();
+    }
+
 }

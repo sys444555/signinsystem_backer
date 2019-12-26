@@ -32,4 +32,8 @@
         SELECT * FROM student WHERE teacher_id=#{id}
     </select>
 
+    <delete id="deleteStudent">
+        DELETE FROM student Where id=#{studentId}
+    </delete>
+
 </mapper>

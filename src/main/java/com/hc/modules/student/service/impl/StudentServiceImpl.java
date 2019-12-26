@@ -88,5 +88,13 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, StudentEntity
         return studentCoursePackageList;
     }
 
+    @Override
+    public void deleteStudent(Integer studentId) {
+        Integer result = studentMapper.deleteStudent(studentId);
+        if(result == null || result == 0){
+            throw new JcException(999, "删除学员失败");
+        }
+    }
+
 
 }

@@ -203,12 +203,12 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
         coursePackageEntity.setLeftClassHour(subtract);
         coursePackageEntity.setConsumedClassHour(add);
         lessonMapper.updateCoursePackage(coursePackageEntity);
-        this.sengSms(studentId, lesson);
+        this.sengSms(studentId, lesson, subtract);
 
     }
 
 
-    public String sengSms(Integer studentId, LessonEntity lessonEntity) throws ParseException {
+    public String sengSms(Integer studentId, LessonEntity lessonEntity, BigDecimal leftClassHour) throws ParseException {
 
         StudentEntity student= studentMapper.getStudentById(studentId);
         //校验相关信息，发送短信验证
@@ -231,8 +231,9 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
 
         String msg = lessonEntity.getName()+ "于" + format + " (" + weekDays[w] + ") " + format1 + " - " +  format2;
         System.out.println("msg = " + msg);
+        String leftClassHourString = String.valueOf(leftClassHour);
         //1.封装数据  参数1.code值， 参数2. 分钟数
-        String[] pararms = {student.getName(),msg};
+        String[] pararms = {student.getName(),msg, leftClassHourString};
 
         SmsSingleSender smsSingleSender = new SmsSingleSender(Integer.parseInt(SmsUtils.APPID), SmsUtils.APPKEY);
 

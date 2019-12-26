@@ -30,5 +30,5 @@ public interface StudentMapper extends BaseMapper<StudentEntity> {
     public List<StudentEntity> selectStudentList(@Param(value = "id") Integer id);
 
 
-
+    public Integer deleteStudent(@Param(value = "studentId")Integer studentId);
 }

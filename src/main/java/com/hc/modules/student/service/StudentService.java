@@ -28,5 +28,7 @@ public interface StudentService extends IService<StudentEntity> {
     public List<StudentEntity> selectStudentList(String token);
 
     public List<StudentEntity> getStudentCoursePackageList(Integer studentId);
+
+    public void deleteStudent(Integer studentId);
 }
 
