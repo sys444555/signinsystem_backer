@@ -17,28 +17,29 @@
 
     <select id="getBusinessList" resultMap="businessMap">
 
-        SELECT c.biness,c.name,c.phone,c.msn_buy_number,c.msn_left_number,c.msn_left_number,c.create_time,a.username,a.password FROM role_user a
-          LEFT JOIN biness c ON a.id = c.user_id
-          WHERE a.username=#{username}
+      SELECT c.id,c.name,c.phone,c.company_name,c.msn_buy_number,c.msn_left_number,c.msn_left_number,c.create_time,a.username,a.password
+       FROM role_user a
+        RIGHT JOIN business c ON a.id = c.user_id
+        WHERE a.username=#{username}
     </select>
 
-    <insert id="insertUser" useGeneratedKeys="true" keyProperty="id">
+        <insert id="insertUser" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO role_user(username,password,role,permission,ban)
         VALUES(#{username},#{password},'user','normal',0)
     </insert>
 
-    <insert id="insertBusiness">
-        INSERT INTO biness(name,phone,msn_buy_number,msn_left_number,company_name,user_id)
+        <insert id="insertBusiness">
+        INSERT INTO business(name,phone,msn_buy_number,msn_left_number,company_name,user_id)
         VALUES(#{name},#{phone},#{msnBuyNumber},#{msnBuyNumber},#{company_name,#{userId)
     </insert>
 
-    <delete id="deleteBusiness">
+        <delete id="deleteBusiness">
         DELETE FROM role_user WHERE
         id =  (SELECT user_id FROM business WHERE id=#{businessId})
     </delete>
 
-    <update id="addMsnNumber">
-        UPDATE bisiness SET msn_buy_number=msn_buy_number+#{msnNumber},msn_left_number=msn_left_number+#{msnNumber}
+        <update id="addMsnNumber">
+        UPDATE business SET msn_buy_number=msn_buy_number+#{msnNumber},msn_left_number=msn_left_number+#{msnNumber}
         WHERE id=#{businessId}
     </update>
 
