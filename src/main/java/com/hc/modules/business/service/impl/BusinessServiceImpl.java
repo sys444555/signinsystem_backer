@@ -10,6 +10,8 @@ import com.hc.modules.course.entity.CourseEntity;
 import com.hc.modules.course.mapper.CourseMapper;
 import com.hc.modules.course.service.CourseService;
 import com.hc.modules.student.mapper.StudentMapper;
+import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
+import org.apache.ibatis.reflection.ReflectionException;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -41,11 +43,12 @@ public class BusinessServiceImpl extends ServiceImpl<BusinessMapper, BusinessEnt
     @Override
     public void insertBusiness(BusinessEntity businessEntity) {
         Integer result = businessMapper.insertUser(businessEntity);
+        System.out.println("result = " + result);
         if(result == null || result == 0){
             throw new JcException("新增加盟商失败");
         }
         businessEntity.setUserId(businessEntity.getId());
-        businessMapper.insertBusiness(businessEntity);
+
     }
 
     @Override

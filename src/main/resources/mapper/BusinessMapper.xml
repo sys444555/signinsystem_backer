@@ -20,7 +20,7 @@
       SELECT c.id,c.name,c.phone,c.company_name,c.msn_buy_number,c.msn_left_number,c.msn_left_number,c.create_time,a.username,a.password
        FROM role_user a
         RIGHT JOIN business c ON a.id = c.user_id
-        WHERE a.username=#{username}
+        WHERE a.username!=#{username}
     </select>
 
         <insert id="insertUser" useGeneratedKeys="true" keyProperty="id">
@@ -30,7 +30,7 @@
 
         <insert id="insertBusiness">
         INSERT INTO business(name,phone,msn_buy_number,msn_left_number,company_name,user_id)
-        VALUES(#{name},#{phone},#{msnBuyNumber},#{msnBuyNumber},#{company_name},#{userId)
+        VALUES(#{name},#{phone},#{msnBuyNumber},#{msnBuyNumber},#{companyName},#{userId)
     </insert>
 
         <delete id="deleteBusiness">

@@ -1,5 +1,7 @@
 package com.hc;
 
+import com.hc.modules.business.entity.BusinessEntity;
+import com.hc.modules.business.service.BusinessService;
 import com.hc.modules.course.entity.CourseEntity;
 import com.hc.modules.course.service.CourseService;
 import com.hc.modules.lesson.entity.LessonEntity;
@@ -37,6 +39,9 @@ class SigninsystemApplicationTests {
     @Resource
     private TeacherService teacherService;
 
+    @Resource
+    private BusinessService businessService;
+
     @Test
     void contextLoads() throws ParseException {
         LessonEntity lessonEntity = new LessonEntity();
@@ -50,14 +55,17 @@ class SigninsystemApplicationTests {
         CoursePackageEntity coursePackageEntity = new CoursePackageEntity();
         coursePackageEntity.setClassPackage("跆拳道包");
 
-   
+
 
     }
 
     @Test
     void te() throws ParseException {
-        String[] s = {"36","35"};
-       teacherService.insertClassStudents(10,s);
+        BusinessEntity businessEntity = new BusinessEntity();
+        businessEntity.setUsername("czczc123");
+        businessEntity.setPassword("123456");
+        businessService.insertBusiness(businessEntity);
+
     }
 
 }
