@@ -69,8 +69,9 @@ public class LessonController {
      * 单个学员签到
      */
     @RequestMapping(value = "/class/lesson/student/sign", method = RequestMethod.POST)
-    public ResponseUtil lessonSign(Integer lessonId, Integer studentId) throws ParseException {
-        lessonService.lessonSign(lessonId, studentId);
+    public ResponseUtil lessonSign(Integer lessonId, Integer studentId, HttpServletRequest httpRequest) throws ParseException {
+        String token = httpRequest.getHeader("token");
+        lessonService.lessonSign(lessonId, studentId, token);
         return ResponseUtil.success();
     }
 

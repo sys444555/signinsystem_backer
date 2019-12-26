@@ -25,7 +25,7 @@ public interface LessonService extends IService<LessonEntity> {
 
     public void insertLessonStudents(Integer coid, String[] studentList);
 
-    public void lessonSign(Integer lessonId, Integer studentId) throws ParseException;
+    public void lessonSign(Integer lessonId, Integer studentId, String token) throws ParseException;
 
     public LessonEntity getLesson( Integer lessonId);
 
