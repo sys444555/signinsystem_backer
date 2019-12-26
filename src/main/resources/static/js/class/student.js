@@ -274,6 +274,7 @@ function addPackageToStuden() {
 
     laydate.render({
         elem: '#periodOfValidity'
+        ,min: '2019-12-26'
     });
 
 }

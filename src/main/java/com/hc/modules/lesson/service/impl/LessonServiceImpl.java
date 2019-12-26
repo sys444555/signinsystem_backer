@@ -258,6 +258,12 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
             ext = result.ext;
             System.out.println("result = " + result);
 
+            //  --------- 12/26晚添加的 修改发送成功后的剩余短信
+
+            business.setMsnLeftNumber(business.getMsnLeftNumber() - 1);
+            businessMapper.update(business,new EntityWrapper<BusinessEntity>().eq("id",business.getId()));
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }

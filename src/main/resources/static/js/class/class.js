@@ -1018,8 +1018,17 @@ function addPackageToStuden() {
     $("#student_info_alter").hide()
     $("#add_package_alter").show()
 
+    var time = new Date();
+    var myYear = time.getFullYear();
+    var myMonth = time.getMonth() + 1;
+    var myDay = time.getDate();
+    if (myMonth < 10) {
+        myMonth = "0" + myMonth;
+    }
+
     laydate.render({
-        elem: '#periodOfValidity'
+        elem: '#periodOfValidity',
+        min : myYear+'-'+myMonth+'-'+myDay
     });
 
 }

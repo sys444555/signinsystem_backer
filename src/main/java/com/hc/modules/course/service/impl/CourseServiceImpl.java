@@ -40,7 +40,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, CourseEntity> i
     public void insertCourse(CourseEntity courseEntity, String token) {
         String username = jwtUtil.getUsername(token);
         Integer userId = studentMapper.getUserId(username);
-        courseEntity.setTId(userId);
+        courseEntity.setUserId(userId);
         System.out.println("courseEntity = " + courseEntity);
         Integer integer = courseMapper.insertCourse(courseEntity);
         if(integer == null || integer == 0){

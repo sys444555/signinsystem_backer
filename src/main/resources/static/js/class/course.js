@@ -19,13 +19,13 @@ $(function () {
 
                 for (var i = 0; i < dataList.length; i++) {
                     var html = "<tr style='text-align: center'>"
-                        + "<td>#{id}</td>"
+                        + "<td>#{index}</td>"
                         + "<td>#{name}</td>"
                         + "<td data-id='#{id}' style='color: firebrick;cursor: pointer' onclick='createClass(this)'>(点击这里) 添加班级</td>"
                         + "</tr>"
 
-                    html = html.replace(/"#{id}"/g, dataList[i].id)
-                    html = html.replace(/#{id}/g, i+1)
+                    html = html.replace(/#{id}/g, dataList[i].id)
+                    html = html.replace(/#{index}/g, i+1)
                     html = html.replace(/#{name}/, dataList[i].name)
 
                 $("#t_table tbody").append(html)

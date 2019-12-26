@@ -24,7 +24,7 @@
 	<script src="../js/scripts/layDate/laydate.js"></script>
 	<link rel="stylesheet" type="text/css" href="../css/theme/default/laydate.css">
 
-<title>学员管理</title>
+<title>加盟商管理</title>
 <style>
 	.alt td{ background:black !important;}
 </style>
@@ -37,9 +37,9 @@
 			<div class="ui_content">
 				<div class="ui_text_indent">
 					<div id="box_border">
-					<div id="box_top">学院录</div>
+					<div id="box_top">加盟商</div>
 						<div id="box_bottom">
-							<input type="button" value="新增学员" class="ui_input_btn01" onclick="createStudent();" />
+							<input type="button" value="新增加盟商" class="ui_input_btn01" onclick="createStudent();" />
 						</div>
 					</div>
 			</div>
@@ -48,12 +48,15 @@
 					<table id="t_table" class="table" cellspacing="0" cellpadding="0" width="100%" align="center" border="0" style="text-align: center">
 						<thead style="text-align: center">
 						<tr >
-							<th>名字</th>
-							<th>性别</th>
-							<th>生日</th>
+							<th>负责人</th>
+							<th>加盟商名字</th>
 							<th>联系方式</th>
-							<th>删除学员区</th>
-							<th>查看</th>
+							<th>加盟商账户</th>
+							<th>加盟商密码</th>
+							<th>短信总购买条数</th>
+							<th>短信剩余条数</th>
+							<th>增加短信条数</th>
+							<th>操作</th>
 						</tr>
 						</thead>
 						<tbody style="text-align: center;" id="student_td"></tbody>
@@ -68,30 +71,32 @@
 	</form>
 
 
-	<div class="modal" id="student_create_alter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width: auto;">
-		<div class="modal-dialog" id="course_create_dialog">
+	<div class="modal" id="company_create_alter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width: auto;">
+		<div class="modal-dialog" id="company_create_dialog">
 			<div class="modal-content" align="center" style="overflow: hidden; height: 500px; width: 800px">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true" aria-label="Close" onclick="cancelModal()">
 						×
 					</button>
 					<h4 class="modal-title" id="myModalLabel2">
-						新增学员页面
+						新增加盟商页面
 					</h4>
 				</div>
 				<div class="modal-body">
 					<table width="100%" align="absbottom" class="table">
-						<form id="createStudentForm" method="post">
-							<div style="margin-bottom: 10px">学生名字 : <input id="name" name="name" required="required"/></div>
-							<div style="margin-bottom: 10px">学生性别 : <select id="gender" name="gender" style="width: 174px"><option value="0">男</option><option value="1">女</option> </select></div>
-							<div style="margin-bottom: 10px">学生生日 : <input id="birth" name="birth" style="width: 174px"  required="required"></div>
-							<div style="margin-bottom: 10px">联系电话 : <input id="guarderPhone" name="guarderPhone" type="tel" required="required"></div>
+						<form id="createCompanyForm" method="post">
+							<div style="margin-bottom: 10px">加盟商名字 : <input id="companyName" name="companyName" required="required"/></div>
+							<div style="margin-bottom: 10px">负责人 : <input id="name" name="name" required="required"/></div>
+							<div style="margin-bottom: 10px">登录账号 : <input id="username" name="username" required="required"/></div>
+							<div style="margin-bottom: 10px">登录密码 : <input id="password" name="password" required="required"/></div>
+							<div style="margin-bottom: 10px">联系电话 : <input id="phone" name="phone" required="required"/></div>
+							<div style="margin-bottom: 10px">购买信息数 : <input id="msnBuyNumber" name="msnBuyNumber" required="required"/></div>
 						</form>
 					</table>
 
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" id="saveCourse" onclick="saveStudent()" >
+					<button type="button" class="btn btn-primary" id="saveCourse" onclick="saveCompany()" >
 						提交保存
 					</button>
 					<button type="button" onclick="cancelModal()" class="btn btn-default" data-dismiss="modal">关闭
@@ -103,75 +108,31 @@
 		<!-- /.modal -->
 	</div>
 
-	<div class="modal" id="student_info_alter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width: auto;">
-		<div class="modal-dialog" id="student_info_dialog">
-			<div class="modal-content" align="center" style="overflow: hidden; height: 500px; width: 800px">
+	<div class="modal" id="company_msn_alter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width: auto;">
+		<div class="modal-dialog" id="company_msn_dialog">
+			<div class="modal-content" align="center" style="overflow: hidden; height: 300px; width: 800px">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true" aria-label="Close" onclick="cancelModal1()">
 						×
 					</button>
 					<h4 class="modal-title" id="myModalLabel3">
-						学员课包
+						新增短信条数
 					</h4>
 				</div>
 				<div class="modal-body">
-					<div id="studentCourseArea">
-						<table class="table">
-							<thead >
-							<tr>
-								<td>课包</td>
-								<td>收费标准</td>
-								<td>总课时</td>
-								<td>课包有效期</td>
-								<td>剩余课时</td>
-							</tr>
-							</thead>
-							<tbody style="text-align: center;" id="pkbody">
-							</tbody>
-
-						</table>
-					</div>
+					新增条数 : <input id="msnNumber" style="width: 174px">
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" data-status="0" onclick="addPackageToStuden()">
-						为学员添加新课包
-					</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="modal" id="add_package_alter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width: auto;">
-		<div class="modal-dialog" id="add_package_dialog">
-			<div class="modal-content" align="center" style="overflow: auto; height: 500px; width: 800px">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="cancelClassModal3()">
-						×
-					</button>
-					<h4 class="modal-title" id="myModalLabel5">
-						新增课包
-					</h4>
-				</div>
-				<div class="modal-body">
-					<table width="100%" align="absbottom" class="table" style="overflow: auto">
-						<form id="addPackage" method="post">
-							<div style="margin-bottom: 10px">课包名字 : <input name="classPackage" id="classPackage" required="required"></div>
-							<div style="margin-bottom: 10px">收费标准 : <input name="price" id="price" required="required"></div>
-							<div style="margin-bottom: 10px">购买课时 : <input name="bugClassHour" id="bugClassHour" required="required"></div>
-							<div style="margin-bottom: 10px">未加入已耗课时 : <input style="width: 132px" name="consumedClassHour" id="consumedClassHour" required="required"></div>
-							<div style="margin-bottom: 10px">有效期限 : <input name="periodOfValidity"  style="width: 174px" id="periodOfValidity" required="required"></div>
-						</form>
-					</table>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" onclick="savePackageToStudent()">
+					<button type="button" class="btn btn-primary" id="saveMsn" onclick="saveMsn()" >
 						提交保存
 					</button>
-					<button type="button" onclick="cancelClassModal3()" class="btn btn-default" data-dismiss="modal">关闭
+					<button type="button" onclick="cancelModal1()" class="btn btn-default" data-dismiss="modal">关闭
 					</button>
 				</div>
 			</div>
+			<!-- /.modal-content -->
 		</div>
+		<!-- /.modal -->
 	</div>
 
 
