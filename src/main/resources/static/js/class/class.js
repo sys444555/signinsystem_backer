@@ -403,6 +403,7 @@ function removeStudentOnLesson(sid) {
             if(data.code ==0) {
                 alert("移除成功！")
                 window.location.reload()
+                $("#class_info_alter").show();
             }else{
                 alert("移除失败！")
             }
@@ -438,7 +439,7 @@ function removeStudent(sid,lessonid,classid) {
             console.log("a")
 
             window.location.reload()
-            $("#class_info_alter").show();
+
         },
         error:function () {
             alert("服务器异常，请稍后再试！")
