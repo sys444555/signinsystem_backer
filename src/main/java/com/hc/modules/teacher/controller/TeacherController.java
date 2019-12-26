@@ -110,4 +110,14 @@ public class TeacherController {
         return ResponseUtil.success(studentEntityList);
     }
 
+    /**
+     * 删除班
+     */
+    @RequestMapping(value = "/class/delete/{classId}", method = RequestMethod.POST)
+    public ResponseUtil deleteClass(@PathVariable(value = "classId") Integer classId){
+        teacherService.deleteClass(classId);
+        return ResponseUtil.success();
+    }
+
+
 }

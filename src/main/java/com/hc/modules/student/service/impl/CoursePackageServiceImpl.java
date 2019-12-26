@@ -25,9 +25,9 @@ public class CoursePackageServiceImpl extends ServiceImpl<CoursePackageMapper, C
 
 
 
-    public Map<String, Object> coursePackageList(Integer studentId, Integer classId){
+    public Map<String, Object> getCoursePackageList(Integer studentId, Integer classId){
         Map<String, Object> map = new HashMap<>();
-        map.put("coursePackageList", coursePackageMapper.coursePackageList(studentId));
+        map.put("coursePackageList", coursePackageMapper.getCoursePackageList(studentId));
         Integer cpid = coursePackageMapper.getCpid(studentId, classId);
         map.put("defaultUse", cpid);
         return  map;
@@ -36,16 +36,14 @@ public class CoursePackageServiceImpl extends ServiceImpl<CoursePackageMapper, C
     }
 
     @Override
-    public void createCoursePackage(CoursePackageEntity coursePackageEntity, Integer classId) {
+    public void createCoursePackage(CoursePackageEntity coursePackageEntity) {
         BigDecimal subtract = coursePackageEntity.getBuyClassHour().subtract(coursePackageEntity.getConsumedClassHour());
         coursePackageEntity.setLeftClassHour(subtract);
         Integer result = coursePackageMapper.createCoursePackage(coursePackageEntity);
         if(result == null || result == 0){
             throw new JcException("添加课时包失败");
         }
-
-        Integer cpid = coursePackageEntity.getId();
-        this.setCoursePackage(coursePackageEntity.getStudentId(), classId, cpid);
+        
 
     }
 

@@ -129,20 +129,20 @@ function showStudentInfo(sid) {
 
             $("#pkbody").empty()
             //console.log(data)；
-            if(data.code == 0 && data.data[0].coursePackageEntityList.length >0 ){
+            if(data.code == 0 ){
                 var coursePackageEntityList = data.data[0].coursePackageEntityList
 
                 for(var i =0 ;i<coursePackageEntityList.length ; i++){
                     var html = "<tr>"
                         + "<td>#{classPackage}</td>"
-                        + "<td>#{chargingStandard}</td>"
+                        + "<td>#{price}</td>"
                         + "<td>#{buyClassHour}</td>"
                         + "<td>#{periodOfValidity}</td>"
                         + "<td>#{leftClassHour}</td>"
                     + "</tr>"
 
                     html = html.replace(/#{classPackage}/g,coursePackageEntityList[i].classPackage)
-                    html = html.replace(/#{chargingStandard}/g,coursePackageEntityList[i].chargingStandard)
+                    html = html.replace(/#{price}/g,coursePackageEntityList[i].price)
                     html = html.replace(/#{buyClassHour}/g,coursePackageEntityList[i].buyClassHour)
                     html = html.replace(/#{periodOfValidity}/g,coursePackageEntityList[i].periodOfValidity)
                     html = html.replace(/#{leftClassHour}/g,coursePackageEntityList[i].leftClassHour)

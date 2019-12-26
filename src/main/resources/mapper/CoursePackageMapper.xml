@@ -50,7 +50,7 @@
         VALUES (#{classPackage},#{buyClassHour},#{consumedClassHour},#{leftClassHour},#{periodOfValidity},#{price},#{studentId})
     </insert>
 
-    <select id="coursePackageList" resultMap="coursePackageMap">
+    <select id="getCoursePackageList" resultMap="coursePackageMap">
         SELECT id,class_package,buy_class_hour,consumed_class_hour,left_class_hour,is_validity,period_of_validity,price,create_time,student_id
         FROM course_package
         WHERE student_id = #{studentId}

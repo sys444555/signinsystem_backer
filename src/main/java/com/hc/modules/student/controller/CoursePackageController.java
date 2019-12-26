@@ -37,7 +37,7 @@ public class CoursePackageController {
     @RequestMapping(value = "/student/coursePackage/list/{studentId}", method = RequestMethod.GET)
     public ResponseUtil list(@PathVariable(value = "studentId") Integer studentId, Integer classId){
 
-        Map<String, Object> coursePackageEntities = coursePackageService.coursePackageList(studentId, classId);
+        Map<String, Object> coursePackageEntities = coursePackageService.getCoursePackageList(studentId, classId);
         return ResponseUtil.success(coursePackageEntities);
     }
 
@@ -45,8 +45,8 @@ public class CoursePackageController {
      * 新增课时包
      */
     @RequestMapping(value = "/student/coursePackage/create", method = RequestMethod.POST)
-    public ResponseUtil createCoursePackage(CoursePackageEntity coursePackageEntity, Integer classId){
-        coursePackageService.createCoursePackage(coursePackageEntity, classId);
+    public ResponseUtil createCoursePackage(CoursePackageEntity coursePackageEntity){
+        coursePackageService.createCoursePackage(coursePackageEntity);
         return ResponseUtil.success();
     }
 

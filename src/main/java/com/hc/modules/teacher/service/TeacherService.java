@@ -33,5 +33,7 @@ public interface TeacherService extends IService<TeacherEntity> {
     public void insertClassStudents(Integer classId, String[] studentList);
 
     public List<StudentEntity> getClassAbsentStudentList(Integer classId);
+
+    public void deleteClass(Integer classId);
 }
 

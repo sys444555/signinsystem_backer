@@ -43,7 +43,7 @@ spring:
   redis:
     open: true # 是否开启redis缓存  true开启   false关闭
     database: 2
-    host: 120.78.157.175
+    host: 123.207.230.97
     port: 6379
     password: jcredis   # 密码（默认为空）
     timeout: 6000ms  # 连接超时时长（毫秒）

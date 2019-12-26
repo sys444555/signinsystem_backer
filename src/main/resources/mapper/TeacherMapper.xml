@@ -90,4 +90,8 @@
             (#{coid}, #{item})
         </foreach >
     </insert>
+
+    <delete id="deleteClass">
+        DELETE FROM class Where id=#{classId}
+    </delete>
 </mapper>

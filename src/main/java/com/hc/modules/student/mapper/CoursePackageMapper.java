@@ -17,7 +17,7 @@ import java.util.List;
  */
 public interface CoursePackageMapper extends BaseMapper<CoursePackageEntity> {
 
-    public List<CoursePackageEntity> coursePackageList(@Param(value = "studentId") Integer studentId);
+    public List<CoursePackageEntity> getCoursePackageList(@Param(value = "studentId") Integer studentId);
 
     public Integer createCoursePackage(CoursePackageEntity coursePackageEntity);
 
