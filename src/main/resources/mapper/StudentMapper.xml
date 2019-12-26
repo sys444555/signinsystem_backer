@@ -15,7 +15,7 @@
     </resultMap>
 
    <insert id="createStudent" useGeneratedKeys="true" keyProperty="id">
-       INSERT INTO student(name,gender,birth,guarder_phone,userId)
+       INSERT INTO student(name,gender,birth,guarder_phone,user_id)
        VALUES(#{name},#{gender},#{birth},#{guarderPhone},#{userId})
    </insert>
 
