@@ -5,7 +5,10 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.github.qcloudsms.SmsSingleSender;
 import com.github.qcloudsms.SmsSingleSenderResult;
 import com.hc.common.exception.JcException;
+import com.hc.common.utils.JWTUtil;
 import com.hc.common.utils.SmsUtils;
+import com.hc.modules.business.entity.BusinessEntity;
+import com.hc.modules.business.mapper.BusinessMapper;
 import com.hc.modules.lesson.mapper.LessonMapper;
 import com.hc.modules.lesson.entity.LessonEntity;
 
@@ -35,6 +38,12 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
 
     @Resource
     private StudentMapper studentMapper;
+
+    @Resource
+    private BusinessMapper businessMapper;
+
+    @Resource
+    private JWTUtil jwtUtil;
 
     @Override
     public List<LessonEntity> getClassLessonList(Integer cid) {
@@ -174,7 +183,7 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
     }
 
     @Override
-    public void lessonSign(Integer lessonId, Integer studentId) throws ParseException {
+    public void lessonSign(Integer lessonId, Integer studentId, String token) throws ParseException {
 
         CoursePackageEntity coursePackageEntity = lessonMapper.findCoursePackage(lessonId, studentId);
         if(coursePackageEntity == null){
@@ -203,12 +212,14 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
         coursePackageEntity.setLeftClassHour(subtract);
         coursePackageEntity.setConsumedClassHour(add);
         lessonMapper.updateCoursePackage(coursePackageEntity);
-        this.sengSms(studentId, lesson, subtract);
+        String username = jwtUtil.getUsername(token);
+        BusinessEntity business =  businessMapper.getBusiness(username);
+        this.sengSms(studentId, lesson, subtract, business);
 
     }
 
 
-    public String sengSms(Integer studentId, LessonEntity lessonEntity, BigDecimal leftClassHour) throws ParseException {
+    public String sengSms(Integer studentId, LessonEntity lessonEntity, BigDecimal leftClassHour, BusinessEntity business ) throws ParseException {
 
         StudentEntity student= studentMapper.getStudentById(studentId);
         //校验相关信息，发送短信验证
@@ -233,7 +244,7 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
         System.out.println("msg = " + msg);
         String leftClassHourString = String.valueOf(leftClassHour);
         //1.封装数据  参数1.code值， 参数2. 分钟数
-        String[] pararms = {student.getName(),msg, leftClassHourString};
+        String[] pararms = {student.getName(),msg, leftClassHourString, business.getPhone(), business.getCompanyName()};
 
         SmsSingleSender smsSingleSender = new SmsSingleSender(Integer.parseInt(SmsUtils.APPID), SmsUtils.APPKEY);
 
