@@ -7,6 +7,7 @@ import org.apache.shiro.ShiroException;
 import org.apache.shiro.authc.AuthenticationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -61,8 +62,8 @@ public class JcExceptionHandler {
         return ResponseUtil.error(500, "服务器端出现异常");
     }
 
-    @ExceptionHandler(MySQLIntegrityConstraintViolationException.class)
-    public ResponseUtil handleException(MySQLIntegrityConstraintViolationException e){
+    @ExceptionHandler(DuplicateKeyException.class)
+    public ResponseUtil handleException(DuplicateKeyException e){
         logger.error(e.getMessage(),e);
         return ResponseUtil.error(888, "该用户名已存在");
     }

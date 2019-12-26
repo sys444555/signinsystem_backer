@@ -43,4 +43,10 @@
         WHERE id=#{businessId}
     </update>
 
+    <select id="getBusiness" resultType="com.hc.modules.business.entity.BusinessEntity">
+        SELECT a.* FROM business a
+        LEFT JOIN role_user b ON a.user_id = b.id
+        WHERE b.username=#{username}
+    </select>
+
 </mapper>

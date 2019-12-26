@@ -68,4 +68,11 @@ public class BusinessServiceImpl extends ServiceImpl<BusinessMapper, BusinessEnt
             throw new JcException("新增短信量失败");
         }
     }
+
+    @Override
+    public BusinessEntity getBusiness(String token) {
+        String username = jwtUtil.getUsername(token);
+        BusinessEntity businessEntity = businessMapper.getBusiness(username);
+        return businessEntity;
+    }
 }

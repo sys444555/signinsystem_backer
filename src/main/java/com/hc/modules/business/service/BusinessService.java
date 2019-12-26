@@ -24,5 +24,7 @@ public interface BusinessService extends IService<BusinessEntity> {
     public void deleteBusiness(Integer businessId);
 
     public void addMsnNumber(Integer businessId, Integer msnNumber);
+
+    public BusinessEntity getBusiness(String token);
 }
 
