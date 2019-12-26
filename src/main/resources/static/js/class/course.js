@@ -11,7 +11,7 @@ $(function () {
             "pageNo" : 1,
             "pageSize" : 20
         },
-        timeout:5000,    //超时时间
+        timeout:50000,    //超时时间
         dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
         success:function(data){
             if(data.code == 0){
@@ -93,7 +93,7 @@ $(function () {
         data:{
 
         },
-        timeout:5000,    //超时时间
+        timeout:50000,    //超时时间
         dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
         success:function(data){
 
@@ -127,13 +127,13 @@ function saveClass() {
     var form = $("#createClassForm").serialize();
 
     if(!(isEmpty($("input[name='className']").val()))){
-        alert("存在信息未填写，请确认")
+        alert("班级名字未填写，请确认")
         return;
-    }else if(form.indexOf("classHour=-1")>0){
+    }else if(!(isEmpty($("#teacherName").val()))){
+        alert("任课老师未填写，请确认")
+        return;
+    } else if(form.indexOf("classHour=-1")>0){
         alert("课时未选择！")
-        return;
-    }else if(form.indexOf("tId=-1")>0){
-        alert("任课教师未选择！")
         return;
     }else {
         $.ajax({
@@ -146,7 +146,7 @@ function saveClass() {
             data: {
                 "className": $("input[name=className]").val(),
                 "classHour": $("select[name=classHour]").val(),
-                "teacherId": $("select[name=tId]").val(),
+                "teacherName": $("#teacherName").val(),
                 "cId": sessionStorage.getItem("clickCourseId")
             },
             timeout: 5000,    //超时时间
@@ -156,6 +156,8 @@ function saveClass() {
                 if (data.code == 0) {
                     alert("新增班级至课程成功，请在左侧班级查看详细!")
                     window.location.reload()
+                }else{
+                    alert("添加失败！")
                 }
             },
             error: function () {
@@ -194,7 +196,7 @@ function saveCourse() {
         data:{
             "name" : $("#courseName").val()
         },
-        timeout:5000,    //超时时间
+        timeout:50000,    //超时时间
         dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
         success:function(data){
             if(data.code == 0){
