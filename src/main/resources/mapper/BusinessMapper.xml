@@ -30,7 +30,7 @@
 
         <insert id="insertBusiness">
         INSERT INTO business(name,phone,msn_buy_number,msn_left_number,company_name,user_id)
-        VALUES(#{name},#{phone},#{msnBuyNumber},#{msnBuyNumber},#{companyName},#{userId)
+        VALUES(#{name},#{phone},#{msnBuyNumber},#{msnBuyNumber},#{companyName},#{userId})
     </insert>
 
         <delete id="deleteBusiness">
