@@ -436,7 +436,7 @@ function removeStudent(sid,lessonid,classid) {
         success:function(data){
             alert("移除成功")
             window.location.reload()
-
+            $("#class_info_alter").show();
         },
         error:function () {
             alert("服务器异常，请稍后再试！")

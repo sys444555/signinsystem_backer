@@ -27,7 +27,5 @@ public class StudentEntity {
 
     private Date createTime;
 
-    private Integer teacherId;
-
     private List<CoursePackageEntity> coursePackageEntityList;
 }

@@ -11,12 +11,11 @@
         <result property="guarder" column="guarder"/>
         <result property="guarderPhone" column="guarder_phone"/>
         <result property="address" column="address"/>
-        <result property="teacherId" column="teacher_id"/>
     </resultMap>
 
    <insert id="createStudent" useGeneratedKeys="true" keyProperty="id">
-       INSERT INTO student(name,gender,birth,guarder_phone,teacher_id)
-       VALUES(#{name},#{gender},#{birth},#{guarderPhone},#{teacherId})
+       INSERT INTO student(name,gender,birth,guarder_phone)
+       VALUES(#{name},#{gender},#{birth},#{guarderPhone})
    </insert>
 
     <insert id="linkClassStudent" >
