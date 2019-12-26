@@ -26,6 +26,7 @@ $(function () {
                         + "<td>#{classHour}</td>"
                         + "<td>#{teacherName}</td>"
                         + "<td data-status='#{statusnum}'>#{status}</td>"
+                        + "<td><a href='javascript:void(0)' style='cursor: pointer;color: darkorange' onclick='delClass(#{id})'>删除该班级</a></td>"
                         + "<td id='td#{id}'><a href='javascript:void(0)' style='color: firebrick;cursor: pointer' target='_blank' onclick='showClassInfo(#{id},\"#{className}\",\"#{classHour}\",\"#{teacherName}\")'>查看详情</a></td>"
                         + "</tr>"
 
@@ -69,6 +70,7 @@ $(function () {
                                             + "<td>#{classHour}</td>"
                                             + "<td>#{teacherName}</td>"
                                             + "<td data-status='#{statusnum}'>#{status}</td>"
+                                            + "<td><a href='javascript:void(0)' style='cursor: pointer;color: darkorange' onclick='delClass(#{id})'>删除该班级</a></td>"
                                             + "<td id='td#{id}'><a href='javascript:void(0)' style='color: firebrick;cursor: pointer' target='_blank' onclick='showClassInfo(#{id},\"#{className}\",\"#{classHour}\",\"#{teacherName}\")'>查看详情</a></td>"
                                             + "</tr>"
 
@@ -95,8 +97,8 @@ $(function () {
 
 })
 
-function importStudent() {
-    
+function delClass(classId) {
+
 }
 
 function addStudent() {

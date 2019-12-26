@@ -111,9 +111,12 @@ function cancelModal1() {
 
 function showStudentInfo(sid) {
 
+    sessionStorage.setItem("studentId",sid)
+
     $("#student_info_alter").show()
 
     $.ajax({
+
         url:'http://localhost:8080/student/get/coursePackage/'+sid,
         type:'get', //GET
         async:true,    //或false,是否异步
@@ -129,20 +132,20 @@ function showStudentInfo(sid) {
 
             $("#pkbody").empty()
             //console.log(data)；
-            if(data.code == 0 && data.data[0].coursePackageEntityList.length >0 ){
+            if(data.code == 0){
                 var coursePackageEntityList = data.data[0].coursePackageEntityList
 
                 for(var i =0 ;i<coursePackageEntityList.length ; i++){
                     var html = "<tr>"
                         + "<td>#{classPackage}</td>"
-                        + "<td>#{chargingStandard}</td>"
+                        + "<td>#{price}</td>"
                         + "<td>#{buyClassHour}</td>"
                         + "<td>#{periodOfValidity}</td>"
                         + "<td>#{leftClassHour}</td>"
                     + "</tr>"
 
                     html = html.replace(/#{classPackage}/g,coursePackageEntityList[i].classPackage)
-                    html = html.replace(/#{chargingStandard}/g,coursePackageEntityList[i].chargingStandard)
+                    html = html.replace(/#{price}/g,coursePackageEntityList[i].price)
                     html = html.replace(/#{buyClassHour}/g,coursePackageEntityList[i].buyClassHour)
                     html = html.replace(/#{periodOfValidity}/g,coursePackageEntityList[i].periodOfValidity)
                     html = html.replace(/#{leftClassHour}/g,coursePackageEntityList[i].leftClassHour)
@@ -160,6 +163,86 @@ function showStudentInfo(sid) {
             alert("服务器异常，请稍后再试！")
         }
     })
+}
+
+function savePackageToStudent(sid) {
+
+    var classPackage = $("#classPackage").val()
+    var bugClassHour = $("#bugClassHour").val()
+    var consumedClassHour = $("#consumedClassHour").val()
+    var periodOfValidity = $("#periodOfValidity").val()
+    var price = $("#price").val()
+
+    if(isEmpty123(classPackage)){
+        alert("课包未填写！")
+        return
+    }
+    if(isEmpty123(price)){
+        alert("收费标准未填写！")
+        return
+    }
+    if(isEmpty123(bugClassHour)){
+        alert("总课时未填写！")
+        return
+    }
+    if(isEmpty123(consumedClassHour)){
+        alert("未加入已耗课时未填写！")
+        return
+    }
+    if(isEmpty123(periodOfValidity)){
+        alert("有效期未填写！")
+        return
+    }
+
+
+
+    $.ajax({
+        url:'http://localhost:8080/student/coursePackage/create',
+        type:'POST', //GET
+        async:true,    //或false,是否异步
+        headers:{
+            "token" : getCookie("token")
+        },
+        data:{
+            classPackage : classPackage,
+            buyClassHour:bugClassHour,
+            consumedClassHour:consumedClassHour,
+            periodOfValidity:periodOfValidity,
+            price:price,
+            studentId:sessionStorage.getItem("studentId"),
+        },
+        timeout:5000,    //超时时间
+        dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+        success:function(data){
+            //console.log(data)；
+            if(data.code==0){
+                alert("添加成功，刷新页面！")
+                window.location.reload()
+            }else{
+                alert("添加失败！")
+            }
+        },
+        error:function () {
+            alert("服务器异常，请稍后再试！")
+        }
+    })
+
+}
+
+function cancelClassModal3() {
+    $("#student_info_alter").show()
+    $("#add_package_alter").hide()
+}
+
+function addPackageToStuden() {
+
+    $("#student_info_alter").hide()
+    $("#add_package_alter").show()
+
+    laydate.render({
+        elem: '#periodOfValidity'
+    });
+
 }
 
 function saveStudent() {
@@ -231,6 +314,19 @@ function getCookie(name)
 }
 
 function isEmpty(value){
+    if(value == null || value == "" || value == "undefined" || value == undefined || value == "null"){
+        return true;
+    }
+    else{
+        value = value.replace(/\s/g,"");
+        if(value == ""){
+            return true;
+        }
+        return false;
+    }
+}
+
+function isEmpty123(value){
     if(value == null || value == "" || value == "undefined" || value == undefined || value == "null"){
         return true;
     }
