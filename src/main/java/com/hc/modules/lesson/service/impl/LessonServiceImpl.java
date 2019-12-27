@@ -257,6 +257,10 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
         //通告为空不需要加入短信通知
         if(lessonEntity.getNotice() == null || lessonEntity.getNotice().equals("")){
             List<String> strings = Arrays.asList(params);
+            strings.add("");
+            params = (String[]) strings.toArray();
+        }else {
+            List<String> strings = Arrays.asList(params);
             strings.add(name);
             params = (String[]) strings.toArray();
         }
