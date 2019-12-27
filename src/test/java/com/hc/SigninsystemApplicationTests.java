@@ -65,7 +65,7 @@ class SigninsystemApplicationTests {
         StudentEntity s = new StudentEntity();
         s.setId(93);
         s.setName("蔡伦");
-       lessonService.lessonSign(66,96,"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqd3QtaWQiOiJmNTM5OWM0Ni1kOWUxLTQ1NjktOTQ0MS1mMzc0MmIxMjExNjciLCJleHAiOjE1Nzc0NDcxMzMsInVzZXJuYW1lIjoiemhpeWkifQ.aIW2DjtqKtxg-d0IR_M475PzF-jQGEHLi7Ev8YV91uw");
+       lessonService.lessonSign(71,93,"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqd3QtaWQiOiJmNTM5OWM0Ni1kOWUxLTQ1NjktOTQ0MS1mMzc0MmIxMjExNjciLCJleHAiOjE1Nzc0NDcxMzMsInVzZXJuYW1lIjoiemhpeWkifQ.aIW2DjtqKtxg-d0IR_M475PzF-jQGEHLi7Ev8YV91uw");
 
     }
 

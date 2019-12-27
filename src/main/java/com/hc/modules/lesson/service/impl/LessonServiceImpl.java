@@ -182,7 +182,7 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
     }
 
     @Override
-    public void lessonSign(Integer lessonId, Integer studentId, String token) throws ParseException, HTTPException, IOException {
+    public void lessonSign(Integer lessonId, Integer studentId, String token) throws HTTPException, IOException {
 
         CoursePackageEntity coursePackageEntity = lessonMapper.findCoursePackage(lessonId, studentId);
         if(coursePackageEntity == null){
@@ -190,7 +190,12 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
         }
         LessonEntity lesson = this.getLesson(lessonId);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = simpleDateFormat.parse(coursePackageEntity.getPeriodOfValidity());
+        Date date = null;
+        try {
+            date = simpleDateFormat.parse(coursePackageEntity.getPeriodOfValidity());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         System.out.println("date = " + date);
         System.out.println("new Date() = " + new Date());
         if(date.compareTo(new Date()) < 0){
@@ -218,7 +223,7 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
     }
 
 
-    public String sendSms(Integer studentId, LessonEntity lessonEntity, BigDecimal leftClassHour, BusinessEntity business ) throws ParseException, HTTPException, IOException {
+    public String sendSms(Integer studentId, LessonEntity lessonEntity, BigDecimal leftClassHour, BusinessEntity business )  {
 
         //查找班级名字
         String className = lessonMapper.getClassName(lessonEntity);
@@ -228,7 +233,12 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
         String startDate = lessonEntity.getStartDate();
         String endDate = lessonEntity.getEndDate();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date parse = simpleDateFormat.parse(startDate);
+        Date parse = null;
+        try {
+            parse = simpleDateFormat.parse(startDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("MM月dd日");
         String format = simpleDateFormat1.format(parse);
 
@@ -239,8 +249,18 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
         int w = cal.get(Calendar.DAY_OF_WEEK) - 1; // 指示一个星期中的某天。
 
         SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("HH:mm");
-        String format1 = simpleDateFormat2.format(simpleDateFormat2.parse(startDate.split(" ")[1]));
-        String format2 = simpleDateFormat2.format(simpleDateFormat2.parse(endDate.split(" ")[1]));
+        String format1 = null;
+        try {
+            format1 = simpleDateFormat2.format(simpleDateFormat2.parse(startDate.split(" ")[1]));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        String format2 = null;
+        try {
+            format2 = simpleDateFormat2.format(simpleDateFormat2.parse(endDate.split(" ")[1]));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         String leftClassHourString = String.valueOf(leftClassHour);
         String param1 = student.getName();
         String param2 = className;
@@ -248,10 +268,10 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
         String param4 = " (" + weekDays[w] + ")";
         String param5 = format1 + " - " +  format2;
         String param6 = leftClassHourString;
-        String param7 = "[" + business.getPhone() + "] ";
-        String param8 = "[" + business.getCompanyName() + "] ";
+        String param7 =   business.getPhone() + " ";
+        String param8 =  business.getCompanyName() + " ";
 
-        String name = "["+ lessonEntity.getNotice() + "]";
+        String name =  lessonEntity.getNotice();
         //1.封装数据  参数1.code值， 参数2. 分钟数
         String[] newParamks = new String[9];
 
@@ -289,7 +309,13 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
              if(msnLeftNumber != null && msnLeftNumber <= 0){
                  throw new JcException(999, "短信套餐不足,无法发送短信,请联系负责人续费购买!");
              }
-             result = smsSingleSender.sendWithParam("86",  student.getGuarderPhone(), Integer.parseInt(SmsUtils.CODETEMPLEID), newParamks, SmsUtils.SIGN, "", "");
+             try {
+                 result = smsSingleSender.sendWithParam("86",  student.getGuarderPhone(), Integer.parseInt(SmsUtils.CODETEMPLEID), newParamks, SmsUtils.SIGN, "", "");
+             } catch (HTTPException e) {
+                 e.printStackTrace();
+             } catch (IOException e) {
+                 e.printStackTrace();
+             }
              ext = result.ext;
              System.out.println("result = " + result);
              //  --------- 12/26晚添加的 修改发送成功后的剩余短信
