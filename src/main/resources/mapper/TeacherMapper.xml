@@ -43,6 +43,7 @@
       SELECT a.* ,c.name AS course_name
             FROM class a
             LEFT JOIN course c ON a.c_id = c.id
+            WHERE c.user_id=#{userId}
     </select>
 
     <select id="getTeacherList" resultMap="teacherMap">

@@ -18,7 +18,7 @@ import java.util.List;
  */
 public interface TeacherService extends IService<TeacherEntity> {
 
-    public List<ClassEntity> getClassList();
+    public List<ClassEntity> getClassList(String token);
 
     public List<TeacherEntity> getTeacherList();
 

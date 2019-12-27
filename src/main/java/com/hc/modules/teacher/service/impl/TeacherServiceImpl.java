@@ -5,6 +5,7 @@ import com.hc.common.exception.JcException;
 import com.hc.common.utils.JWTUtil;
 import com.hc.modules.course.entity.CourseEntity;
 import com.hc.modules.student.entity.StudentEntity;
+import com.hc.modules.student.mapper.StudentMapper;
 import com.hc.modules.teacher.entity.ClassEntity;
 import com.hc.modules.teacher.entity.TeacherEntity;
 import com.hc.modules.teacher.mapper.TeacherMapper;
@@ -21,13 +22,17 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, TeacherEntity
     @Resource
     private TeacherMapper teacherMapper;
 
+    @Resource
+    private StudentMapper studentMapper;
 
     @Resource
     private JWTUtil jwtUtil;
 
     @Override
-    public List<ClassEntity> getClassList() {
-        List<ClassEntity> classList = teacherMapper.getClassList();
+    public List<ClassEntity> getClassList(String token) {
+        String username = jwtUtil.getUsername(token);
+        Integer userId = studentMapper.getUserId(username);
+        List<ClassEntity> classList = teacherMapper.getClassList(userId);
         return classList;
     }
 

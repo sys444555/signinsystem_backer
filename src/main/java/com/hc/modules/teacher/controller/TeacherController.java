@@ -46,8 +46,9 @@ public class TeacherController {
      */
     @RequestMapping(value = "/class/list",method = RequestMethod.GET)
     public ResponseUtil getClassList(Integer pageNo, Integer pageSize, HttpServletRequest httpRequest){
+        String token = httpRequest.getHeader("token");
         PageHelper.startPage(pageNo, pageSize);
-        List<ClassEntity> classList = teacherService.getClassList();
+        List<ClassEntity> classList = teacherService.getClassList(token);
         PageInfo<ClassEntity> pageInfo = new PageInfo<>(classList);
         return ResponseUtil.success(pageInfo);
     }
