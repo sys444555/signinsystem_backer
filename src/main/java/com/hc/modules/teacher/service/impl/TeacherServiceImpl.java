@@ -85,8 +85,10 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, TeacherEntity
     }
 
     @Override
-    public List<StudentEntity> getClassAbsentStudentList(Integer classId) {
-        List<StudentEntity> studentEntityList = teacherMapper.getClassAbsentStudentList(classId);
+    public List<StudentEntity> getClassAbsentStudentList(Integer classId, String token) {
+        String username = jwtUtil.getUsername(token);
+        Integer userId = studentMapper.getUserId(username);
+        List<StudentEntity> studentEntityList = teacherMapper.getClassAbsentStudentList(classId, userId);
         return studentEntityList;
     }
 

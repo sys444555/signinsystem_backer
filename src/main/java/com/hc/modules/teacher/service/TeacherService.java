@@ -32,7 +32,7 @@ public interface TeacherService extends IService<TeacherEntity> {
 
     public void insertClassStudents(Integer classId, String[] studentList);
 
-    public List<StudentEntity> getClassAbsentStudentList(Integer classId);
+    public List<StudentEntity> getClassAbsentStudentList(Integer classId, String token);
 
     public void deleteClass(Integer classId);
 }

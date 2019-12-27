@@ -77,7 +77,7 @@
     <select id="getClassAbsentStudentList" resultMap="studentMap">
          SELECT  a.id,a.name,a.gender,a.birth,a.guarder_phone
         FROM student a
-        WHERE a.id NOT IN (select s_id from class_student where c_id=#{classId})
+        WHERE a.id NOT IN (select s_id from class_student where c_id=#{classId}) AND a.user_id=#{userId}
 
     </select>
 

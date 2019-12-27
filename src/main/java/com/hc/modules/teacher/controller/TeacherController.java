@@ -106,8 +106,9 @@ public class TeacherController {
      * 查看未加入该课节的学生录
      */
     @RequestMapping(value = "/class/student/absent/list/{classId}",method = RequestMethod.GET)
-    public ResponseUtil getLessonAbsentStudentList(@PathVariable(value = "classId") Integer classId){
-        List<StudentEntity> studentEntityList = teacherService.getClassAbsentStudentList(classId);
+    public ResponseUtil getLessonAbsentStudentList(@PathVariable(value = "classId") Integer classId, HttpServletRequest httpRequest){
+        String token = httpRequest.getHeader("token");
+        List<StudentEntity> studentEntityList = teacherService.getClassAbsentStudentList(classId, token);
         return ResponseUtil.success(studentEntityList);
     }
 
