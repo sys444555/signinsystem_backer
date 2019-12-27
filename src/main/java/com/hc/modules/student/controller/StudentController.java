@@ -84,4 +84,13 @@ public class StudentController {
         return ResponseUtil.success();
     }
 
+    /**
+     * 修改学员信息
+     */
+    @RequestMapping(value = "/student/update", method = RequestMethod.POST)
+    public ResponseUtil updateStudent(StudentEntity studentEntity){
+        studentService.updateStudent(studentEntity);
+        return ResponseUtil.success();
+    }
+
 }

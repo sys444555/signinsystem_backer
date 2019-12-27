@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 @Data
+@TableName("student")
 public class StudentEntity {
 
     @TableId(type = IdType.AUTO)

@@ -30,5 +30,7 @@ public interface StudentService extends IService<StudentEntity> {
     public List<StudentEntity> getStudentCoursePackageList(Integer studentId);
 
     public void deleteStudent(Integer studentId);
+
+    public void updateStudent(StudentEntity studentEntity);
 }
 

@@ -47,7 +47,6 @@ class SigninsystemApplicationTests {
         LessonEntity lessonEntity = new LessonEntity();
         lessonEntity.setClassHour(new BigDecimal(2.0));
         lessonEntity.setClassId(1);
-        lessonEntity.setName("hello");
 
     }
     @Test
@@ -61,7 +60,10 @@ class SigninsystemApplicationTests {
 
     @Test
     void te() throws ParseException {
-
+        StudentEntity s = new StudentEntity();
+        s.setId(93);
+        s.setName("蔡伦");
+        studentService.getStudentById(93);
 
     }
 

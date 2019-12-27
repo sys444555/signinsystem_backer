@@ -1,5 +1,6 @@
 package com.hc.modules.student.service.impl;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.hc.common.exception.JcException;
 import com.hc.common.utils.JWTUtil;
@@ -35,9 +36,6 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, StudentEntity
     @Override
     public void createStudent(StudentEntity studentEntity, Integer cid) {
         Integer result = studentMapper.createStudent(studentEntity);
-        if(result == null || result == 0){
-            throw new JcException("新增学员失败");
-        }
         Integer id = studentEntity.getId();
         studentMapper.linkClassStudent(id, cid);
     }
@@ -93,6 +91,11 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, StudentEntity
         if(result == null || result == 0){
             throw new JcException(999, "删除学员失败");
         }
+    }
+
+    @Override
+    public void updateStudent(StudentEntity studentEntity) {
+        studentMapper.update(studentEntity, new EntityWrapper<StudentEntity>().eq("id", studentEntity.getId()));
     }
 
 
