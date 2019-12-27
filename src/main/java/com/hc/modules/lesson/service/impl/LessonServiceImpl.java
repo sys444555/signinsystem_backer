@@ -253,15 +253,21 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
         String ext = null;
 
         try {
+            synchronized (new Object()){
+                Integer msnLeftNumber = business.getMsnLeftNumber();
+                if(msnLeftNumber != null && msnLeftNumber <= 0){
+                    throw new JcException(999, "短信套餐不足,无法发送短信,请联系负责人续费购买!");
+                }
+                result = smsSingleSender.sendWithParam("86",  student.getGuarderPhone(), Integer.parseInt(SmsUtils.CODETEMPLEID), pararms, SmsUtils.SIGN, "", "");
+                ext = result.ext;
+                System.out.println("result = " + result);
 
-            result = smsSingleSender.sendWithParam("86",  student.getGuarderPhone(), Integer.parseInt(SmsUtils.CODETEMPLEID), pararms, SmsUtils.SIGN, "", "");
-            ext = result.ext;
-            System.out.println("result = " + result);
+                //  --------- 12/26晚添加的 修改发送成功后的剩余短信
 
-            //  --------- 12/26晚添加的 修改发送成功后的剩余短信
+                business.setMsnLeftNumber(business.getMsnLeftNumber() - 1);
+                businessMapper.update(business,new EntityWrapper<BusinessEntity>().eq("id",business.getId()));
 
-            business.setMsnLeftNumber(business.getMsnLeftNumber() - 1);
-            businessMapper.update(business,new EntityWrapper<BusinessEntity>().eq("id",business.getId()));
+            }
 
 
         } catch (Exception e) {
