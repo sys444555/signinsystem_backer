@@ -53,19 +53,21 @@ class SigninsystemApplicationTests {
     }
     @Test
     void t1() {
-        CoursePackageEntity coursePackageEntity = new CoursePackageEntity();
-        coursePackageEntity.setClassPackage("跆拳道包");
+        StudentEntity s = new StudentEntity();
+        s.setId(96);
+        s.setName("xx356");
+        studentService.updateStudent(s);
 
 
 
     }
 
     @Test
-    void te() throws ParseException, HTTPException, IOException {
+    void te() {
         StudentEntity s = new StudentEntity();
         s.setId(93);
         s.setName("蔡伦");
-       lessonService.lessonSign(71,93,"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqd3QtaWQiOiJmNTM5OWM0Ni1kOWUxLTQ1NjktOTQ0MS1mMzc0MmIxMjExNjciLCJleHAiOjE1Nzc0NDcxMzMsInVzZXJuYW1lIjoiemhpeWkifQ.aIW2DjtqKtxg-d0IR_M475PzF-jQGEHLi7Ev8YV91uw");
+       lessonService.lessonSign(77,96,"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqd3QtaWQiOiJmNTM5OWM0Ni1kOWUxLTQ1NjktOTQ0MS1mMzc0MmIxMjExNjciLCJleHAiOjE1Nzc0NDcxMzMsInVzZXJuYW1lIjoiemhpeWkifQ.aIW2DjtqKtxg-d0IR_M475PzF-jQGEHLi7Ev8YV91uw");
 
     }
 
