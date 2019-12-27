@@ -185,7 +185,7 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
     }
 
     @Override
-    public void lessonSign(Integer lessonId, Integer studentId, String token) throws ParseException {
+    public void lessonSign(Integer lessonId, Integer studentId, String token) throws ParseException, HTTPException, IOException {
 
         CoursePackageEntity coursePackageEntity = lessonMapper.findCoursePackage(lessonId, studentId);
         if(coursePackageEntity == null){
@@ -254,7 +254,7 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
 
         String ext = null;
 
-        
+
             synchronized (new Object()){
                 Integer msnLeftNumber = business.getMsnLeftNumber();
                 if(msnLeftNumber != null && msnLeftNumber <= 0){

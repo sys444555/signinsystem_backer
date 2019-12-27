@@ -1,11 +1,13 @@
 package com.hc.modules.lesson.service;
 
 import com.baomidou.mybatisplus.service.IService;
+import com.github.qcloudsms.httpclient.HTTPException;
 import com.hc.modules.lesson.entity.LessonEntity;
 import com.hc.modules.student.entity.StudentEntity;
 import com.hc.modules.student.entity.StudentLessonEntity;
 import org.apache.ibatis.annotations.Param;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
 
@@ -25,7 +27,7 @@ public interface LessonService extends IService<LessonEntity> {
 
     public void insertLessonStudents(Integer coid, String[] studentList);
 
-    public void lessonSign(Integer lessonId, Integer studentId, String token) throws ParseException;
+    public void lessonSign(Integer lessonId, Integer studentId, String token) throws ParseException, HTTPException, IOException;
 
     public LessonEntity getLesson( Integer lessonId);
 

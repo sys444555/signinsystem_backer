@@ -3,6 +3,7 @@ package com.hc.modules.lesson.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.github.qcloudsms.httpclient.HTTPException;
 import com.hc.common.utils.ResponseUtil;
 import com.hc.modules.lesson.entity.LessonEntity;
 import com.hc.modules.lesson.entity.LessonEntity;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
 
@@ -69,7 +71,7 @@ public class LessonController {
      * 单个学员签到
      */
     @RequestMapping(value = "/class/lesson/student/sign", method = RequestMethod.POST)
-    public ResponseUtil lessonSign(Integer lessonId, Integer studentId, HttpServletRequest httpRequest) throws ParseException {
+    public ResponseUtil lessonSign(Integer lessonId, Integer studentId, HttpServletRequest httpRequest) throws ParseException, HTTPException, IOException {
         String token = httpRequest.getHeader("token");
         lessonService.lessonSign(lessonId, studentId, token);
         return ResponseUtil.success();
