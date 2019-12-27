@@ -1,5 +1,6 @@
 package com.hc;
 
+import com.github.qcloudsms.httpclient.HTTPException;
 import com.hc.modules.business.entity.BusinessEntity;
 import com.hc.modules.business.service.BusinessService;
 import com.hc.modules.course.entity.CourseEntity;
@@ -16,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.List;
@@ -59,11 +61,11 @@ class SigninsystemApplicationTests {
     }
 
     @Test
-    void te() throws ParseException {
+    void te() throws ParseException, HTTPException, IOException {
         StudentEntity s = new StudentEntity();
         s.setId(93);
         s.setName("蔡伦");
-        studentService.getStudentById(93);
+       lessonService.lessonSign(66,96,"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqd3QtaWQiOiJmNTM5OWM0Ni1kOWUxLTQ1NjktOTQ0MS1mMzc0MmIxMjExNjciLCJleHAiOjE1Nzc0NDcxMzMsInVzZXJuYW1lIjoiemhpeWkifQ.aIW2DjtqKtxg-d0IR_M475PzF-jQGEHLi7Ev8YV91uw");
 
     }
 

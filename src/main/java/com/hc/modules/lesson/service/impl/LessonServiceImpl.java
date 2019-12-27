@@ -253,17 +253,28 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
 
         String name = "["+ lessonEntity.getNotice() + "]";
         //1.封装数据  参数1.code值， 参数2. 分钟数
+        String[] newParamks = new String[9];
+
         String[] params = {param1,param2,param3,param4,param5,param6,param7,param8};
         //通告为空不需要加入短信通知
         if(lessonEntity.getNotice() == null || lessonEntity.getNotice().equals("")){
-            List<String> strings = Arrays.asList(params);
-            strings.add("");
-            params = (String[]) strings.toArray();
+            System.arraycopy(params,0,newParamks,0,params.length);
+            newParamks[newParamks.length-1] = "";
+//            List<String> strings =
+//            List list = new ArrayList<>(strings);
+//            System.out.println("strings = " + strings);
+//            list.add("");
+//            params = (String[]) list.toArray();
         }else {
-            List<String> strings = Arrays.asList(params);
-            strings.add(name);
-            params = (String[]) strings.toArray();
+            System.arraycopy(params,0,newParamks,0,params.length);
+            newParamks[newParamks.length-1] = name;
+//            List<String> strings = Arrays.asList(params);
+//            List list = new ArrayList<>(strings);
+//            System.out.println("strings = " + strings);
+//            list.add(name);
+//            params = (String[]) list.toArray();
         }
+        System.out.println("params = " + newParamks);
         System.out.println("params = " + params);
 
         SmsSingleSender smsSingleSender = new SmsSingleSender(Integer.parseInt(SmsUtils.APPID), SmsUtils.APPKEY);
@@ -278,7 +289,7 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
              if(msnLeftNumber != null && msnLeftNumber <= 0){
                  throw new JcException(999, "短信套餐不足,无法发送短信,请联系负责人续费购买!");
              }
-             result = smsSingleSender.sendWithParam("86",  student.getGuarderPhone(), Integer.parseInt(SmsUtils.CODETEMPLEID), params, SmsUtils.SIGN, "", "");
+             result = smsSingleSender.sendWithParam("86",  student.getGuarderPhone(), Integer.parseInt(SmsUtils.CODETEMPLEID), newParamks, SmsUtils.SIGN, "", "");
              ext = result.ext;
              System.out.println("result = " + result);
              //  --------- 12/26晚添加的 修改发送成功后的剩余短信
