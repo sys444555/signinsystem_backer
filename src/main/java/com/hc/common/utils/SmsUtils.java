@@ -10,7 +10,7 @@ public final class SmsUtils {
 
     public static final String INTERVIEWTEMPLEID = "";
 
-    public static final String SIGN = "行动企";
+    public static final String SIGN = "V班助手";
 
 
 
