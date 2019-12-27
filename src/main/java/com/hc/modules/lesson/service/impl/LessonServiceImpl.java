@@ -216,12 +216,12 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
         lessonMapper.updateCoursePackage(coursePackageEntity);
         String username = jwtUtil.getUsername(token);
         BusinessEntity business =  businessMapper.getBusiness(username);
-        this.sengSms(studentId, lesson, subtract, business);
+        this.sendSms(studentId, lesson, subtract, business);
 
     }
 
 
-    public String sengSms(Integer studentId, LessonEntity lessonEntity, BigDecimal leftClassHour, BusinessEntity business ) throws ParseException, HTTPException, IOException {
+    public String sendSms(Integer studentId, LessonEntity lessonEntity, BigDecimal leftClassHour, BusinessEntity business ) throws ParseException, HTTPException, IOException {
 
         StudentEntity student= studentMapper.getStudentById(studentId);
         //校验相关信息，发送短信验证
