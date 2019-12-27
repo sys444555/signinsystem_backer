@@ -27,7 +27,7 @@ $(function () {
                 pageNo : 1,
                 pageSize : 20
             },
-            timeout:5000,    //超时时间
+            timeout:50000,    //超时时间
             dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
             success:function(data) {
                 if (data.code == 0 && data.data.list.length > 0) {
@@ -93,7 +93,7 @@ $(function () {
                                     pageNo : 1,
                                     pageSize : 20
                                 },
-                                timeout:5000,    //超时时间
+                                timeout:50000,    //超时时间
                                 dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
                                 success:function(data) {
 
@@ -185,7 +185,7 @@ function saveStudent() {
                 "price":$("input[name=price]").val(),
                 "cid" : sessionStorage.getItem("cid")
             },
-            timeout:5000,    //超时时间
+            timeout:50000,    //超时时间
             dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
             success:function(data){
                 if(data.code == 0){

@@ -10,7 +10,7 @@ $(function () {
             "pageNo": 1,
             "pageSize" :20
         },
-        timeout:5000,    //超时时间
+        timeout:50000,    //超时时间
         dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text++
         success:function(data){
             //console.log(data)；
@@ -115,7 +115,7 @@ function delClass(classId) {
             data:{
 
             },
-            timeout:5000,    //超时时间
+            timeout:50000,    //超时时间
             dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
             success:function(data){
                 if(data.code==0){
@@ -181,7 +181,7 @@ function showClassInfo(classId,className,classHour,teacherName) {
             "pageNo" : 1,
             "pageSize":99999
         },
-        timeout:5000,    //超时时间
+        timeout:50000,    //超时时间
         dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
         success:function(data){
 
@@ -229,7 +229,7 @@ function showClassInfo(classId,className,classHour,teacherName) {
             "pageSize":9999,
             "cid" : sessionStorage.getItem("classId")
         },
-        timeout:5000,    //超时时间
+        timeout:50000,    //超时时间
         dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
         success:function(data){
             $("#lessonTable tbody").empty();
@@ -296,7 +296,7 @@ function showLessonInfo(id) {
         data:{
 
         },
-        timeout:5000,    //超时时间
+        timeout:50000,    //超时时间
         dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
         success:function(data){
             $("#lesson_info tbody").empty()
@@ -339,7 +339,7 @@ function showLessonInfo(id) {
         data:{
 
         },
-        timeout:5000,    //超时时间
+        timeout:50000,    //超时时间
         dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
         success:function(data){
 
@@ -396,7 +396,7 @@ function removeStudentOnLesson(sid) {
         data:{
             "lessonId" : sessionStorage.getItem("lessonId")
         },
-        timeout:5000,    //超时时间
+        timeout:50000,    //超时时间
         dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
         success:function(data){
             //console.log(data)；
@@ -432,7 +432,7 @@ function removeStudent(sid,lessonid,classid) {
         data:{
             "lessonId" : lessonid
         },
-        timeout:5000,    //超时时间
+        timeout:50000,    //超时时间
         dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
         success:function(data){
             alert("移除成功")
@@ -462,7 +462,7 @@ function qiandao(sid,lesssonId) {
                 lessonId:lesssonId,
                 studentId:sid
             },
-            timeout:5000,    //超时时间
+            timeout:50000,    //超时时间
             dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
             success:function(data){
                 if(data.code == 0){
@@ -547,7 +547,7 @@ function saveLesson() {
             "times" : times,
             "classId" : sessionStorage.getItem("classId")
         },
-        timeout:5000,    //超时时间
+        timeout:50000,    //超时时间
         dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
         success:function(data){
             if(data.code == 0){
@@ -611,7 +611,7 @@ function showStudent(studentId) {
         data:{
             "sid" : studentId
         },
-        timeout:5000,    //超时时间
+        timeout:50000,    //超时时间
         dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
         success:function(data){
             $("#studentTable1").empty()
@@ -655,7 +655,7 @@ function showStudent(studentId) {
         data:{
             classId : sessionStorage.getItem("classId")
         },
-        timeout:5000,    //超时时间
+        timeout:50000,    //超时时间
         dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
         success:function(data){
             $("#studentCourseArea tbody").empty()
@@ -718,7 +718,7 @@ function addStudentToLesson() {
         data:{
             "classId" : sessionStorage.getItem("classId")
         },
-        timeout:5000,    //超时时间
+        timeout:50000,    //超时时间
         dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
         success:function(data){
             $("#studentLesson tbody").empty()
@@ -757,7 +757,7 @@ function importStudent() {
         data:{
 
         },
-        timeout:5000,    //超时时间
+        timeout:50000,    //超时时间
         dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
         success:function(data){
             $("#studentClass tbody").empty()
@@ -824,7 +824,7 @@ function saveStudenToClass() {
             "classId" : sessionStorage.getItem("classId"),
             studentList:list
         },
-        timeout:5000,    //超时时间
+        timeout:50000,    //超时时间
         dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
         success:function(data){
             //console.log(data)；
@@ -872,7 +872,7 @@ function saveStudenToLesson() {
             coid : sessionStorage.getItem("lessonId"),
             studentList : studentList
         },
-        timeout:5000,    //超时时间
+        timeout:50000,    //超时时间
         dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
         success:function(data){
             //console.log(data)；
@@ -929,7 +929,7 @@ function changeMR(id) {
             "classId" : sessionStorage.getItem("classId"),
             "cpid":id
         },
-        timeout:5000,    //超时时间
+        timeout:50000,    //超时时间
         dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
         success:function(data){
             if(data.code == 0){
@@ -994,7 +994,7 @@ function savePackageToStudent(sid) {
             studentId:sessionStorage.getItem("sid"),
             classId:sessionStorage.getItem("classId")
         },
-        timeout:5000,    //超时时间
+        timeout:50000,    //超时时间
         dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
         success:function(data){
             //console.log(data)；
@@ -1018,8 +1018,17 @@ function addPackageToStuden() {
     $("#student_info_alter").hide()
     $("#add_package_alter").show()
 
+    var time = new Date();
+    var myYear = time.getFullYear();
+    var myMonth = time.getMonth() + 1;
+    var myDay = time.getDate();
+    if (myMonth < 10) {
+        myMonth = "0" + myMonth;
+    }
+
     laydate.render({
-        elem: '#periodOfValidity'
+        elem: '#periodOfValidity',
+        min : myYear+'-'+myMonth+'-'+myDay
     });
 
 }
@@ -1062,7 +1071,7 @@ function saveStudent() {
                 "address":$("input[name=address]").val(),
                 "cid" : sessionStorage.getItem("classId")
             },
-            timeout:5000,    //超时时间
+            timeout:50000,    //超时时间
             dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
             success:function(data){
                 if(data.code == 0){

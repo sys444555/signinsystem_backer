@@ -15,7 +15,7 @@ $(function () {
             pageNo : 1,
             pageSize : 20
         },
-        timeout:5000,    //超时时间
+        timeout:50000,    //超时时间
         dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
         success:function(data){
 
@@ -28,7 +28,8 @@ $(function () {
                         + "<td>#{gender}</td>"
                         + "<td>#{birth}</td>"
                         + "<td>#{guarderPhone}</td>"
-                        + "<td><a href='javascript:voide(0)' onclick='showStudentInfo(#{id})' style='cursor: pointer;color: firebrick'>查看详情</a></td>"
+                        + "<td><a href='javascript:void(0)' onclick='delStudent(#{id})' style='cursor: pointer;color: darkorange'>删除学员（重要操作）</a></td>"
+                        + "<td><a href='javascript:void(0)' onclick='showStudentInfo(#{id})' style='cursor: pointer;color: firebrick'>查看详情</a></td>"
                     +"</tr>"
 
                     html = html.replace(/#{id}/g,dataList[i].id)
@@ -77,7 +78,8 @@ $(function () {
                                             + "<td>#{gender}</td>"
                                             + "<td>#{birth}</td>"
                                             + "<td>#{guarderPhone}</td>"
-                                            + "<td><a href='javascript:voide(0)' onclick='showStudentInfo(#{id})' style='cursor: pointer;color: firebrick'>查看详情</a></td>"
+                                            + "<td><a href='javascript:void(0)' onclick='delStudent(#{id})' style='cursor: pointer;color: darkorange'>删除学员（重要操作）</a></td>"
+                                            + "<td><a href='javascript:void(0)' onclick='showStudentInfo(#{id})' style='cursor: pointer;color: firebrick'>查看详情</a></td>"
                                             + "</tr>"
 
                                         html = html.replace(/#{id}/g, dataList[i].id)
@@ -105,6 +107,37 @@ $(function () {
 
 })
 
+function delStudent(studentId) {
+    if(confirm("你将删除该名学员，并且删除学员包、已在班级，已在课时等相关信息，请确认?")){
+        $.ajax({
+            url:'http://localhost:8080/student/delete/'+studentId,
+            type:'post', //GET
+            async:true,    //或false,是否异步
+            headers:{
+                'token' : getCookie("token")
+            },
+            data:{
+
+            },
+            timeout:50000,    //超时时间
+            dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+            success:function(data){
+                //console.log(data)；
+                if(data.code==0){
+                    alert("删除成功！")
+                    window.location.reload()
+                }else{
+                    alert("删除失败！")
+                }
+            },
+            error:function () {
+                alert("服务器异常，请稍后再试！")
+            }
+        })
+
+    }
+}
+
 function cancelModal1() {
     $("#student_info_alter").hide()
 }
@@ -126,7 +159,7 @@ function showStudentInfo(sid) {
         data:{
 
         },
-        timeout:5000,    //超时时间
+        timeout:50000,    //超时时间
         dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
         success:function(data){
 
@@ -211,7 +244,7 @@ function savePackageToStudent(sid) {
             price:price,
             studentId:sessionStorage.getItem("studentId"),
         },
-        timeout:5000,    //超时时间
+        timeout:50000,    //超时时间
         dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
         success:function(data){
             //console.log(data)；
@@ -241,6 +274,7 @@ function addPackageToStuden() {
 
     laydate.render({
         elem: '#periodOfValidity'
+        ,min: '2019-12-26'
     });
 
 }
@@ -276,7 +310,7 @@ function saveStudent() {
             "birth" : $("#birth").val(),
             "guarderPhone" : $("#guarderPhone").val()
         },
-        timeout:5000,    //超时时间
+        timeout:50000,    //超时时间
         dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
         success:function(data){
             //console.log(data)；

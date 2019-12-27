@@ -11,6 +11,7 @@ function logout() {
         async: true,
         success: function () {
             alert("确定退出吗")
+            sessionStorage.clear();
             location.href = "login.html";
         },
         "error": function () {

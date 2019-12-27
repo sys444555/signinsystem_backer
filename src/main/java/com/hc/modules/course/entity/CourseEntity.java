@@ -22,7 +22,7 @@ public class CourseEntity   {
 
     private String name;
 
-    private Integer tId;
+    private Integer userId;
 
     private Date createTime;
 
