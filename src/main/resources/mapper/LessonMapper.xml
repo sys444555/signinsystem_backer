@@ -5,7 +5,7 @@
 
    <resultMap id="lessonResultMap" type="com.hc.modules.lesson.entity.LessonEntity">
        <id property="id" column="id"/>
-       <result property="name" column="name"/>
+       <result property="notice" column="notice"/>
        <result property="classId" column="class_id"/>
        <result property="classHour" column="class_hour"/>
        <result property="status" column="status"/>
@@ -27,7 +27,7 @@
         <result property="status" column="status"/>
         <result property="signTime" column="sign_time"/>
         <result property="id" column="id"/>
-        <result property="name" column="name"/>
+        <result property="notice" column="notice"/>
         <result property="gender" column="gender"/>
         <result property="birth" column="birth"/>
         <result property="guarderPhone" column="guarder_phone"/>
@@ -43,7 +43,7 @@
     </resultMap>
 
     <select id="getClassLessonList" resultMap="lessonResultMap">
-        SELECT a.id,a.name,a.class_id,a.class_hour,a.status,a.start_date,a.end_date,a.lesson_now,a.create_time,
+        SELECT a.id,a.notice,a.class_id,a.class_hour,a.status,a.start_date,a.end_date,a.lesson_now,a.create_time,
         c.id AS s_id, c.name AS s_name,c.gender,c.birth,c.guarder_phone
         FROM lesson a
         LEFT JOIN lesson_student b ON a.id = b.lesson_id
@@ -52,8 +52,8 @@
     </select>
 
     <insert id="insertLesson">
-        INSERT INTO lesson(name,class_id,class_hour,start_date,end_date)
-        VALUES (#{name},#{classId},#{classHour},#{startDate},#{endDate})
+        INSERT INTO lesson(notice,class_id,class_hour,start_date,end_date)
+        VALUES (#{notice},#{classId},#{classHour},#{startDate},#{endDate})
     </insert>
 
     <insert id="insertLessonStudents">

@@ -20,7 +20,7 @@ public class LessonEntity {
     @TableId(type = IdType.AUTO)
     private Integer id;
 
-    private String name;
+    private String notice;
 
     private Integer classId;
 

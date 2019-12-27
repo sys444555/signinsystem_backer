@@ -251,11 +251,11 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
         String param7 = "[" + business.getPhone() + "] ";
         String param8 = "[" + business.getCompanyName() + "] ";
 
-        String name = "["+ lessonEntity.getName() + "]";
+        String name = "["+ lessonEntity.getNotice() + "]";
         //1.封装数据  参数1.code值， 参数2. 分钟数
         String[] params = {param1,param2,param3,param4,param5,param6,param7,param8};
         //通告为空不需要加入短信通知
-        if(lessonEntity.getName() == null || lessonEntity.getName().equals("")){
+        if(lessonEntity.getNotice() == null || lessonEntity.getNotice().equals("")){
             List<String> strings = Arrays.asList(params);
             strings.add(name);
             params = (String[]) strings.toArray();
