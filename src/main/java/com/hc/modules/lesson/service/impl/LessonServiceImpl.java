@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.github.qcloudsms.SmsSingleSender;
 import com.github.qcloudsms.SmsSingleSenderResult;
+import com.github.qcloudsms.httpclient.HTTPException;
 import com.hc.common.exception.JcException;
 import com.hc.common.utils.JWTUtil;
 import com.hc.common.utils.SmsUtils;
@@ -22,6 +23,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -219,7 +221,7 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
     }
 
 
-    public String sengSms(Integer studentId, LessonEntity lessonEntity, BigDecimal leftClassHour, BusinessEntity business ) throws ParseException {
+    public String sengSms(Integer studentId, LessonEntity lessonEntity, BigDecimal leftClassHour, BusinessEntity business ) throws ParseException, HTTPException, IOException {
 
         StudentEntity student= studentMapper.getStudentById(studentId);
         //校验相关信息，发送短信验证
@@ -252,7 +254,7 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
 
         String ext = null;
 
-        try {
+        
             synchronized (new Object()){
                 Integer msnLeftNumber = business.getMsnLeftNumber();
                 if(msnLeftNumber != null && msnLeftNumber <= 0){
@@ -270,9 +272,7 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
             }
 
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
         if(result.result != 0){
             throw new JcException(999, "签到失败,发送通知短信不成功");
         }
