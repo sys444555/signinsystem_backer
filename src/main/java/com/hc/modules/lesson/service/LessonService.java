@@ -29,7 +29,7 @@ public interface LessonService extends IService<LessonEntity> {
 
     public void insertLessonStudents(Integer coid, String[] studentList);
 
-    public void lessonSign(Integer lessonId, Integer studentId, String token) throws ParseException, HTTPException, IOException;
+    public void lessonSign(Integer lessonId, Integer studentId, String token);
 
     public LessonEntity getLesson( Integer lessonId);
 

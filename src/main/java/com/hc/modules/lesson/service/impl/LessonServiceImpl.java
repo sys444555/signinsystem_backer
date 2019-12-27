@@ -182,7 +182,7 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
     }
 
     @Override
-    public void lessonSign(Integer lessonId, Integer studentId, String token) throws HTTPException, IOException {
+    public void lessonSign(Integer lessonId, Integer studentId, String token){
 
         CoursePackageEntity coursePackageEntity = lessonMapper.findCoursePackage(lessonId, studentId);
         if(coursePackageEntity == null){
