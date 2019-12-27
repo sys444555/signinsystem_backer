@@ -512,7 +512,7 @@ function saveLesson() {
         return
     }
     if($("#times").is(":visible")){
-        if(!(/[/D]/g.test(times))){
+        if(/[/D]/g.test(times)){
             alert("上课节数请输入数字！")
             return;
         }
