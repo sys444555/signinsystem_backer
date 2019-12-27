@@ -135,6 +135,14 @@
 
 					<div class="lessonInfo">
 						<table id="lessonTable" style="width: 750px" class="table">
+							<thead>
+								<tr>
+									<td>举行时间段</td>
+									<td>通告内容</td>
+									<td>节数</td>
+									<td>操作区</td>
+								</tr>
+							</thead>
 							<tbody>
 							</tbody>
 						</table>
@@ -254,7 +262,6 @@
 				<div class="modal-body">
 					<table width="100%" align="absbottom" class="table" style="overflow: auto">
 						<form id="createClassForm" method="post">
-							<div style="margin-bottom: 10px">课时名字 : <input name="name" required="required"/><span style="color: red">*</span></div>
 							<div style="margin-bottom: 10px">需消耗课时 :
 								<select name="classHour" style="width: 174px">
 									<option value="0" >0</option>
@@ -274,10 +281,10 @@
 									<option value="7.0" >7.0</option>
 									<option value="7.5" >7.5</option>
 									<option value="8.0" >8.0</option>
-								</select><span style="color: red">*</span>
+								</select>
 							</div>
-							<div style="margin-bottom: 10px">开设日期时间段 : <input name="dataRange" id="dataRange" style="width: 300px" type="text" required="required"><span style="color: red">*</span></div>
-							<div style="margin-bottom: 10px">时间段 : <input name="timeRange" id="timeRange" style="width: 300px" type="text" required="required"><span style="color: red">*</span></div>
+							<div style="margin-bottom: 10px">开设日期时间段 : <input name="dataRange" id="dataRange" style="width: 150px" type="text" required="required"></div>
+							<div style="margin-bottom: 10px">时间段 : <input name="timeRange" id="timeRange" style="width: 206px" type="text" required="required"></div>
 							<div style="margin-bottom: 10px">上课周期 :
 								<select name="period" style="width: 174px" onchange="showTimes(this)">
 									<option value="0" >本节课</option>
@@ -285,9 +292,10 @@
 									<option value="2" >隔天</option>
 									<option value="3" >每周</option>
 									<option value="4" >隔周</option>
-								</select><span style="color: red">*</span>
+								</select>
 							</div>
-							<div style="margin-bottom: 10px ; display: none">上课节数 : <input name="times" id="times" required="required"/><span style="color: red">*</span></div>
+							<div style="margin-bottom: 10px ;display: none">上课节数 : <input name="times"  style="width: 190px; height: 26px " id="times" required="required"/></div>
+							通告内容（选填） : <textarea name="" id="tg"></textarea>
 						</form>
 					</table>
 				</div>

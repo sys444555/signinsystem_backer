@@ -196,6 +196,49 @@ function showStudentInfo(sid) {
             alert("服务器异常，请稍后再试！")
         }
     })
+
+    $.ajax({
+        url:'http://localhost:8080/student/getStudentById',
+        type:'get', //GET
+        async:true,    //或false,是否异步
+        headers:{
+            "token":getCookie("token")
+        },
+        data:{
+            "sid":sid
+        },
+        timeout:50000,    //超时时间
+        dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+        success:function(data){
+            //console.log(data)；
+            if(data.code==0){
+                $("#infoArea").empty();
+
+                    var html = "<tr>"
+                        + "<td>#{name}</td>"
+                        + "<td>#{gender}</td>"
+                        + "<td>#{birth}</td>"
+                        + "<td>#{guarderPhone}</td>"
+                    +"</tr>>"
+
+                    html = html.replace(/#{name}/g,data.data.name)
+                    html = html.replace(/#{gender}/g,data.data.gender==0?'男':'女')
+                    html = html.replace(/#{birth}/g,data.data.birth)
+                    html = html.replace(/#{guarderPhone}/g,data.data.guarderPhone)
+
+
+                    $("#infoArea").append(html)
+            }else{
+                alert("获取学员信息失败！")
+            }
+
+        },
+        error:function () {
+            alert("服务器异常，请稍后再试！")
+        }
+    })
+
+
 }
 
 function savePackageToStudent(sid) {
@@ -205,6 +248,7 @@ function savePackageToStudent(sid) {
     var consumedClassHour = $("#consumedClassHour").val()
     var periodOfValidity = $("#periodOfValidity").val()
     var price = $("#price").val()
+
 
     if(isEmpty123(classPackage)){
         alert("课包未填写！")
@@ -218,10 +262,26 @@ function savePackageToStudent(sid) {
         alert("总课时未填写！")
         return
     }
+    if(/[/D]/g.test(bugClassHour)){
+        alert("总课时请输入数字！")
+        return;
+    }
     if(isEmpty123(consumedClassHour)){
         alert("未加入已耗课时未填写！")
         return
     }
+    if(/[/D]/g.test(consumedClassHour)){
+        alert("未加入已耗课时请输入数字！")
+        return;
+    }
+
+
+
+    if(bugClassHour<consumedClassHour){
+        alert("总课时不得低于已耗课时!")
+        return;
+    }
+
     if(isEmpty123(periodOfValidity)){
         alert("有效期未填写！")
         return
@@ -272,9 +332,11 @@ function addPackageToStuden() {
     $("#student_info_alter").hide()
     $("#add_package_alter").show()
 
+
+
     laydate.render({
         elem: '#periodOfValidity'
-        ,min: '2019-12-26'
+        ,min: getDate()
     });
 
 }
@@ -294,6 +356,11 @@ function saveStudent() {
     if(isEmpty($("#guarderPhone").val())){
         alert("联系方式未填写！")
         return;
+    }
+
+    if(!(/^1[3456789]\d{9}$/.test($("#guarderPhone").val()))){
+        alert("请输入正确联系方式！")
+        return
     }
 
 
@@ -325,6 +392,102 @@ function saveStudent() {
             alert("服务器异常，请稍后再试！")
         }
     })
+}
+
+function alertInfo() {
+    $("#update_student_alter").show()
+    $("#student_info_alter").hide()
+
+
+        $.ajax({
+            url:'http://localhost:8080/student/getStudentById',
+            type:'get', //GET
+            async:true,    //或false,是否异步
+            headers:{
+                "token":getCookie("token")
+            },
+            data:{
+                "sid":sessionStorage.getItem("studentId")
+            },
+            timeout:50000,    //超时时间
+            dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+            success:function(data){
+                //console.log(data)；
+                if(data.code==0){;
+
+                    $("#Sbirth").val(data.data.birth);
+                    $("#Sname").val(data.data.name);
+                    $("#Sphone").val(data.data.guarderPhone);
+                    $("#Sgender").val(data.data.gender)
+
+                }else{
+                    alert("获取学员信息失败！")
+                }
+
+            },
+            error:function () {
+                alert("服务器异常，请稍后再试！")
+            }
+        })
+}
+
+function updateStudent() {
+    if(isEmpty123($("#Sname").val())){
+        alert("姓名未填写！")
+        return
+    }
+    if(isEmpty123($("#Sgender").val())){
+        alert("性别未填写！")
+        return
+    }
+    if(isEmpty123($("#Sbirth").val())){
+        alert("生日未填写！")
+        return
+    }
+    if(isEmpty123($("#Sphone").val())){
+        alert("联系方式未填写！！")
+        return
+    }
+
+    if(!(/^1[3456789]\d{9}$/.test($("#Sphone").val()))){
+        alert("请输入正确联系方式！")
+        return
+    }
+
+
+    $.ajax({
+        url:'http://localhost:8080/student/update',
+        type:'POST', //GET
+        async:true,    //或false,是否异步
+        headers:{
+            "token":getCookie("token")
+        },
+        data:{
+            id: sessionStorage.getItem("studentId"),
+            name:$("#Sname").val(),
+            birth:$("#Sbirth").val(),
+            guarderPhone:$("#Sphone").val(),
+            gender:$("#Sgender").val()
+        },
+        timeout:50000,    //超时时间
+        dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+        success:function(data){
+            if(data.code==0){
+                alert("修改成功！")
+                window.location.reload();
+            }else{
+                alert("修改失败!")
+            }
+        },
+        error:function () {
+            alert("服务器异常，请稍后再试！")
+        }
+    })
+}
+
+function cancelClassModal4() {
+    $("#update_student_alter").hide()
+    $("#student_info_alter").show()
 }
 
 function cancelModal() {
@@ -371,4 +534,14 @@ function isEmpty123(value) {
         }
         return false;
     }
+}
+
+function getDate() {
+
+    var dateStr = new Date()
+
+    var date =  dateStr.getFullYear() + "-" + (parseInt(dateStr.getMonth())+1) + "-" + dateStr.getDate()
+
+    return date
+
 }

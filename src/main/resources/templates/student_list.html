@@ -111,10 +111,26 @@
 						×
 					</button>
 					<h4 class="modal-title" id="myModalLabel3">
-						学员课包
+						学员详情页
 					</h4>
 				</div>
 				<div class="modal-body">
+
+					<div id="studentInfoArea">
+						<table class="table">
+							<tbody id="infoArea">
+
+							</tbody>
+						</table>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" id="alertInfo" onclick="alertInfo()">
+							修改
+						</button>
+					</div>
+
+					<div style=" padding: 0 20px 0;margin: 20px 0;line-height: 1px; border-left: 200px solid #ddd; border-right: 200px solid #ddd;letter-spacing: 3px" >--------------学员课包区-------------</div>
+
 					<div id="studentCourseArea">
 						<table class="table">
 							<thead >
@@ -168,6 +184,36 @@
 						提交保存
 					</button>
 					<button type="button" onclick="cancelClassModal3()" class="btn btn-default" data-dismiss="modal">关闭
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal" id="update_student_alter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width: auto;">
+		<div class="modal-dialog" id="update_student_ddialog">
+			<div class="modal-content" align="center" style="overflow: auto; height: 500px; width: 800px">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="cancelClassModal4()">
+						×
+					</button>
+					<h4 class="modal-title" id="myModalLabel6">
+						修改学员信息
+					</h4>
+				</div>
+				<div class="modal-body">
+					<table width="100%" align="absbottom" class="table" style="overflow: auto">
+						<div style="margin-bottom: 10px">学员名字 : <input name="name" id="Sname" required="required"></div>
+						<div style="margin-bottom: 10px">学员性别 : <select id="Sgender" style="width: 174px;height: 26px"><option value="0">男</option><option value="1">女</option></select></div>
+						<div style="margin-bottom: 10px">学员生日 : <input name="birth" id="Sbirth" required="required"></div>
+						<div style="margin-bottom: 10px">联系电话 : <input name="phone" id="Sphone" required="required"></div>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" onclick="updateStudent()">
+						提交保存
+					</button>
+					<button type="button" onclick="cancelClassModal4()" class="btn btn-default" data-dismiss="modal">关闭
 					</button>
 				</div>
 			</div>

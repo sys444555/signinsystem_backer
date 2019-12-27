@@ -241,14 +241,15 @@ function showClassInfo(classId,className,classHour,teacherName) {
 
 
                     var html = '<tr data-id="#{id}">'
-                    + '<td class="td_lable"><span>#{name}</span></td>'
+
                     + '<td class="td_lable"><span>课时段： #{time}</span></td>'
+                    + '<td class="td_lable"><span>#{notice}</span></td>'
                     + '<td class="td_lable"><span>#{lessonNow}</span></td>'
                     + '<td class="td_lable"><a href="javascript:void(0)" onclick="showLessonInfo(#{id})">详情操作</a></td>'
                     + '<tr>'
 
                     html = html.replace(/#{id}/g,dataList[i].id)
-                    html = html.replace(/#{name}/g,dataList[i].name)
+                    html = html.replace(/#{notice}/g,dataList[i].notice)
                     html = html.replace(/#{time}/g,dataList[i].startDate + " - " + dataList[i].endDate)
                     html = html.replace(/#{lessonNow}/g, '第'+(i+1)+'节')
 
@@ -304,15 +305,16 @@ function showLessonInfo(id) {
             if(data.code == 0){
 
                 var html = "<tr>"
-                    +  "<td class='td_lable'>课程名：#{name}</td>"
+
                     +  "<td class='td_lable'>课程消耗：#{classHour}</td>"
+                    +  "<td class='td_lable'>通告内容：#{notice}</td>"
                     + "</tr>"
                     + "<tr>"
                     +  "<td class='td_lable'>开始时间：#{startDate}</td>"
                     +  "<td class='td_lable'>结束时间：#{endDate}</td>"
                     + "</tr>"
 
-                html = html.replace(/#{name}/g,data.data.name)
+                html = html.replace(/#{notice}/g,data.data.notice)
                 html = html.replace(/#{classHour}/g,data.data.classHour)
                 html = html.replace(/#{startDate}/g,data.data.startDate)
                 html = html.replace(/#{endDate}/g,data.data.endDate)
@@ -450,41 +452,39 @@ function removeStudent(sid,lessonid,classid) {
 
 function qiandao(sid,lesssonId) {
 
-    if(confirm("是否发送签到短信？")) {
-        $.ajax({
-            url:'http://localhost:8080/class/lesson/student/sign',
-            type:'POST', //GET
-            async:true,    //或false,是否异步
-            headers:{
-                "token":getCookie("token")
-            },
-            data:{
-                lessonId:lesssonId,
-                studentId:sid
-            },
-            timeout:50000,    //超时时间
-            dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
-            success:function(data){
-                if(data.code == 0){
-                    alert("已发送短信成功！")
-                    window.location.reload()
-                }else if(data.code == 999){
-                    alert(data.msg)
-                }
-            },
-            error:function () {
-                alert("服务器异常，请稍后再试！")
+    $.ajax({
+        url:'http://localhost:8080/class/lesson/student/sign',
+        type:'POST', //GET
+        async:true,    //或false,是否异步
+        headers:{
+            "token":getCookie("token")
+        },
+        data:{
+            lessonId:lesssonId,
+            studentId:sid
+        },
+        timeout:50000,    //超时时间
+        dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+        success:function(data){
+            if(data.code == 0){
+                alert("已发送短信成功！")
+                window.location.reload()
+            }else if(data.code == 999){
+                alert(data.msg)
+            }else{
+                alert("发送短信失败！")
             }
-        })
-    }
+        },
+        error:function () {
+            alert("服务器异常，请稍后再试！")
+        }
+    })
 
 }
 
 
 function saveLesson() {
 
-
-    var name = $("#add_lesson_alter input[name=name]").val()
 
     var classHour = $("select[name=classHour]").val()
 
@@ -497,10 +497,8 @@ function saveLesson() {
 
     var times = $("#times").val()
 
-    if(isEmpty123(name)){
-        alert("课时名字未填写！")
-        return
-    }
+    var tg = $("#tg").val()
+
     if(isEmpty123(classHour)){
         alert("课时耗损量未填写！")
         return
@@ -514,6 +512,11 @@ function saveLesson() {
         return
     }
     if($("#times").is(":visible")){
+        if(!(/[/D]/g.test(times))){
+            alert("上课节数请输入数字！")
+            return;
+        }
+
         if(isEmpty123(times)){
             alert("上课节数未填写！")
             return
@@ -539,12 +542,12 @@ function saveLesson() {
             "token" : getCookie("token")
         },
         data:{
-            "name" : name,
             "classHour" : classHour,
             "dataRange" : dataRange,
             "timeRange":timeRange,
             "period" : period,
             "times" : times,
+            "notice" : tg,
             "classId" : sessionStorage.getItem("classId")
         },
         timeout:50000,    //超时时间
@@ -680,7 +683,7 @@ function showStudent(studentId) {
                     html = html.replace(/#{buyClassHour}/g,data.data.coursePackageList[i].buyClassHour)
                     html = html.replace(/#{isValidity}/g,data.data.coursePackageList[i].isValidity==0?'无效':'有效')
                     html = html.replace(/#{periodOfValidity}/g,data.data.coursePackageList[i].periodOfValidity)
-                    html = html.replace(/#{MR}/g,data.data.coursePackageList[i].id == default1? '<span style="color: firebrick">默认</span>':'<a href="javascript:void(0)" onclick="changeMR('+data.data.coursePackageList[i].id+')">修改默认</a>')
+                    html = html.replace(/#{MR}/g,data.data.coursePackageList[i].id == default1? '<span style="color: firebrick">默认</span>':'<a href="javascript:void(0)" onclick="changeMR('+data.data.coursePackageList[i].id+',this)">修改默认</a>')
 
 
 
@@ -910,7 +913,12 @@ function cancelClassModal6() {
 }
 
 
-function changeMR(id) {
+function changeMR(id,obj) {
+
+    if($(obj).parent().prev().html() == getDate()){
+        alert("这个课包已经过期无法设置默认！")
+        return
+    };
 
     if(isEmpty(id) || isEmpty(sessionStorage.getItem("sid")) || isEmpty(sessionStorage.getItem("classId"))){
         alert("获取参数失败，请稍后再试！")
@@ -1160,4 +1168,14 @@ function isEmpty123(value){
         }
         return false;
     }
+}
+
+function getDate() {
+
+    var dateStr = new Date()
+
+    var date =  dateStr.getFullYear() + "-" + (parseInt(dateStr.getMonth())+1) + "-" + dateStr.getDate()
+
+    return date
+
 }

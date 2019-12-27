@@ -15,7 +15,13 @@ $(function () {
             //console.log(data)；
             if(data.code == 0){
                 $("#yue_fen").html(data.data.msnLeftNumber)
+
+                if(data.data.msnLeftNumber < 100){
+                    alert("你的短信套餐包，已经不足100条，请联系负责人进行续费，谢谢！")
+                }
             }
+
+
         },
         error:function () {
             alert("服务器异常，请稍后再试！")
