@@ -27,10 +27,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Date;
+import java.util.*;
 
 @Service
 public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> implements LessonService {
@@ -223,6 +220,9 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
 
     public String sendSms(Integer studentId, LessonEntity lessonEntity, BigDecimal leftClassHour, BusinessEntity business ) throws ParseException, HTTPException, IOException {
 
+        //查找班级名字
+        String className = lessonMapper.getClassName(lessonEntity);
+
         StudentEntity student= studentMapper.getStudentById(studentId);
         //校验相关信息，发送短信验证
         String startDate = lessonEntity.getStartDate();
@@ -241,12 +241,26 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
         SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("HH:mm");
         String format1 = simpleDateFormat2.format(simpleDateFormat2.parse(startDate.split(" ")[1]));
         String format2 = simpleDateFormat2.format(simpleDateFormat2.parse(endDate.split(" ")[1]));
-
-        String msg = lessonEntity.getName()+ "于" + format + " (" + weekDays[w] + ") " + format1 + " - " +  format2;
-        System.out.println("msg = " + msg);
         String leftClassHourString = String.valueOf(leftClassHour);
+        String param1 = student.getName();
+        String param2 = className;
+        String param3 = format;
+        String param4 = " (" + weekDays[w] + ")";
+        String param5 = format1 + " - " +  format2;
+        String param6 = leftClassHourString;
+        String param7 = "[" + business.getPhone() + "] ";
+        String param8 = "[" + business.getCompanyName() + "] ";
+
+        String name = "["+ lessonEntity.getName() + "]";
         //1.封装数据  参数1.code值， 参数2. 分钟数
-        String[] pararms = {student.getName(),msg, leftClassHourString, business.getPhone(), business.getCompanyName()};
+        String[] params = {param1,param2,param3,param4,param5,param6,param7,param8};
+        //通告为空不需要加入短信通知
+        if(lessonEntity.getName() == null || lessonEntity.getName().equals("")){
+            List<String> strings = Arrays.asList(params);
+            strings.add(name);
+            params = (String[]) strings.toArray();
+        }
+        System.out.println("params = " + params);
 
         SmsSingleSender smsSingleSender = new SmsSingleSender(Integer.parseInt(SmsUtils.APPID), SmsUtils.APPKEY);
 
@@ -255,19 +269,18 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
         String ext = null;
 
 
-            synchronized (new Object()){
-                Integer msnLeftNumber = business.getMsnLeftNumber();
-                if(msnLeftNumber != null && msnLeftNumber <= 0){
-                    throw new JcException(999, "短信套餐不足,无法发送短信,请联系负责人续费购买!");
-                }
-                result = smsSingleSender.sendWithParam("86",  student.getGuarderPhone(), Integer.parseInt(SmsUtils.CODETEMPLEID), pararms, SmsUtils.SIGN, "", "");
-                ext = result.ext;
-                System.out.println("result = " + result);
+         synchronized (new Object()){
+             Integer msnLeftNumber = business.getMsnLeftNumber();
+             if(msnLeftNumber != null && msnLeftNumber <= 0){
+                 throw new JcException(999, "短信套餐不足,无法发送短信,请联系负责人续费购买!");
+             }
+             result = smsSingleSender.sendWithParam("86",  student.getGuarderPhone(), Integer.parseInt(SmsUtils.CODETEMPLEID), params, SmsUtils.SIGN, "", "");
+             ext = result.ext;
+             System.out.println("result = " + result);
+             //  --------- 12/26晚添加的 修改发送成功后的剩余短信
 
-                //  --------- 12/26晚添加的 修改发送成功后的剩余短信
-
-                business.setMsnLeftNumber(business.getMsnLeftNumber() - 1);
-                businessMapper.update(business,new EntityWrapper<BusinessEntity>().eq("id",business.getId()));
+             business.setMsnLeftNumber(business.getMsnLeftNumber() - 1);
+             businessMapper.update(business,new EntityWrapper<BusinessEntity>().eq("id",business.getId()));
 
             }
 

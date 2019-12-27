@@ -102,4 +102,9 @@
     <update id="lessonSign">
         UPDATE lesson_student SET status=1 WHERE student_id=#{studentId} AND lesson_id=#{lessonId}
     </update>
+
+    <select id="getClassName" resultType="String">
+        SELECT a.class_name FROM class a LEFT JOIN lesson b ON a.id=b.class_id
+        WHERE b.id=#{id}
+    </select>
 </mapper>

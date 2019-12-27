@@ -49,4 +49,5 @@ public interface LessonMapper extends BaseMapper<LessonEntity> {
                               @Param(value = "studentId") Integer studentId);
 
 
+    public  String getClassName(LessonEntity lessonEntity);
 }
