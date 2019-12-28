@@ -30,7 +30,7 @@ html,body {
 }
 
 #top_links {
-	width: 480px;
+	width: auto;
 	height: 65px;
 	float: right;
 	line-height: 65px;
