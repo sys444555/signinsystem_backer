@@ -107,4 +107,8 @@
         SELECT a.class_name FROM class a LEFT JOIN lesson b ON a.id=b.class_id
         WHERE b.id=#{id}
     </select>
+
+    <delete id="removeLessonById">
+        DELETE FROM lesson WHERE id=#{lessonId}
+    </delete>
 </mapper>

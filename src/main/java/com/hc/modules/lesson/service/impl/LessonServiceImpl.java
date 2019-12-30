@@ -351,7 +351,7 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
     public void removeLessonStudent(Integer studentId, Integer lessonId) {
         Integer result = lessonMapper.removeLessonStudent(studentId, lessonId);
         if(result == null || result == 0){
-            throw new JcException("课程移除学员失败");
+            throw new JcException(999, "课程移除学员失败");
         }
     }
 
@@ -359,5 +359,13 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
     public List<StudentEntity> getLessonAbsentStudentList(Integer lessonId, Integer classId) {
         List<StudentEntity> lessonAbsentStudentList = lessonMapper.getLessonAbsentStudentList(lessonId, classId);
         return lessonAbsentStudentList;
+    }
+
+    @Override
+    public void removeLessonById(Integer lessonId) {
+        Integer result = lessonMapper.removeLessonById(lessonId);
+        if(result == null || result == 0){
+            throw new JcException(999, "课程移除学员失败");
+        }
     }
 }

@@ -106,4 +106,15 @@ public class LessonController {
 
     }
 
+    /**
+     * 移除课节学员
+     */
+    @RequestMapping(value = "/class/lesson/remove/{lessonId}", method = RequestMethod.POST)
+    public ResponseUtil removeLessonById(@PathVariable(value = "lessonId") Integer lessonId){
+        lessonService.removeLessonById(lessonId);
+        return ResponseUtil.success();
+
+
+    }
+
 }

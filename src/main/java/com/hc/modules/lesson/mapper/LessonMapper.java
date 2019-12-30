@@ -50,4 +50,6 @@ public interface LessonMapper extends BaseMapper<LessonEntity> {
 
 
     public  String getClassName(LessonEntity lessonEntity);
+
+    public Integer removeLessonById(@Param(value = "lessonId") Integer lessonId);
 }

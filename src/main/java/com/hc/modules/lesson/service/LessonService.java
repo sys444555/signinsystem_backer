@@ -39,5 +39,7 @@ public interface LessonService extends IService<LessonEntity> {
 
     public List<StudentEntity> getLessonAbsentStudentList(Integer lessonId, Integer classId);
 
+    public void removeLessonById(Integer lessonId);
+
 }
 
