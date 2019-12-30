@@ -579,6 +579,7 @@ function addLesson() {
 
     laydate.render({
         elem : '#dataRange',
+        min : getDate()
     })
 
     laydate.render({
