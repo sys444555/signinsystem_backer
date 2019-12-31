@@ -345,6 +345,8 @@
 							</tbody>
 						</table>
 						<button class="btn-green" onclick="addStudentToLesson()" value="添加学员进课程">添加学员进课程</button>
+						<button class="btn-default" onclick="updateLesson()" value="更新本课时">更新本课时</button>
+						<button class="btn-danger" onclick="removeLesson()" value="删除本课时">删除本课时</button>
 					</div>
 
 				</div>
@@ -411,6 +413,55 @@
 					提交保存
 				</button>
 				<button type="button" onclick="cancelClassModal7()" class="btn btn-default" data-dismiss="modal">关闭
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal" id="update_lesson_alter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width: auto;">
+		<div class="modal-dialog" id="update_lesson_dialog">
+			<div class="modal-content" align="center" style="overflow: auto; height: 500px; width: 800px">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="cancelClassModal8()">
+						×
+					</button>
+					<h4 class="modal-title" id="myModalLabel10">
+						更新课时
+					</h4>
+				</div>
+				<div class="modal-body">
+					<div style="margin-bottom: 10px">需消耗课时 :
+						<select id="sClassHour" name="classHour" style="width: 174px">
+							<option value="0" >0</option>
+							<option value="0.5" >0.5</option>
+							<option value="1.0" >1.0</option>
+							<option value="1.5" >1.5</option>
+							<option value="2.0" >2.0</option>
+							<option value="2.5" >2.5</option>
+							<option value="3.0" >3.0</option>
+							<option value="3.5" >3.5</option>
+							<option value="4.0" >4.0</option>
+							<option value="4.5" >4.5</option>
+							<option value="5.0" >5.0</option>
+							<option value="5.5" >5.5</option>
+							<option value="6.0" >6.0</option>
+							<option value="6.5" >6.5</option>
+							<option value="7.0" >7.0</option>
+							<option value="7.5" >7.5</option>
+							<option value="8.0" >8.0</option>
+						</select>
+					</div>
+					<div style="margin-bottom: 10px">开设日期时间段 : <input name="dataRange" id="sDataRange" style="width: 150px" type="text" required="required"></div>
+					<div style="margin-bottom: 10px">时间段 : <input name="timeRange" id="sTimeRange" style="width: 206px" type="text" required="required"></div>
+					通告内容（选填） : <textarea name="" id="sTg"></textarea>
+					<span style="display: inherit;font-size: 12px;color: firebrick" >通告内容仅可输入文字，数字等，不能使用表情包图片！</span>
+
+
+				</div>
+				<button type="button" class="btn btn-primary" onclick="updateLessonButton()">
+					提交保存
+				</button>
+				<button type="button" onclick="cancelClassModal8()" class="btn btn-default" data-dismiss="modal">关闭
 				</button>
 			</div>
 		</div>

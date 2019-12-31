@@ -370,7 +370,16 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
     }
 
     @Override
-    public void updateLessonById(LessonEntity lessonEntity){
+    public void updateLessonById(LessonEntity lessonEntity, String dataRange, String timeRange){
+
+        String[] split = timeRange.split(" - ");
+        String startDate = dataRange + " " + split[0];
+
+        String endDate = dataRange + " " + split[1];
+
+        lessonEntity.setStartDate(startDate);
+        lessonEntity.setEndDate(endDate);
+
 	    lessonMapper.update(lessonEntity, new EntityWrapper<LessonEntity>().eq("id",lessonEntity.getId()));
     }
 }
