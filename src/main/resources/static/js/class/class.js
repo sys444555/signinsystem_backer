@@ -196,7 +196,12 @@ function updateLesson() {
             var timrRange = data.data.startDate.split(" ")[1] + " - " + data.data.endDate.split(" ")[1]
 
             if(data.code == 0){
-                $("#sClassHour").val(data.data.classHour)
+
+                if(!(/^\d+\.\d+$/.test(data.data.classHour))){
+                    $("#sClassHour").val(data.data.classHour+".0")
+                }else{
+                    $("#sClassHour").val(data.data.classHour)
+                }
                 $("#sDataRange").val(date)
                 $("#sTimeRange").val(timrRange)
                 $("#sTg").val(data.data.notice)

@@ -175,13 +175,16 @@ function showStudentInfo(sid) {
                         + "<td>#{buyClassHour}</td>"
                         + "<td>#{periodOfValidity}</td>"
                         + "<td>#{leftClassHour}</td>"
+                        + "<td  data-id='#{id}'><a href='javascript:void(0)' style='cursor:pointer;color: firebrick'  onclick='showStudentClassPackage(#{id})'>查看详情</a></td>"
                     + "</tr>"
+
 
                     html = html.replace(/#{classPackage}/g,coursePackageEntityList[i].classPackage)
                     html = html.replace(/#{price}/g,coursePackageEntityList[i].price)
                     html = html.replace(/#{buyClassHour}/g,coursePackageEntityList[i].buyClassHour)
                     html = html.replace(/#{periodOfValidity}/g,coursePackageEntityList[i].periodOfValidity)
                     html = html.replace(/#{leftClassHour}/g,coursePackageEntityList[i].leftClassHour)
+                    html = html.replace(/#{id}/g,coursePackageEntityList[i].id)
 
                     $("#pkbody").append(html)
 
@@ -239,6 +242,168 @@ function showStudentInfo(sid) {
     })
 
 
+}
+
+function updateClassPackage() {
+
+    if(isEmpty123($("#SclassPackage").val())){
+        alert("课包名称未填写！")
+        return
+    }
+    if(isEmpty123($("#Sprice").val())){
+        alert("收费标准未填写！")
+        return
+    }
+    if(isEmpty123($("#SbuyClassHour").val())){
+        alert("课包总课时未填写！")
+        return
+    }
+    if(isEmpty123($("#SconsumedClassHour").val())){
+        alert("未加入已耗课时未填写！")
+        return
+    }
+    if(isEmpty123($("#SperiodOfValidity").val())){
+        alert("课包有效期未填写！")
+        return
+    }
+
+    $.ajax({
+        url:'http://localhost:8080/coursePackage/update',
+        type:'POST', //GET
+        async:true,    //或false,是否异步
+        headers:{
+            "token" : getCookie("token")
+        },
+        data:{
+            "id" : sessionStorage.getItem("cpId"),
+            "classPackage" : $("#SclassPackage").val(),
+            "price" : $("#Sprice").val(),
+            "buyClassHour" : $("#SbuyClassHour").val(),
+            "consumedClassHour" : $("#SconsumedClassHour").val(),
+            "periodOfValidity" : $("#SperiodOfValidity").val(),
+            "leftClassHour" : $("#SleftClassHour").val(),
+        },
+        timeout:50000,    //超时时间
+        dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+        success:function(data){
+            //console.log(data)；
+            if(data.code==0){
+                alert("更新成功！")
+                window.location.reload();
+            }else{
+                alert("更新失败！")
+            }
+        },
+        error:function () {
+            alert("服务器异常，请稍后再试！")
+        }
+    })
+
+
+}
+
+function countLeft() {
+    if(isEmpty123($("#SbuyClassHour").val())){
+        alert("总课时未填写！")
+        return
+    }
+    if(isEmpty123($("#SconsumedClassHour").val())){
+        alert("未加入已耗课时未填写！")
+        return
+    }
+
+    if($("#SbuyClassHour").val() - $("#SconsumedClassHour").val() < 0){
+        alert("总课时不得低于未加入已耗课时，请确认！")
+        return;
+    }
+
+    $("#SleftClassHour").val($("#SbuyClassHour").val() - $("#SconsumedClassHour").val())
+}
+
+function removeClassPackage() {
+    $.ajax({
+        url:'http://localhost:8080/coursePackage/remove/'+sessionStorage.getItem("cpId"),
+        type:'POST', //GET
+        async:true,    //或false,是否异步
+        headers:{
+            "token" : getCookie("token")
+        },
+        data:{
+
+        },
+        timeout:50000,    //超时时间
+        dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+        success:function(data){
+            //console.log(data)；
+            if(data.code==0){
+                alert("删除课包成功！")
+                window.location.reload();
+            }else{
+                alert("删除课包失败!")
+            }
+        },
+        error:function () {
+            alert("服务器异常，请稍后再试！")
+        }
+    })
+
+}
+
+function showStudentClassPackage(cpId) {
+    if(cpId == null || cpId == "" || cpId == undefined){
+        alert("课包Id存在异常，请稍后再试！")
+        return
+    }
+    sessionStorage.setItem("cpId",cpId);
+
+    laydate.render({
+        elem: '#SperiodOfValidity'
+        ,trigger: 'click'
+    });
+
+    $("#show_student_classPackage_alter").show()
+
+    $("#student_info_alter").hide()
+
+    $.ajax({
+        url:'http://localhost:8080/coursePackage/get/'+cpId,
+        type:'get', //GET
+        async:true,    //或false,是否异步
+        headers:{
+            "token" : getCookie("token")
+        },
+        data:{
+
+        },
+        timeout:50000,    //超时时间
+        dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+        success:function(data){
+            //console.log(data)；
+            if(data.code == 0){
+                $("#SclassPackage").val(data.data.classPackage)
+                $("#Sprice").val(data.data.price)
+                $("#SbuyClassHour").val(data.data.buyClassHour)
+                $("#SconsumedClassHour").val(data.data.consumedClassHour)
+                $("#SperiodOfValidity").val(data.data.periodOfValidity)
+                $("#SleftClassHour").val(data.data.leftClassHour)
+            }else{
+                alert("获取本课包信息失败，请稍后再试！")
+            }
+        },
+        error:function () {
+            alert("服务器异常，请稍后再试！")
+        }
+    })
+
+
+}
+
+function cancelClassModal9() {
+
+
+    $("#show_student_classPackage_alter").hide()
+
+    $("#student_info_alter").show()
 }
 
 function savePackageToStudent(sid) {

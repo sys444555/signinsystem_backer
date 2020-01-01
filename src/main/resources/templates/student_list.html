@@ -135,11 +135,12 @@
 						<table class="table">
 							<thead >
 							<tr>
-								<td>课包</td>
+								<td>课包名称</td>
 								<td>收费标准</td>
 								<td>总课时</td>
 								<td>课包有效期</td>
 								<td>剩余课时</td>
+								<td>操作区</td>
 							</tr>
 							</thead>
 							<tbody style="text-align: center;" id="pkbody">
@@ -215,6 +216,33 @@
 					</button>
 					<button type="button" onclick="cancelClassModal4()" class="btn btn-default" data-dismiss="modal">关闭
 					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal" id="show_student_classPackage_alter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width: auto;">
+		<div class="modal-dialog" id="show_student_classPackage_ddialog">
+			<div class="modal-content" align="center" style="overflow: auto; height: 500px; width: 800px">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="cancelClassModal9()">
+						×
+					</button>
+					<h4 class="modal-title" id="myModalLabel7">
+						学员课包信息
+					</h4>
+				</div>
+				<div class="modal-body">
+					<div style="margin-bottom: 10px">课包名称 : <input id="SclassPackage" required="required"></div>
+					<div style="margin-bottom: 10px">收费标准 : <input id="Sprice" required="required"></div>
+					<div style="margin-bottom: 10px">课包总课时 : <input id="SbuyClassHour" required="required" onblur="countLeft()"></div>
+					<div style="margin-bottom: 10px">未加入已消耗课时 : <input id="SconsumedClassHour" required="required" onblur="countLeft()"></div>
+					<div style="margin-bottom: 10px">课包有效期 : <input id="SperiodOfValidity" required="required"></div>
+					<div style="margin-bottom: 10px">剩余课时(勿动) : <input style="color: firebrick" id="SleftClassHour" required="required" readonly="readonly"></div>
+				</div>
+				<div class="modal-footer">
+					<button class="btn-default" onclick="updateClassPackage()" value="更新课包">更新课包</button>
+					<button class="btn-danger" onclick="removeClassPackage()" value="删除课包">删除课包</button>
 				</div>
 			</div>
 		</div>
