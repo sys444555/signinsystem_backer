@@ -312,7 +312,7 @@ function showClassInfo(classId,className,classHour,teacherName) {
     $(".classInfoHead table").empty()
     //初始化信息
     var html = "<tr>" +
-            "<td>班级名："+className+"</td>" +
+            "<td>班级名称："+className+"</td>" +
             "<td>班级课时："+classHour+"</td>" +
         "</tr>" +
         "<tr>" +
