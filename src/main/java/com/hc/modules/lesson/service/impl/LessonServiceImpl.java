@@ -368,4 +368,9 @@ public class LessonServiceImpl extends ServiceImpl<LessonMapper, LessonEntity> i
             throw new JcException(999, "课程移除学员失败");
         }
     }
+
+    @Override
+    public void updateLessonById(LessonEntity lessonEntity){
+	    lessonMapper.update(lessonEntity, new EntityWrapper<LessonEntity>().eq("id",lessonEntity.getId()));
+    }
 }

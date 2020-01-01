@@ -41,5 +41,7 @@ public interface LessonService extends IService<LessonEntity> {
 
     public void removeLessonById(Integer lessonId);
 
+    public void updateLessonById(LessonEntity lessonEntity);
+
 }
 

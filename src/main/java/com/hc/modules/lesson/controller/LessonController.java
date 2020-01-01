@@ -107,11 +107,22 @@ public class LessonController {
     }
 
     /**
-     * 移除课节学员
+     * 移除课节
      */
     @RequestMapping(value = "/class/lesson/remove/{lessonId}", method = RequestMethod.POST)
     public ResponseUtil removeLessonById(@PathVariable(value = "lessonId") Integer lessonId){
         lessonService.removeLessonById(lessonId);
+        return ResponseUtil.success();
+
+
+    }
+
+     /**
+     * 更新课节
+     */
+    @RequestMapping(value = "/class/lesson/update", method = RequestMethod.POST)
+    public ResponseUtil updateLessonById(LessonEntity lessonEntity){
+        lessonService.updateLessonById(lessonEntity);
         return ResponseUtil.success();
 
 
