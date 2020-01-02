@@ -68,5 +68,12 @@
         UPDATE class_student SET c_p_id=#{cpid} WHERE c_id=#{classId} AND s_id=#{studentId}
     </update>
 
+    <delete id="removeCoursePackageById">
+        DELETE FROM course_package WHERE id = #{coursePackageId}
+    </delete>
+
+    <select id="getCoursePackageById" resultType="com.hc.modules.student.entity.CoursePackageEntity">
+        SELECT * FROM course_package WHERE id = #{coursePackageId}
+    </select>
 
 </mapper>

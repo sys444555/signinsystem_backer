@@ -33,4 +33,8 @@ public interface CoursePackageMapper extends BaseMapper<CoursePackageEntity> {
                                        @Param(value = "cpid") Integer cpid);
 
     public List<StudentEntity> getStudentCoursePackageList(@Param(value = "studentId") Integer studentId);
+
+    public Integer removeCoursePackageById(@Param(value = "coursePackageId") Integer coursePackageId);
+
+    public CoursePackageEntity getCoursePackageById(@Param(value = "coursePackageId") Integer coursePackageId);
 }

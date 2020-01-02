@@ -26,5 +26,10 @@ public interface CoursePackageService extends IService<CoursePackageEntity> {
 
     public void setCoursePackage(Integer studentId, Integer classId, Integer cpid);
 
+    public void removeCoursePackageById(Integer coursePackageId);
+
+    public void updateCoursePackage(CoursePackageEntity coursePackageEntity);
+
+    public CoursePackageEntity getCoursePackageById(Integer coursePackageId);
 }
 

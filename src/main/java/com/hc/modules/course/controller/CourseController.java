@@ -8,7 +8,9 @@ import com.hc.modules.course.entity.CourseEntity;
 import com.hc.modules.course.service.CourseService;
 
 
+import com.hc.modules.lesson.entity.LessonEntity;
 import com.hc.modules.teacher.entity.ClassEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,4 +46,7 @@ public class CourseController {
         courseService.insertCourse(courseEntity, token);
         return ResponseUtil.success();
     }
+
+
+
 }

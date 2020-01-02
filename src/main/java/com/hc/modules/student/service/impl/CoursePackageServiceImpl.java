@@ -1,6 +1,7 @@
 package com.hc.modules.student.service.impl;
 
 import com.hc.common.exception.JcException;
+import com.hc.modules.lesson.entity.LessonEntity;
 import com.hc.modules.student.mapper.CoursePackageMapper;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
@@ -54,6 +55,25 @@ public class CoursePackageServiceImpl extends ServiceImpl<CoursePackageMapper, C
 
 
 
+    }
+
+    @Override
+    public void removeCoursePackageById(Integer coursePackageId) {
+        Integer result = coursePackageMapper.removeCoursePackageById(coursePackageId);
+        if(result == null || result == 0){
+            throw new JcException(999, "课时包删除失败");
+        }
+    }
+
+    @Override
+    public void updateCoursePackage(CoursePackageEntity coursePackageEntity) {
+        coursePackageMapper.update(coursePackageEntity, new EntityWrapper<CoursePackageEntity>().eq("id",coursePackageEntity.getId()));
+    }
+
+    @Override
+    public CoursePackageEntity getCoursePackageById(Integer coursePackageId) {
+        CoursePackageEntity coursePackageEntity = coursePackageMapper.getCoursePackageById(coursePackageId);
+        return coursePackageEntity;
     }
 
 

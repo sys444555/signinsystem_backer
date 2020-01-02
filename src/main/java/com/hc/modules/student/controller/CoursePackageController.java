@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.hc.common.utils.ResponseUtil;
+import com.hc.modules.lesson.entity.LessonEntity;
 import com.hc.modules.student.entity.StudentEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -58,6 +59,34 @@ public class CoursePackageController {
 
         coursePackageService.setCoursePackage(studentId, classId, cpid);
         return ResponseUtil.success();
+    }
+
+    /**
+     * 移除课时包
+     */
+    @RequestMapping(value = "/coursePackage/remove/{coursePackageId}", method = RequestMethod.POST)
+    public ResponseUtil removeCoursePackageById(@PathVariable(value = "coursePackageId") Integer coursePackageId){
+        coursePackageService.removeCoursePackageById(coursePackageId);
+        return ResponseUtil.success();
+    }
+
+    /**
+     * 更新课时包
+     */
+    @RequestMapping(value = "/coursePackage/update", method = RequestMethod.POST)
+    public ResponseUtil updateCoursePackage(CoursePackageEntity coursePackageEntity){
+        coursePackageService.updateCoursePackage(coursePackageEntity);
+        return ResponseUtil.success();
+
+    }
+
+    /**
+     * 查看课时包
+     */
+    @RequestMapping(value = "/coursePackage/get/{coursePackageId}", method = RequestMethod.GET)
+    public ResponseUtil getCoursePackageById(@PathVariable(value = "coursePackageId") Integer coursePackageId){
+        CoursePackageEntity coursePackageEntity = coursePackageService.getCoursePackageById(coursePackageId);
+        return ResponseUtil.success(coursePackageEntity);
     }
 
 }
