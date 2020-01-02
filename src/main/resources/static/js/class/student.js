@@ -344,7 +344,7 @@ function addPackageToStuden() {
 function saveStudent() {
 
     if(isEmpty($("#name").val())){
-        alert("名字未填写！")
+        alert("名称未填写！")
         return;
     }
 

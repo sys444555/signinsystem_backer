@@ -127,7 +127,7 @@ function saveClass() {
     var form = $("#createClassForm").serialize();
 
     if(!(isEmpty($("input[name='className']").val()))){
-        alert("班级名字未填写，请确认")
+        alert("班级名称未填写，请确认")
         return;
     }else if(!(isEmpty($("#teacherName").val()))){
         alert("任课老师未填写，请确认")

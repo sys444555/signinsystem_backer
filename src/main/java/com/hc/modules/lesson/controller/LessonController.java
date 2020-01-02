@@ -121,8 +121,8 @@ public class LessonController {
      * 更新课节
      */
     @RequestMapping(value = "/class/lesson/update", method = RequestMethod.POST)
-    public ResponseUtil updateLessonById(LessonEntity lessonEntity){
-        lessonService.updateLessonById(lessonEntity);
+    public ResponseUtil updateLessonById(LessonEntity lessonEntity, String dataRange, String timeRange){
+        lessonService.updateLessonById(lessonEntity,dataRange,timeRange);
         return ResponseUtil.success();
 
 

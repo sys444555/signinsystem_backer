@@ -118,7 +118,7 @@ $(function () {
 
 function saveCompany() {
     if(isEmpty123($("#companyName").val())){
-        alert("企业名字未填写!")
+        alert("企业名称未填写!")
         return;
     }
     if(isEmpty123($("#name").val())){

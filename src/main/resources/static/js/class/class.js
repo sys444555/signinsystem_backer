@@ -97,6 +97,158 @@ $(function () {
 
 })
 
+function updateLessonButton() {
+
+    var classHour = $("#sClassHour").val()
+
+    //"2019-12-13 01:01:01 - 2019-12-13 02:02:06"
+    var dataRange = $("#sDataRange").val();
+
+    var timeRange = $("#sTimeRange").val();
+
+    var tg = $("#sTg").val()
+
+    if(isEmpty123(classHour)){
+        alert("课时耗损量未填写！")
+        return
+    }
+    if(isEmpty123(dataRange)){
+        alert("举行开始日期未填写！")
+        return
+    }
+    if(isEmpty123(timeRange)){
+        alert("时间段未填写！")
+        return
+    }
+
+    if(sessionStorage.getItem("classId")==undefined){
+        alert("获取班级id失败")
+    }
+
+    // if(!(isEmpty(name) && isEmpty(classHour) && isEmpty(dataRange) && isEmpty(period))){
+    //     alert("存在信息未填写，请确认！")
+    //     return
+    // }
+
+    $.ajax({
+        url:'http://localhost:8080/class/lesson/update',
+        type:'POST', //GET
+        async:true,    //或false,是否异步
+        headers:{
+            "token" : getCookie("token")
+        },
+        data:{
+            "classHour" : classHour,
+            "dataRange" : dataRange,
+            "timeRange":timeRange,
+            "notice" : tg,
+            "id":sessionStorage.getItem("lessonId")
+        },
+        timeout:50000,    //超时时间
+        dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+        success:function(data){
+            if(data.code == 0){
+                alert("修改课时成功！")
+                window.location.reload()
+            }else{
+                alert("修改课时失败！")
+            }
+        },
+        error:function () {
+            alert("服务器存在异常，请稍后再试！")
+        }
+    })
+
+}
+
+function updateLesson() {
+
+    $("#show_lesson_alter").hide()
+    $("#update_lesson_alter").show();
+
+    laydate.render({
+        elem: '#sDataRange'
+        ,trigger: 'click'
+    });
+    laydate.render({
+        elem: '#sTimeRange'
+        ,type: 'time'
+        ,range: true
+        ,trigger: 'click'
+    });
+
+    $.ajax({
+        url:'http://localhost:8080/class/lesson/get/'+sessionStorage.getItem("lessonId"),
+        type:'get', //GET
+        async:true,    //或false,是否异步
+        headers:{
+            "token" : getCookie("token")
+        },
+        data:{
+
+        },
+        timeout:50000,    //超时时间
+        dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+        success:function(data){
+
+            var date = data.data.startDate.split(" ")[0]
+
+            var timrRange = data.data.startDate.split(" ")[1] + " - " + data.data.endDate.split(" ")[1]
+
+            if(data.code == 0){
+                $("#sClassHour").val(data.data.classHour)
+                $("#sDataRange").val(date)
+                $("#sTimeRange").val(timrRange)
+                $("#sTg").val(data.data.notice)
+
+            }else{
+                alert("读取数据失败！")
+            }
+        },
+        error:function () {
+            alert("服务器异常，请稍后再试！")
+        }
+    })
+
+}
+
+function cancelClassModal8() {
+    $("#show_lesson_alter").show()
+    $("#update_lesson_alter").hide();
+}
+
+function removeLesson() {
+    if(sessionStorage.getItem("lessonId") == undefined){
+        alert("获取当前课时id失败，请稍后再试！")
+        return;
+    }
+
+    $.ajax({
+        url:'http://localhost:8080/class/lesson/remove/'+sessionStorage.getItem("lessonId"),
+        type:'POST', //GET
+        async:true,    //或false,是否异步
+        headers:{
+            "token" : getCookie("token")
+        },
+        data:{
+
+        },
+        timeout:50000,    //超时时间
+        dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+        success:function(data){
+            if(data.code == 0){
+                alert("删除课时成功!")
+                window.location.reload()
+            }else{
+                alert("删除课时失败！")
+            }
+        },
+        error:function () {
+            alert("服务器异常，请稍后再试！")
+        }
+    })
+}
+
 function delClass(classId) {
 
     if(isEmpty(classId)){
@@ -160,7 +312,7 @@ function showClassInfo(classId,className,classHour,teacherName) {
     $(".classInfoHead table").empty()
     //初始化信息
     var html = "<tr>" +
-            "<td>班级名："+className+"</td>" +
+            "<td>班级名称："+className+"</td>" +
             "<td>班级课时："+classHour+"</td>" +
         "</tr>" +
         "<tr>" +
