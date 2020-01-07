@@ -10,10 +10,7 @@ import com.hc.modules.course.service.CourseService;
 
 import com.hc.modules.lesson.entity.LessonEntity;
 import com.hc.modules.teacher.entity.ClassEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -47,6 +44,32 @@ public class CourseController {
         return ResponseUtil.success();
     }
 
+    /**
+     * 删除课程
+     */
+    @RequestMapping(value = "/course/delete/{courseId}", method = RequestMethod.POST)
+    public ResponseUtil deleteCourse(@PathVariable("courseId") Integer courseId){
+        courseService.deleteCourse(courseId);
+        return ResponseUtil.success();
+    }
+
+    /**
+     * 通过id 获取课程
+     */
+    @RequestMapping(value = "/course/getCourseById/{courseId}", method = RequestMethod.POST)
+    public ResponseUtil getCourseById(@PathVariable("courseId") Integer courseId){
+        CourseEntity courseEntity = courseService.getCourseById(courseId);
+        return ResponseUtil.success(courseEntity);
+    }
+
+    /**
+     * 更新课包
+     */
+    @RequestMapping(value = "/course/update", method = RequestMethod.POST)
+    public ResponseUtil updateCourse(CourseEntity courseEntity){
+       courseService.updateCourse(courseEntity);
+        return ResponseUtil.success();
+    }
 
 
 }

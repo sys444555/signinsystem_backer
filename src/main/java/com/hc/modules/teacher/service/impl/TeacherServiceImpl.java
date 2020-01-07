@@ -99,4 +99,15 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, TeacherEntity
             throw new JcException(999, "删除班级失败");
         }
     }
+
+    @Override
+    public ClassEntity getClassById(Integer classId) {
+        ClassEntity classEntity = teacherMapper.getClassById(classId);
+        return classEntity;
+    }
+
+    @Override
+    public void updateClass(ClassEntity classEntity) {
+        teacherMapper.updateClass(classEntity);
+    }
 }

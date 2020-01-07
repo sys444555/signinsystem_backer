@@ -1,5 +1,6 @@
 package com.hc.modules.course.service.impl;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.hc.common.exception.JcException;
 import com.hc.common.utils.JWTUtil;
@@ -46,5 +47,20 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, CourseEntity> i
         if(integer == null || integer == 0){
             throw new JcException("新增课程失败");
         }
+    }
+
+    @Override
+    public void deleteCourse(Integer courseId) {
+        courseMapper.deleteById(courseId);
+    }
+
+    @Override
+    public CourseEntity getCourseById(Integer courseId) {
+        return courseMapper.selectById(courseId);
+    }
+
+    @Override
+    public void updateCourse(CourseEntity courseEntity) {
+        courseMapper.update(courseEntity,new EntityWrapper<CourseEntity>().eq("id",courseEntity.getId()));
     }
 }

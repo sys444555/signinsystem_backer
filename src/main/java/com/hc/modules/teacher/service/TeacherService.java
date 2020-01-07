@@ -35,5 +35,9 @@ public interface TeacherService extends IService<TeacherEntity> {
     public List<StudentEntity> getClassAbsentStudentList(Integer classId, String token);
 
     public void deleteClass(Integer classId);
+
+    public ClassEntity getClassById(Integer classId);
+
+    public void updateClass(ClassEntity classEntity);
 }
 

@@ -121,5 +121,22 @@ public class TeacherController {
         return ResponseUtil.success();
     }
 
+    /**
+     * 根据id获取班级的信息
+     */
+    @RequestMapping(value = "/class/getClassById/{classId}", method = RequestMethod.POST)
+    public ResponseUtil getClassById(@PathVariable(value = "classId") Integer classId){
+        ClassEntity classEntity  = teacherService.getClassById(classId);
+        return ResponseUtil.success(classEntity);
+    }
+
+    /**
+     * 根据id修改班信息
+     */
+    @RequestMapping(value = "/class/update", method = RequestMethod.POST)
+    public ResponseUtil updateClass(ClassEntity classEntity){
+        teacherService.updateClass(classEntity);
+        return ResponseUtil.success();
+    }
 
 }

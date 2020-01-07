@@ -19,6 +19,7 @@ $(function () {
 
                 for (var i = 0; i < dataList.length; i++) {
                     var html = "<tr style='text-align: center'>"
+                        + "<td><input type='checkbox' data-id='#{id}'></td>"
                         + "<td>#{index}</td>"
                         + "<td>#{name}</td>"
                         + "<td data-id='#{id}' style='color: firebrick;cursor: pointer' onclick='createClass(this)'>(点击这里) 添加班级</td>"
@@ -112,6 +113,132 @@ $(function () {
 
 })
 //-------------------------------------- ------------------------------------
+
+function updateCourseMessage() {
+
+    var courseName = $("#ScourseName").val()
+
+    if(courseName == null || courseName == "" || courseName == undefined){
+        alert("课包名字不能为空，请重新填写！")
+        return;
+    }
+
+    $.ajax({
+        url:'http://localhost:8080/course/update',
+        type:'POST', //GET
+        async:true,    //或false,是否异步
+        headers:{
+            "token" : getCookie("token")
+        },
+        data:{
+            "id" : sessionStorage.getItem("updateCourseId"),
+            "name" : courseName
+        },
+        timeout:50000,    //超时时间
+        dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+        success:function(data){
+            //console.log(data)；
+            if(data.code == 0){
+                alert("更新课包成功！")
+                window.location.reload();
+            }else{
+                alert("更新课包失败！")
+            }
+        },
+        error:function () {
+            alert("服务器异常，请稍后再试！")
+        }
+    })
+
+
+}
+
+
+function updateCourse() {
+    if($("#class_td").find(":checked").length ==0  ){
+        alert("请选择修改课包条目！")
+        return
+    }else if($("#class_td").find(":checked").length > 1){
+        alert("请选择单独一条课包条目做修改！")
+        return
+    }else if($("#class_td").find(":checked").length ==1){
+
+        $("#update_course_alter").show()
+
+        var courseId = $("#class_td").find(":checked").data().id
+
+        sessionStorage.setItem("updateCourseId",courseId)
+
+        $.ajax({
+            url:'http://localhost:8080/course/getCourseById/'+courseId,
+            type:'POST', //GET
+            async:true,    //或false,是否异步
+            headers:{
+                "token":getCookie("token")
+            },
+            data:{
+
+            },
+            timeout:50000,    //超时时间
+            dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+            success:function(data){
+                if(data.code == 0){
+                    $("#ScourseName").val(data.data.name);
+                }else{
+                    alert("获取课包名字失败！")
+                }
+            },
+            error:function () {
+                alert("服务器异常，请稍后再试！")
+            }
+        })
+
+
+    }
+}
+
+function cancelClassModal2() {
+    $("#update_course_alter").hide()
+}
+
+
+function removeCourse() {
+    if($("#class_td").find(":checked").length ==0  ){
+        alert("请选择删除课包条目！")
+        return
+    }else if($("#class_td").find(":checked").length > 1){
+        alert("请选择单独一条课包条目做修改！")
+        return
+    }else if($("#class_td").find(":checked").length ==1){
+        var courseId = $("#class_td").find(":checked").data().id
+
+        if(confirm("确定删除吗？")){
+            $.ajax({
+                url:'http://localhost:8080/course/delete/' + courseId,
+                type:'POST', //GET
+                async:true,    //或false,是否异步
+                headers:{
+                    "token" : getCookie("token")
+                },
+                data:{
+                },
+                timeout:50000,    //超时时间
+                dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+                success:function(data){
+                    if(data.code == 0){
+                        alert("删除课包成功！")
+                        window.location.reload();
+                    }else{
+                        alert("删除课包失败！")
+                    }
+                },
+                error:function () {
+                    alert("服务器异常，请稍后再试！")
+                }
+            })
+        }
+    }
+}
 
 function cc() {
     $("#course_create_alter").hide()

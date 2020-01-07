@@ -22,5 +22,10 @@ public interface CourseService extends IService<CourseEntity> {
 
     public void insertCourse(CourseEntity courseEntity, String token);
 
+    public void deleteCourse(Integer courseId);
+
+    public CourseEntity getCourseById(Integer courseId);
+
+    public void updateCourse(CourseEntity courseEntity);
 }
 

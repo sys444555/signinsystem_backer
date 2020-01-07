@@ -43,10 +43,12 @@
 					<table id="t_table1" class="table" cellspacing="0" cellpadding="0" width="100%" align="center" border="0" style="text-align: center">
 						<thead>
 						<tr >
+							<th>课程名称</th>
 							<th>班级名称</th>
 							<th>班级课时</th>
 							<th>负责老师</th>
 							<th>状态</th>
+							<th>修改班级</th>
 							<th>删除班级区</th>
 							<th>操作区</th>
 						</tr>
@@ -463,6 +465,56 @@
 				</button>
 				<button type="button" onclick="cancelClassModal8()" class="btn btn-default" data-dismiss="modal">关闭
 				</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal" id="update_class_alter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width: auto;">
+		<div class="modal-dialog" id="update_class_dialog">
+			<div class="modal-content" align="center" style="overflow: auto; height: 500px; width: 800px">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="cancelClassModal20()">
+						×
+					</button>
+					<h4 class="modal-title" id="myModalLabel20">
+						更新课时
+					</h4>
+				</div>
+
+				<div class="modal-body">
+
+					班级名称 ： <input id="SclassName" style="width: 174px;margin-bottom: 20px"><br/>
+					需耗课时 ： <select id="SSclassHour" style="width: 174px;margin-bottom: 20px">
+									<option value="0" >0</option>
+									<option value="0.5" >0.5</option>
+									<option value="1.0" >1.0</option>
+									<option value="1.5" >1.5</option>
+									<option value="2.0" >2.0</option>
+									<option value="2.5" >2.5</option>
+									<option value="3.0" >3.0</option>
+									<option value="3.5" >3.5</option>
+									<option value="4.0" >4.0</option>
+									<option value="4.5" >4.5</option>
+									<option value="5.0" >5.0</option>
+									<option value="5.5" >5.5</option>
+									<option value="6.0" >6.0</option>
+									<option value="6.5" >6.5</option>
+									<option value="7.0" >7.0</option>
+									<option value="7.5" >7.5</option>
+									<option value="8.0" >8.0</option>
+								</select><br/>
+					负责老师： <input id="SteacherName" style="width: 174px;margin-bottom: 20px">
+
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" onclick="updateClass()">
+						提交保存
+					</button>
+					<button type="button" onclick="cancelClassModal20()" class="btn btn-default" data-dismiss="modal">关闭
+					</button>
+
+				</div>
 			</div>
 		</div>
 	</div>

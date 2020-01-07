@@ -40,7 +40,7 @@
 
     <select id="getClassList" resultMap="classMap">
 
-      SELECT a.* ,c.name AS course_name
+       SELECT a.id,a.class_name,a.class_hour,a.c_id,a.create_time,a.status,a.teacher_name ,c.name AS course_name
             FROM class a
             LEFT JOIN course c ON a.c_id = c.id
             WHERE c.user_id=#{userId}
@@ -92,4 +92,12 @@
     <delete id="deleteClass">
         DELETE FROM class Where id=#{classId}
     </delete>
+
+    <select id="getClassById" resultType="com.hc.modules.teacher.entity.ClassEntity">
+        SELECT * FROM class WHERE id=#{classId}
+    </select>
+
+    <update id="updateClass">
+        update class set class_name=#{className},class_hour=#{classHour},teacher_name=#{teacherName} where id=#{id}
+    </update>
 </mapper>

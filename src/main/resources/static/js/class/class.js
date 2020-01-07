@@ -22,14 +22,17 @@ $(function () {
 
                 for (var i = 0; i < dataList.length; i++) {
                     var html = "<tr data-cid='#{id}'>"
+                        + "<td>#{courseName}</td>"
                         + "<td>#{className}</td>"
                         + "<td>#{classHour}</td>"
                         + "<td>#{teacherName}</td>"
                         + "<td data-status='#{statusnum}'>#{status}</td>"
+                        + "<td><a href='javascript:void(0)' style='cursor: pointer;color: darkslategray' onclick='updClass(#{id})'>修改班级信息</a></td>"
                         + "<td><a href='javascript:void(0)' style='cursor: pointer;color: darkorange' onclick='delClass(#{id})'>删除该班级</a></td>"
                         + "<td id='td#{id}'><a href='javascript:void(0)' style='color: firebrick;cursor: pointer' target='_blank' onclick='showClassInfo(#{id},\"#{className}\",\"#{classHour}\",\"#{teacherName}\")'>查看详情</a></td>"
                         + "</tr>"
 
+                    html = html.replace(/#{courseName}/g,dataList[i].courseName)
                     html = html.replace(/#{id}/g,dataList[i].id)
                     html = html.replace(/#{className}/g,dataList[i].className)
                     html = html.replace(/#{classHour}/g,dataList[i].classHour)
@@ -66,14 +69,17 @@ $(function () {
 
                                     for (var i = 0; i < dataList.length; i++) {
                                         var html = "<tr data-cid='#{id}'>"
+                                            + "<td>#{courseName}</td>"
                                             + "<td>#{className}</td>"
                                             + "<td>#{classHour}</td>"
                                             + "<td>#{teacherName}</td>"
                                             + "<td data-status='#{statusnum}'>#{status}</td>"
+                                            + "<td><a href='javascript:void(0)' style='cursor: pointer;color: darkslategray' onclick='updClass(#{id})'>修改班级信息</a></td>"
                                             + "<td><a href='javascript:void(0)' style='cursor: pointer;color: darkorange' onclick='delClass(#{id})'>删除该班级</a></td>"
                                             + "<td id='td#{id}'><a href='javascript:void(0)' style='color: firebrick;cursor: pointer' target='_blank' onclick='showClassInfo(#{id},\"#{className}\",\"#{classHour}\",\"#{teacherName}\")'>查看详情</a></td>"
                                             + "</tr>"
 
+                                        html = html.replace(/#{courseName}/g,dataList[i].courseName)
                                         html = html.replace(/#{id}/g,dataList[i].id)
                                         html = html.replace(/#{className}/g,dataList[i].className)
                                         html = html.replace(/#{classHour}/g,dataList[i].classHour)
@@ -96,6 +102,93 @@ $(function () {
     })
 
 })
+
+function updateClass() {
+    if(isEmpty123($("#SclassName").val())){
+        alert("班级名称未填写！")
+        return
+    }
+    if(isEmpty123($("#SteacherName").val())){
+        alert("负责老师未填写！")
+        return
+    }
+
+    $.ajax({
+        url:'http://localhost:8080/class/update',
+        type:'POST', //GET
+        async:true,    //或false,是否异步
+        headers:{
+            "token":getCookie("token")
+        },
+        data:{
+            "className":$("#SclassName").val(),
+            "classHour":$("#SSclassHour").val(),
+            "teacherName":$("#SteacherName").val(),
+            "id":sessionStorage.getItem("updateClassId")
+        },
+        timeout:50000,    //超时时间
+        dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+        success:function(data){
+            //console.log(data)；
+            if(data.code==0){
+                alert("更新班级信息成功！")
+                window.location.reload();
+            }else{
+                alert("更新班级失败！")
+            }
+        },
+        error:function () {
+            alert("服务器异常，请稍后再试！")
+        }
+    })
+
+}
+
+
+
+function updClass(classId) {
+    $("#update_class_alter").show()
+
+    sessionStorage.setItem("updateClassId",classId);
+
+    $.ajax({
+        url:'http://localhost:8080/class/getClassById/'+classId,
+        type:'POST', //GET
+        async:true,    //或false,是否异步
+        headers:{
+            "token" : getCookie("token")
+        },
+        data:{
+
+        },
+        timeout:50000,    //超时时间
+        dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+        success:function(data){
+            //console.log(data)；
+            if(data.code == 0){
+
+                if(!(/^\d+\.\d+$/.test(data.data.classHour))){
+                    $("#SSclassHour").val(data.data.classHour+".0")
+                }else{
+                    $("#SSclassHour").val(data.data.classHour)
+                }
+
+                $("#SclassName").val(data.data.className)
+                $("#SteacherName").val(data.data.teacherName)
+            }else{
+                alert("获取班级信息失败！")
+            }
+        },
+        error:function () {
+            alert("服务器异常，请稍后再试！")
+        }
+    })
+
+}
+
+function cancelClassModal20() {
+    $("#update_class_alter").hide()
+}
 
 function updateLessonButton() {
 
@@ -317,11 +410,11 @@ function showClassInfo(classId,className,classHour,teacherName) {
     $(".classInfoHead table").empty()
     //初始化信息
     var html = "<tr>" +
-            "<td>班级名称："+className+"</td>" +
-            "<td>班级课时："+classHour+"</td>" +
+        "<td>班级名称："+className+"</td>" +
+        "<td>班级课时："+classHour+"</td>" +
         "</tr>" +
         "<tr>" +
-            "<td>负责老师："+teacherName+"</td>" +
+        "<td>负责老师："+teacherName+"</td>" +
         "</tr>"
 
     $(".classInfoHead table").append(html)
@@ -352,10 +445,10 @@ function showClassInfo(classId,className,classHour,teacherName) {
                 for(var i = 0;i<dataList.length ; i++){
 
                     var html = '<tr data-id="#{id}">'
-                    + '<td class="td_lable"><span>#{name}</span></td>'
-                    // + '<td class="td_lable"><a href="javascript:void(0)" style="cursor: pointer;color: firebrick" onclick="removeStudentOnClass(#{id})">移出班级</a></td>'
-                    + '<td class="td_lable"><a href="javascript:void(0)" onclick="showStudent(#{id})">查看详情</a></td>>'
-                    + '<tr>'
+                        + '<td class="td_lable"><span>#{name}</span></td>'
+                        // + '<td class="td_lable"><a href="javascript:void(0)" style="cursor: pointer;color: firebrick" onclick="removeStudentOnClass(#{id})">移出班级</a></td>'
+                        + '<td class="td_lable"><a href="javascript:void(0)" onclick="showStudent(#{id})">查看详情</a></td>>'
+                        + '<tr>'
 
                     html = html.replace(/#{id}/g,dataList[i].id)
                     html = html.replace(/#{name}/g,dataList[i].name)
@@ -399,11 +492,11 @@ function showClassInfo(classId,className,classHour,teacherName) {
 
                     var html = '<tr data-id="#{id}">'
 
-                    + '<td class="td_lable"><span>课时段： #{time}</span></td>'
-                    + '<td class="td_lable"><span>#{notice}</span></td>'
-                    + '<td class="td_lable"><span>#{lessonNow}</span></td>'
-                    + '<td class="td_lable"><a href="javascript:void(0)" onclick="showLessonInfo(#{id})">详情操作</a></td>'
-                    + '<tr>'
+                        + '<td class="td_lable"><span>课时段： #{time}</span></td>'
+                        + '<td class="td_lable"><span>#{notice}</span></td>'
+                        + '<td class="td_lable"><span>#{lessonNow}</span></td>'
+                        + '<td class="td_lable"><a href="javascript:void(0)" onclick="showLessonInfo(#{id})">详情操作</a></td>'
+                        + '<tr>'
 
                     html = html.replace(/#{id}/g,dataList[i].id)
                     html = html.replace(/#{notice}/g,dataList[i].notice)
@@ -509,15 +602,15 @@ function showLessonInfo(id) {
             if(data.code==0){
                 for (var i =0 ; i<data.data.length;i++){
                     var html = "<tr>"
-                    + "<td>#{name}</td>"
-                    + "#{status}"
-                    + "<td>#{signTime}</td>"
-                    + "#{yc}"
-                    + "#{qd}"
-                    + "</tr>>"
+                        + "<td>#{name}</td>"
+                        + "#{status}"
+                        + "<td>#{signTime}</td>"
+                        + "#{yc}"
+                        + "#{qd}"
+                        + "</tr>>"
 
                     html = html.replace("#{yc}",data.data[i].status==0 ? "<td><a href='javascript:void(0)' onclick='removeStudentOnLesson(#{id})' style='cursor: pointer;color: firebrick'>移出课时</a></td>" :"<td></td>")
-                    html = html.replace("#{qd}",data.data[i].status==0 ? "<td><a href='javascript:void(0)' onclick='qiandao(#{id},"+id+")' id='qd#{index}'>签到</a></td>" : "<td></td>")
+                    html = html.replace("#{qd}",data.data[i].status==0 ? "<td><a href='javascript:void(0)' onclick='qiandao(#{id},"+id+",this)' id='qd#{index}'>签到</a></td>" : "<td></td>")
                     html = html.replace("#{index}",i)
                     html = html.replace(/#{id}/g,data.data[i].id)
                     html = html.replace(/#{name}/g,data.data[i].name)
@@ -607,12 +700,18 @@ function removeStudent(sid,lessonid,classid) {
 
 }
 
-function qiandao(sid,lesssonId) {
 
+function qiandao(sid,lesssonId,obj) {
+
+
+    //发送短信需要同步处理
     $.ajax({
         url:'http://localhost:8080/class/lesson/student/sign',
         type:'POST', //GET
-        async:true,    //或false,是否异步
+        async:false,    //或false,是否异步
+        beforeSend:function(){
+            $(obj).attr("style","pointer-events:none")
+        },
         headers:{
             "token":getCookie("token")
         },
@@ -628,15 +727,17 @@ function qiandao(sid,lesssonId) {
                 window.location.reload()
             }else if(data.code == 999){
                 alert(data.msg)
+                $(obj).removeAttr("style")
             }else{
                 alert("发送短信失败！")
+                $(obj).removeAttr("style")
             }
         },
         error:function () {
             alert("服务器异常，请稍后再试！")
+            $(obj).removeAttr("style")
         }
     })
-
 }
 
 
@@ -883,19 +984,19 @@ function addStudentToLesson() {
         dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
         success:function(data){
             $("#studentLesson tbody").empty()
-           if(data.code ==0){
-               for(var i =0;i<data.data.length;i++){
-                   var html = "<tr data-id='#{id}'>"
-                   + "<td>#{name}</td>"
-                   +"<td><input type='button' class='btn-green' value='加入课程' onclick='insertStudent(#{id})'></td>"
-                   + "</tr>"
+            if(data.code ==0){
+                for(var i =0;i<data.data.length;i++){
+                    var html = "<tr data-id='#{id}'>"
+                        + "<td>#{name}</td>"
+                        +"<td><input type='button' class='btn-green' value='加入课程' onclick='insertStudent(#{id})'></td>"
+                        + "</tr>"
 
-                   html = html.replace(/#{id}/g,data.data[i].id)
-                   html = html.replace(/#{name}/g,data.data[i].name)
+                    html = html.replace(/#{id}/g,data.data[i].id)
+                    html = html.replace(/#{name}/g,data.data[i].name)
 
-                   $("#studentLesson tbody").append(html)
-               }
-           }
+                    $("#studentLesson tbody").append(html)
+                }
+            }
         },
         error:function () {
             alert("服务器异常，请稍后再试！")
@@ -926,9 +1027,9 @@ function importStudent() {
             if(data.code == 0){
                 for(var i=0;i<data.data.length;i++){
                     var html = "<tr data-id='#{id}'>"
-                    + "<td>#{name}</td>"
-                    + "<td><input type='button' class='btn-green' value='加入班级' onclick='insertStudentToClass(#{id})'></td>"
-                    + "</tr>>"
+                        + "<td>#{name}</td>"
+                        + "<td><input type='button' class='btn-green' value='加入班级' onclick='insertStudentToClass(#{id})'></td>"
+                        + "</tr>>"
 
                     html = html.replace(/#{id}/g,data.data[i].id)
                     html = html.replace(/#{name}/g,data.data[i].name)

@@ -39,4 +39,7 @@ public interface TeacherMapper extends BaseMapper<TeacherEntity> {
 
     public Integer deleteClass(@Param(value = "classId") Integer classId);
 
+    public ClassEntity getClassById(@Param(value = "classId") Integer classId);
+
+    public void updateClass(ClassEntity classEntity);
 }
